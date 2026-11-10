@@ -1,0 +1,345 @@
+/* ==========================================================
+   Motorized Tricycle Operator's Permit
+   Fixed-layout card (940 x 592 px) matched to the reference.
+   Every text block is positioned by its baseline, so the
+   layout does not drift between browsers.
+   ========================================================== */
+
+:root {
+  /* Colours */
+  --maroon: #5c1c22;
+  --maroon-text: #7a1f26;
+  --gold: #f5c518;
+  --red: #d11a1a;
+  --ink: #000;
+  --paper: #fff;
+
+  /* ---------- IMAGE PLACEHOLDERS ----------
+     Paths are relative to this CSS file.
+     Logo and portrait are <img> tags in the HTML
+     (assets/logo.png, assets/portrait.jpg).
+     The overlay image is set here. */
+  --overlay-image: url("../assets/overlay.jpg");
+  --overlay-opacity: 0.2;
+
+  /* Type */
+  --font-display: "Anton", "Impact", "Arial Narrow", sans-serif;
+  --font-number: "Oswald", "Anton", "Arial Narrow", sans-serif;
+  --font-body: "Montserrat", "Segoe UI", Arial, sans-serif;
+
+  /* Card size */
+  --card-w: 940px;
+  --card-h: 592px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: #e9e9e9;
+  font-family: var(--font-body);
+  color: var(--ink);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+p, h1, h2, dl, dt, dd { margin: 0; padding: 0; line-height: 1; }
+
+.sheet {
+  width: var(--card-w);
+  margin: 0 auto;
+  padding: 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ---------- Permit card ---------- */
+.permit {
+  position: relative;
+  width: var(--card-w);
+  height: var(--card-h);
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  overflow: hidden;
+}
+
+/* Everything inside is absolutely placed, above the overlay */
+.permit > *:not(.permit__overlay) { position: absolute; z-index: 1; }
+
+/* ---------- Background overlay placeholder ---------- */
+.permit__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: #f4f4f4;                 /* shown if no image is set */
+  background-image: var(--overlay-image);
+  background-size: cover;
+  background-position: center;
+  opacity: var(--overlay-opacity);
+}
+
+/* ---------- Header ---------- */
+.permit__header {
+  top: 0; left: 0; right: 0;
+  height: 85px;
+  background: var(--maroon);
+}
+
+/* Logo placeholder */
+.permit__logo {
+  position: absolute;
+  left: 21px;
+  top: 1.5px;
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #d9d9d9;                       /* placeholder fill */
+}
+
+.permit__title {
+  position: absolute;
+  left: 112px;
+  top: 10px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 54px;
+  line-height: 1;
+  letter-spacing: -0.8px;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* ---------- MTOP number ---------- */
+.permit__mtop {
+  top: 90px; left: 21px;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+}
+
+.permit__mtop-no {
+  font-family: var(--font-number);
+  font-weight: 700;
+  font-size: 39px;
+  line-height: 1;
+  letter-spacing: 1px;
+  color: var(--maroon-text);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Portrait placeholder ---------- */
+.permit__portrait {
+  top: 93px;
+  right: 25px;
+  width: 110px;
+  height: 128px;
+  object-fit: cover;
+  background: #cfcfcf;                       /* placeholder fill */
+  border: 2px solid var(--ink);
+}
+
+/* ---------- Name / Address ---------- */
+.permit__field {
+  left: 0;
+  width: 899px;                              /* centred to the left of the portrait */
+  text-align: center;
+}
+
+.permit__field--name    { top: 165.7px; --fit-width: 680px; }   /* stops short of the portrait */
+.permit__field--address { top: 236.2px; --fit-width: 860px; }
+
+.permit__value-xl {
+  display: block;
+  width: fit-content;
+  max-width: var(--fit-width, 860px);        /* text shrinks (then wraps) past this width */
+  margin-inline: auto;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+
+.permit__field--address .permit__value-xl { font-size: 24.8px; }
+
+.permit__caption {
+  margin-top: 5.4px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--maroon-text);
+}
+
+/* ---------- Info blocks ---------- */
+.permit__heading {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--maroon-text);
+  white-space: nowrap;
+}
+
+.permit__block--unit { top: 283.1px; left: 86.2px; width: 400px; }
+.permit__block--info { top: 283.1px; left: 518.5px; width: 400px; }
+
+.permit__block--unit .permit__heading { margin-left: 40.1px; }
+.permit__block--info .permit__heading { margin-left: 78.7px; }
+
+.permit__list {
+  display: grid;
+  margin-top: 19.2px;
+}
+
+.permit__list dt {
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.permit__list dd {
+  font-weight: 500;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  white-space: nowrap;
+}
+
+/* Unit specifications */
+.permit__block--unit .permit__list {
+  grid-template-columns: 123px 1fr;
+  font-size: 15px;
+  line-height: 17.4px;
+}
+.permit__block--unit .permit__list dt { text-transform: uppercase; }
+.permit__block--unit .permit__list dd { font-size: 14.3px; }
+
+/* Permit information: labels right-aligned against the values */
+.permit__list--right {
+  grid-template-columns: 125.9px 1fr;
+  column-gap: 7.4px;
+  margin-top: 17px;
+  font-size: 14.2px;
+  line-height: 15.1px;
+}
+.permit__list--right dt { text-align: right; }
+.permit__list--right dd {
+  font-size: 14.2px;
+  align-self: start;                         /* height = its own text, so lines can be counted */
+  white-space: normal;                       /* long routes wrap instead of overflowing */
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Signatories ---------- */
+.permit__sign { top: 419px; left: 0; width: 937px; height: 90px; }
+
+.permit__sign > * { position: absolute; margin: 0; white-space: nowrap; }
+
+.permit__sign-label {
+  font-weight: 500;
+  font-size: 14.3px;
+  line-height: 1;
+}
+
+.permit__sign-name {
+  text-align: center;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  color: var(--maroon-text);
+}
+
+.permit__sign-role {
+  text-align: center;
+  font-weight: 500;
+  font-size: 14.2px;
+  line-height: 1;
+}
+
+/* Verified by (left) */
+.permit__sign--verified .permit__sign-label { left: 35.8px;  top: 0.8px; }
+.permit__sign--verified .permit__sign-name  { left: 92.4px;  width: 300px; top: 48.9px; }
+.permit__sign--verified .permit__sign-role  { left: 92.4px;  width: 300px; top: 67.1px; }
+
+/* Approved by (right) */
+.permit__sign--approved .permit__sign-label { left: 493.7px; top: 1.7px; }
+.permit__sign--approved .permit__sign-name  { left: 510.2px; width: 380px; top: 45.3px; font-size: 19px; font-weight: 800; letter-spacing: 0.9px; }
+.permit__sign--approved .permit__sign-role  { left: 510.2px; width: 380px; top: 64.3px; }
+
+/* ---------- Notice ---------- */
+.permit__notice {
+  top: 518.3px; left: 0;
+  width: 937px;
+  padding-left: 8.4px;
+  text-align: center;
+  font-style: italic;
+  font-size: 10.4px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.permit__notice strong { font-weight: 800; }
+.permit__notice-alert  { color: var(--red); }
+
+/* ---------- Footer ---------- */
+.permit__footer {
+  left: 0; right: 0; bottom: 0;
+  height: 53px;
+  padding-top: 8.8px;
+  background: var(--maroon);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4.5px;
+  text-align: center;
+}
+
+.permit__footer-note {
+  font-style: italic;
+  font-weight: 700;
+  font-size: 12.6px;
+  line-height: 1;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.permit__footer-contacts {
+  display: flex;
+  gap: 33px;
+  font-weight: 700;
+  font-size: 14.5px;
+  line-height: 1;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+/* ---------- Small screens: scale the fixed card down ---------- */
+@media (max-width: 980px) {
+  .sheet { zoom: 0.8; width: 100%; align-items: center; }
+}
+@media (max-width: 780px) { .sheet { zoom: 0.6; } }
+@media (max-width: 580px) { .sheet { zoom: 0.4; } }
+
+/* ---------- Print ---------- */
+@page { size: letter portrait; margin: 0.25in; }
+
+@media print {
+  body { background: #fff; }
+  .sheet { zoom: 0.78; width: var(--card-w); padding: 0; margin: 0; gap: 12px; }
+}

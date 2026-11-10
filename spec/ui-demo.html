@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="maroon-gold" data-mode="light"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MTPFMS – UI Demo</title>
+<!-- Colors live in the <style id="themes"> block below (tokens per theme). Users pick a theme on the Customization page; the attributes above are the default. -->
+<style id="themes">
+/* Agenda Tracker: 11 themes, Light + Dark, 25 tokens per mode. */
+:root { --status-approved:#23834A; --status-pending:#B7791F; --status-overdue:#C62828; --status-rejected:#C62828; --status-draft:#737B84; --status-in-progress:#326FA8; }
+
+/* Maroon + Gold (classic MTPFMS look): default theme. */
+[data-theme="maroon-gold"][data-mode="light"] {
+  --primary:#7A1414;
+  --primary-hover:#660F0F;
+  --primary-active:#520B0B;
+  --primary-light:#FBF3DC;
+  --secondary:#D4A017;
+  --accent:#520B0B;
+  --background:#F5F5F5;
+  --surface:#FFFFFF;
+  --surface-elevated:#FFFFFF;
+  --text-primary:#333333;
+  --text-secondary:#5C5C5C;
+  --text-muted:#8A8A8A;
+  --border:#E6E6E6;
+  --border-strong:#BBBBBB;
+  --input-background:#FFFFFF;
+  --input-border:#BBBBBB;
+  --focus-ring:#D4A017;
+  --sidebar-background:#5C0E0E;
+  --sidebar-text:#F3E3E3;
+  --sidebar-active-background:#6E1212;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#7A1414;
+  --button-primary-text:#FFFFFF;
+  --button-secondary-background:#D4A017;
+  --button-secondary-text:#222222;
+}
+
+[data-theme="maroon-gold"][data-mode="dark"] {
+  --primary:#C04545;
+  --primary-hover:#CF5A5A;
+  --primary-active:#AD3A3A;
+  --primary-light:#3A2A1A;
+  --secondary:#D4A017;
+  --accent:#E0B040;
+  --background:#1A1212;
+  --surface:#251A1A;
+  --surface-elevated:#2E2020;
+  --text-primary:#F3EDED;
+  --text-secondary:#CDBFBF;
+  --text-muted:#9C8C8C;
+  --border:#3A2A2A;
+  --border-strong:#523C3C;
+  --input-background:#1E1515;
+  --input-border:#523C3C;
+  --focus-ring:#D4A017;
+  --sidebar-background:#2B0A0A;
+  --sidebar-text:#F3E3E3;
+  --sidebar-active-background:#5A1212;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#C04545;
+  --button-primary-text:#FFFFFF;
+  --button-secondary-background:#D4A017;
+  --button-secondary-text:#222222;
+}
+
+[data-theme="maroon-cream-black"][data-mode="light"] {
+  --primary:#5A1022;
+  --primary-hover:#4A0C1B;
+  --primary-active:#3A0815;
+  --primary-light:#F0DFE1;
+  --secondary:#A0525F;
+  --accent:#3A0815;
+  --background:#F8F4ED;
+  --surface:#FFFFFF;
+  --surface-elevated:#FFFFFF;
+  --text-primary:#171313;
+  --text-secondary:#62565A;
+  --text-muted:#91858A;
+  --border:#E8DDDC;
+  --border-strong:#CDB8BA;
+  --input-background:#FFFFFF;
+  --input-border:#D9C9C9;
+  --focus-ring:#A0525F;
+  --sidebar-background:#F4EDE8;
+  --sidebar-text:#44363A;
+  --sidebar-active-background:#5A1022;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#5A1022;
+  --button-primary-text:#FFFFFF;
+  --button-secondary-background:#F0DFE1;
+  --button-secondary-text:#3A0815;
+}
+
+[data-theme="maroon-cream-black"][data-mode="dark"] {
+  --primary:#B8566C;
+  --primary-hover:#C46A7E;
+  --primary-active:#A64A5F;
+  --primary-light:#3A2230;
+  --secondary:#D08A9A;
+  --accent:#8E3A4E;
+  --background:#1A161D;
+  --surface:#202028;
+  --surface-elevated:#282A34;
+  --text-primary:#F3F5F7;
+  --text-secondary:#C2CAD3;
+  --text-muted:#929DA8;
+  --border:#303A44;
+  --border-strong:#46525E;
+  --input-background:#1A1B23;
+  --input-border:#46525E;
+  --focus-ring:#B8566C;
+  --sidebar-background:#1B1A23;
+  --sidebar-text:#DCE2E9;
+  --sidebar-active-background:#6E1F33;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#B8566C;
+  --button-primary-text:#101419;
+  --button-secondary-background:#3A2230;
+  --button-secondary-text:#E0A9B5;
+}
+
+[data-theme="dark-blue-white-black"][data-mode="light"] {
+  --primary:#14305A;
+  --primary-hover:#0F284A;
+  --primary-active:#0A1E38;
+  --primary-light:#DDE6F2;
+  --secondary:#4F6F96;
+  --accent:#0A1E38;
+  --background:#F4F6F9;
+  --surface:#FFFFFF;
+  --surface-elevated:#FFFFFF;
+  --text-primary:#15191F;
+  --text-secondary:#596575;
+  --text-muted:#8993A0;
+  --border:#DFE4EB;
+  --border-strong:#BEC9D7;
+  --input-background:#FFFFFF;
+  --input-border:#CCD5E0;
+  --focus-ring:#4F6F96;
+  --sidebar-background:#E0E8F2;
+  --sidebar-text:#27384B;
+  --sidebar-active-background:#14305A;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#14305A;
+  --button-primary-text:#FFFFFF;
+  --button-secondary-background:#DDE6F2;
+  --button-secondary-text:#0A1E38;
+}
+
+[data-theme="dark-blue-white-black"][data-mode="dark"] {
+  --primary:#4F7FB5;
+  --primary-hover:#6592C6;
+  --primary-active:#4270A3;
+  --primary-light:#16283D;
+  --secondary:#86A9D0;
+  --accent:#3D6595;
+  --background:#121A22;
+  --surface:#1A232D;
+  --surface-elevated:#222C38;
+  --text-primary:#F3F5F7;
+  --text-secondary:#C2CAD3;
+  --text-muted:#929DA8;
+  --border:#303A44;
+  --border-strong:#46525E;
+  --input-background:#151D26;
+  --input-border:#46525E;
+  --focus-ring:#4F7FB5;
+  --sidebar-background:#141D28;
+  --sidebar-text:#DCE2E9;
+  --sidebar-active-background:#12335C;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#4F7FB5;
+  --button-primary-text:#101419;
+  --button-secondary-background:#16283D;
+  --button-secondary-text:#9DBFE6;
+}
+
+[data-theme="olive-green"][data-mode="light"] {
+  --primary:#636B2F;
+  --primary-hover:#555C28;
+  --primary-active:#41471F;
+  --primary-light:#EDF0DF;
+  --secondary:#9AA56A;
+  --accent:#41471F;
+  --background:#F7F8F0;
+  --surface:#FFFFFF;
+  --surface-elevated:#FFFFFF;
+  --text-primary:#191A13;
+  --text-secondary:#62654F;
+  --text-muted:#90927E;
+  --border:#E2E5D5;
+  --border-strong:#C5CBAA;
+  --input-background:#FFFFFF;
+  --input-border:#D1D6BF;
+  --focus-ring:#9AA56A;
+  --sidebar-background:#EDF0DF;
+  --sidebar-text:#343923;
+  --sidebar-active-background:#636B2F;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#636B2F;
+  --button-primary-text:#FFFFFF;
+  --button-secondary-background:#EDF0DF;
+  --button-secondary-text:#41471F;
+}
+
+[data-theme="olive-green"][data-mode="dark"] {
+  --primary:#989D76;
+  --primary-hover:#A6AB88;
+  --primary-active:#8A9063;
+  --primary-light:#2D3731;
+  --secondary:#B6BE94;
+  --accent:#82866B;
+  --background:#181D1B;
+  --surface:#1F2527;
+  --surface-elevated:#272F33;
+  --text-primary:#F3F5F7;
+  --text-secondary:#C2CAD3;
+  --text-muted:#929DA8;
+  --border:#303A44;
+  --border-strong:#46525E;
+  --input-background:#191F22;
+  --input-border:#46525E;
+  --focus-ring:#989D76;
+  --sidebar-background:#191F21;
+  --sidebar-text:#DCE2E9;
+  --sidebar-active-background:#434920;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#989D76;
+  --button-primary-text:#101419;
+  --button-secondary-background:#2D3731;
+  --button-secondary-text:#B9BCA1;
+}
+
+[data-theme="forest-green"][data-mode="light"] {
+  --primary:#2E6F40;
+  --primary-hover:#285F37;
+  --primary-active:#1C492B;
+  --primary-light:#E8F0E9;
+  --secondary:#79A383;
+  --accent:#1C492B;
+  --background:#F7F6EF;
+  --surface:#FFFFFF;
+  --surface-elevated:#FFFFFF;
+  --text-primary:#151A16;
+  --text-secondary:#58665B;
+  --text-muted:#89948B;
+  --border:#DFE7DF;
+  --border-strong:#BFCFC1;
+  --input-background:#FFFFFF;
+  --input-border:#C9D8CB;
+  --focus-ring:#79A383;
+  --sidebar-background:#E8F0E9;
+  --sidebar-text:#294431;
+  --sidebar-active-background:#2E6F40;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#2E6F40;
+  --button-primary-text:#FFFFFF;
+  --button-secondary-background:#E8F0E9;
+  --button-secondary-text:#1C492B;
+}
+
+[data-theme="forest-green"][data-mode="dark"] {
+  --primary:#75A081;
+  --primary-hover:#88AD92;
+  --primary-active:#629370;
+  --primary-light:#233835;
+  --secondary:#9FBDA6;
+  --accent:#698773;
+  --background:#131D1D;
+  --surface:#1B2528;
+  --surface-elevated:#232F34;
+  --text-primary:#F3F5F7;
+  --text-secondary:#C2CAD3;
+  --text-muted:#929DA8;
+  --border:#303A44;
+  --border-strong:#46525E;
+  --input-background:#161F23;
+  --input-border:#46525E;
+  --focus-ring:#75A081;
+  --sidebar-background:#152023;
+  --sidebar-text:#DCE2E9;
+  --sidebar-active-background:#1F4B2C;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#75A081;
+  --button-primary-text:#101419;
+  --button-secondary-background:#233835;
+  --button-secondary-text:#A1BEA9;
+}
+
+[data-theme="slate-blue"][data-mode="light"] {
+  --primary:#6D8196;
+  --primary-hover:#5E6F81;
+  --primary-active:#43566A;
+  --primary-light:#E9EDF1;
+  --secondary:#A0AFBD;
+  --accent:#43566A;
+  --background:#F4F5F6;
+  --surface:#FFFFFF;
+  --surface-elevated:#FFFFFF;
+  --text-primary:#171A1E;
+  --text-secondary:#5E6873;
+  --text-muted:#8B949D;
+  --border:#E0E4E8;
+  --border-strong:#C3CCD4;
+  --input-background:#FFFFFF;
+  --input-border:#CBD3DA;
+  --focus-ring:#A0AFBD;
+  --sidebar-background:#E9EDF1;
+  --sidebar-text:#394957;
+  --sidebar-active-background:#6D8196;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#6D8196;
+  --button-primary-text:#FFFFFF;
+  --button-secondary-background:#E9EDF1;
+  --button-secondary-text:#43566A;
+}
+
+[data-theme="slate-blue"][data-mode="dark"] {
+  --primary:#9FACBA;
+  --primary-hover:#ACB7C3;
+  --primary-active:#92A0B0;
+  --primary-light:#2F3B46;
+  --secondary:#BBC5CF;
+  --accent:#838F9D;
+  --background:#191F26;
+  --surface:#20272F;
+  --surface-elevated:#27303A;
+  --text-primary:#F3F5F7;
+  --text-secondary:#C2CAD3;
+  --text-muted:#929DA8;
+  --border:#303A44;
+  --border-strong:#46525E;
+  --input-background:#192028;
+  --input-border:#46525E;
+  --focus-ring:#9FACBA;
+  --sidebar-background:#1A212B;
+  --sidebar-text:#DCE2E9;
+  --sidebar-active-background:#4A5866;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#9FACBA;
+  --button-primary-text:#101419;
+  --button-secondary-background:#2F3B46;
+  --button-secondary-text:#BDC6D0;
+}
+
+[data-theme="deep-green-beige"][data-mode="light"] {
+  --primary:#00520A;
+  --primary-hover:#004709;
+  --primary-active:#003906;
+  --primary-light:#E7EDE5;
+  --secondary:#719A73;
+  --accent:#003906;
+  --background:#F5F5DC;
+  --surface:#FFFFFF;
+  --surface-elevated:#FFFFFF;
+  --text-primary:#111711;
+  --text-secondary:#536052;
+  --text-muted:#879183;
+  --border:#E0E4D3;
+  --border-strong:#C0CCB9;
+  --input-background:#FFFFFF;
+  --input-border:#C9D5C5;
+  --focus-ring:#719A73;
+  --sidebar-background:#E7EDE5;
+  --sidebar-text:#243B27;
+  --sidebar-active-background:#00520A;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#00520A;
+  --button-primary-text:#FFFFFF;
+  --button-secondary-background:#E7EDE5;
+  --button-secondary-text:#003906;
+}
+
+[data-theme="deep-green-beige"][data-mode="dark"] {
+  --primary:#578D5D;
+  --primary-hover:#6E9C73;
+  --primary-active:#407D47;
+  --primary-light:#1A322A;
+  --secondary:#99B69A;
+  --accent:#577C5B;
+  --background:#0E1A18;
+  --surface:#172324;
+  --surface-elevated:#202D30;
+  --text-primary:#F3F5F7;
+  --text-secondary:#C2CAD3;
+  --text-muted:#929DA8;
+  --border:#303A44;
+  --border-strong:#46525E;
+  --input-background:#131D20;
+  --input-border:#46525E;
+  --focus-ring:#578D5D;
+  --sidebar-background:#101D1E;
+  --sidebar-text:#DCE2E9;
+  --sidebar-active-background:#003807;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#578D5D;
+  --button-primary-text:#101419;
+  --button-secondary-background:#1A322A;
+  --button-secondary-text:#8CB191;
+}
+
+[data-theme="burgundy-champagne"][data-mode="light"] {
+  --primary:#873C4B;
+  --primary-hover:#743440;
+  --primary-active:#51232E;
+  --primary-light:#F1E8DF;
+  --secondary:#B99B82;
+  --accent:#51232E;
+  --background:#F8F4EF;
+  --surface:#FFFFFF;
+  --surface-elevated:#FFFFFF;
+  --text-primary:#1B1716;
+  --text-secondary:#665A54;
+  --text-muted:#91857F;
+  --border:#E9DFD6;
+  --border-strong:#CDB9A9;
+  --input-background:#FFFFFF;
+  --input-border:#D8C8BA;
+  --focus-ring:#B99B82;
+  --sidebar-background:#F1E8DF;
+  --sidebar-text:#49383A;
+  --sidebar-active-background:#873C4B;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#873C4B;
+  --button-primary-text:#FFFFFF;
+  --button-secondary-background:#F1E8DF;
+  --button-secondary-text:#51232E;
+}
+
+[data-theme="burgundy-champagne"][data-mode="dark"] {
+  --primary:#B07E88;
+  --primary-hover:#BB9098;
+  --primary-active:#A56D78;
+  --primary-light:#352E37;
+  --secondary:#CDB7A5;
+  --accent:#8C6E75;
+  --background:#1C181E;
+  --surface:#222129;
+  --surface-elevated:#292B35;
+  --text-primary:#F3F5F7;
+  --text-secondary:#C2CAD3;
+  --text-muted:#929DA8;
+  --border:#303A44;
+  --border-strong:#46525E;
+  --input-background:#1B1C24;
+  --input-border:#46525E;
+  --focus-ring:#B07E88;
+  --sidebar-background:#1D1B24;
+  --sidebar-text:#DCE2E9;
+  --sidebar-active-background:#5C2933;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#B07E88;
+  --button-primary-text:#101419;
+  --button-secondary-background:#352E37;
+  --button-secondary-text:#C9A7AE;
+}
+
+[data-theme="navy-silver"][data-mode="light"] {
+  --primary:#405A78;
+  --primary-hover:#374D67;
+  --primary-active:#24364D;
+  --primary-light:#E8EBEF;
+  --secondary:#8D9BAB;
+  --accent:#24364D;
+  --background:#F4F5F7;
+  --surface:#FFFFFF;
+  --surface-elevated:#FFFFFF;
+  --text-primary:#15191E;
+  --text-secondary:#59636E;
+  --text-muted:#89929C;
+  --border:#DFE3E8;
+  --border-strong:#C2CAD3;
+  --input-background:#FFFFFF;
+  --input-border:#CCD3DC;
+  --focus-ring:#8D9BAB;
+  --sidebar-background:#E8EBEF;
+  --sidebar-text:#354253;
+  --sidebar-active-background:#405A78;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#405A78;
+  --button-primary-text:#FFFFFF;
+  --button-secondary-background:#E8EBEF;
+  --button-secondary-text:#24364D;
+}
+
+[data-theme="navy-silver"][data-mode="dark"] {
+  --primary:#8192A6;
+  --primary-hover:#92A1B2;
+  --primary-active:#70839A;
+  --primary-light:#263440;
+  --secondary:#ADB7C3;
+  --accent:#6E7A8A;
+  --background:#151B22;
+  --surface:#1C242D;
+  --surface-elevated:#242D38;
+  --text-primary:#F3F5F7;
+  --text-secondary:#C2CAD3;
+  --text-muted:#929DA8;
+  --border:#303A44;
+  --border-strong:#46525E;
+  --input-background:#171E26;
+  --input-border:#46525E;
+  --focus-ring:#8192A6;
+  --sidebar-background:#161E28;
+  --sidebar-text:#DCE2E9;
+  --sidebar-active-background:#2C3D52;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#8192A6;
+  --button-primary-text:#101419;
+  --button-secondary-background:#263440;
+  --button-secondary-text:#A9B5C2;
+}
+
+[data-theme="sage-ivory"][data-mode="light"] {
+  --primary:#5C7A52;
+  --primary-hover:#4E6945;
+  --primary-active:#3C5636;
+  --primary-light:#E3EBDF;
+  --secondary:#7F9A74;
+  --accent:#3C5636;
+  --background:#F5F6F0;
+  --surface:#FFFFFF;
+  --surface-elevated:#FFFFFF;
+  --text-primary:#171A16;
+  --text-secondary:#5E685A;
+  --text-muted:#899185;
+  --border:#E0E6DC;
+  --border-strong:#C3D0BC;
+  --input-background:#FFFFFF;
+  --input-border:#CBD7C5;
+  --focus-ring:#7F9A74;
+  --sidebar-background:#E8EEE5;
+  --sidebar-text:#394737;
+  --sidebar-active-background:#5C7A52;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#5C7A52;
+  --button-primary-text:#FFFFFF;
+  --button-secondary-background:#E3EBDF;
+  --button-secondary-text:#3C5636;
+}
+
+[data-theme="sage-ivory"][data-mode="dark"] {
+  --primary:#8FAE84;
+  --primary-hover:#A0BC96;
+  --primary-active:#7F9E74;
+  --primary-light:#2C3D34;
+  --secondary:#A9C29F;
+  --accent:#6F8D66;
+  --background:#1B2123;
+  --surface:#21292D;
+  --surface-elevated:#293238;
+  --text-primary:#F3F5F7;
+  --text-secondary:#C2CAD3;
+  --text-muted:#929DA8;
+  --border:#303A44;
+  --border-strong:#46525E;
+  --input-background:#1B2226;
+  --input-border:#46525E;
+  --focus-ring:#8FAE84;
+  --sidebar-background:#1C2428;
+  --sidebar-text:#DCE2E9;
+  --sidebar-active-background:#3F5A38;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#8FAE84;
+  --button-primary-text:#101419;
+  --button-secondary-background:#2C3D34;
+  --button-secondary-text:#B5CCAB;
+}
+
+[data-theme="deep-teal-sand"][data-mode="light"] {
+  --primary:#367C78;
+  --primary-hover:#2E6B67;
+  --primary-active:#20534F;
+  --primary-light:#E5EFED;
+  --secondary:#83AAA5;
+  --accent:#20534F;
+  --background:#F5F3EB;
+  --surface:#FFFFFF;
+  --surface-elevated:#FFFFFF;
+  --text-primary:#151A19;
+  --text-secondary:#586865;
+  --text-muted:#899491;
+  --border:#DFE8E4;
+  --border-strong:#BFD2CC;
+  --input-background:#FFFFFF;
+  --input-border:#C8D8D2;
+  --focus-ring:#83AAA5;
+  --sidebar-background:#E5EFED;
+  --sidebar-text:#304C49;
+  --sidebar-active-background:#367C78;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#367C78;
+  --button-primary-text:#FFFFFF;
+  --button-secondary-background:#E5EFED;
+  --button-secondary-text:#20534F;
+}
+
+[data-theme="deep-teal-sand"][data-mode="dark"] {
+  --primary:#7AA9A6;
+  --primary-hover:#8CB4B2;
+  --primary-active:#689D9A;
+  --primary-light:#243A40;
+  --secondary:#A6C2BE;
+  --accent:#6C8D8B;
+  --background:#141E22;
+  --surface:#1B262D;
+  --surface-elevated:#233038;
+  --text-primary:#F3F5F7;
+  --text-secondary:#C2CAD3;
+  --text-muted:#929DA8;
+  --border:#303A44;
+  --border-strong:#46525E;
+  --input-background:#162026;
+  --input-border:#46525E;
+  --focus-ring:#7AA9A6;
+  --sidebar-background:#152128;
+  --sidebar-text:#DCE2E9;
+  --sidebar-active-background:#255452;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#7AA9A6;
+  --button-primary-text:#101419;
+  --button-secondary-background:#243A40;
+  --button-secondary-text:#A5C4C2;
+}
+
+[data-theme="royal-blue"][data-mode="light"] {
+  --primary:#3769A5;
+  --primary-hover:#2F5A8E;
+  --primary-active:#244773;
+  --primary-light:#E7EFFA;
+  --secondary:#83A5CE;
+  --accent:#244773;
+  --background:#F4F7FB;
+  --surface:#FFFFFF;
+  --surface-elevated:#FFFFFF;
+  --text-primary:#141922;
+  --text-secondary:#586779;
+  --text-muted:#8995A4;
+  --border:#DFE7F0;
+  --border-strong:#C0D0E2;
+  --input-background:#FFFFFF;
+  --input-border:#CAD8E8;
+  --focus-ring:#83A5CE;
+  --sidebar-background:#E7EFFA;
+  --sidebar-text:#344B68;
+  --sidebar-active-background:#3769A5;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#3769A5;
+  --button-primary-text:#FFFFFF;
+  --button-secondary-background:#E7EFFA;
+  --button-secondary-text:#244773;
+}
+
+[data-theme="royal-blue"][data-mode="dark"] {
+  --primary:#7B9CC4;
+  --primary-hover:#8DAACC;
+  --primary-active:#698EBC;
+  --primary-light:#253749;
+  --secondary:#A6BEDC;
+  --accent:#6E86A3;
+  --background:#141C27;
+  --surface:#1B2530;
+  --surface-elevated:#232E3B;
+  --text-primary:#F3F5F7;
+  --text-secondary:#C2CAD3;
+  --text-muted:#929DA8;
+  --border:#303A44;
+  --border-strong:#46525E;
+  --input-background:#161F29;
+  --input-border:#46525E;
+  --focus-ring:#7B9CC4;
+  --sidebar-background:#151F2C;
+  --sidebar-text:#DCE2E9;
+  --sidebar-active-background:#254770;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#7B9CC4;
+  --button-primary-text:#101419;
+  --button-secondary-background:#253749;
+  --button-secondary-text:#A5BCD6;
+}
+
+[data-theme="neutral-black-white"][data-mode="light"] {
+  --primary:#1A1A1A;
+  --primary-hover:#000000;
+  --primary-active:#000000;
+  --primary-light:#EDEDED;
+  --secondary:#6B6B6B;
+  --accent:#000000;
+  --background:#F5F5F5;
+  --surface:#FFFFFF;
+  --surface-elevated:#FFFFFF;
+  --text-primary:#111111;
+  --text-secondary:#555555;
+  --text-muted:#8A8A8A;
+  --border:#E0E0E0;
+  --border-strong:#BDBDBD;
+  --input-background:#FFFFFF;
+  --input-border:#C8C8C8;
+  --focus-ring:#6B6B6B;
+  --sidebar-background:#EDEDED;
+  --sidebar-text:#2B2B2B;
+  --sidebar-active-background:#1A1A1A;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#1A1A1A;
+  --button-primary-text:#FFFFFF;
+  --button-secondary-background:#EDEDED;
+  --button-secondary-text:#1A1A1A;
+}
+
+[data-theme="neutral-black-white"][data-mode="dark"] {
+  --primary:#E6E6E6;
+  --primary-hover:#FFFFFF;
+  --primary-active:#CFCFCF;
+  --primary-light:#2A2A2A;
+  --secondary:#A6A6A6;
+  --accent:#BDBDBD;
+  --background:#121212;
+  --surface:#1C1C1C;
+  --surface-elevated:#262626;
+  --text-primary:#F2F2F2;
+  --text-secondary:#C4C4C4;
+  --text-muted:#8E8E8E;
+  --border:#333333;
+  --border-strong:#4A4A4A;
+  --input-background:#161616;
+  --input-border:#4A4A4A;
+  --focus-ring:#BDBDBD;
+  --sidebar-background:#171717;
+  --sidebar-text:#DDDDDD;
+  --sidebar-active-background:#3A3A3A;
+  --sidebar-active-text:#FFFFFF;
+  --button-primary-background:#E6E6E6;
+  --button-primary-text:#111111;
+  --button-secondary-background:#2A2A2A;
+  --button-secondary-text:#D0D0D0;
+}
+</style>
+<style>
+*{box-sizing:border-box}[hidden]{display:none!important}
+html[data-mode=dark]{color-scheme:dark}
+body{margin:0;font:14px/1.5 system-ui,Segoe UI,Arial,sans-serif;color:var(--text-primary);background:var(--background)}
+h1,h2,h3,.serif{font-family:Georgia,"Times New Roman",serif}
+header{background:var(--primary);color:var(--button-primary-text);padding:10px 16px;border-bottom:4px solid var(--secondary);display:flex;gap:12px;align-items:center}
+header b{font:700 15px Georgia,serif;letter-spacing:.3px}header small{display:block;opacity:.85;font-size:11px}
+#burger{display:none;background:none;border:1px solid var(--secondary);color:inherit;padding:4px 9px;border-radius:4px}
+.logo{width:42px;height:42px;border-radius:50%;flex:none;object-fit:cover;background:#fff;border:2px solid var(--secondary)}.sp{flex:1}select,input,button{font:inherit}
+input:focus,select:focus{outline:2px solid var(--focus-ring);outline-offset:1px}
+.demo{background:var(--surface);color:var(--text-primary);border:0;border-radius:4px;padding:3px 6px}
+.wrap{display:flex;min-height:calc(100vh - 62px)}
+nav{width:220px;background:var(--sidebar-background);color:var(--sidebar-text);padding:10px 0;flex:none;border-right:1px solid var(--border)}
+nav a{display:block;color:var(--sidebar-text);padding:9px 18px;cursor:pointer;border-left:3px solid transparent}
+nav a:hover{background:color-mix(in srgb,var(--sidebar-text) 10%,transparent)}nav a.on{border-left-color:var(--secondary);background:var(--sidebar-active-background);color:var(--sidebar-active-text);font-weight:600}
+main{flex:1;padding:18px;min-width:0}
+h2{color:var(--primary);margin:0 0 14px;font-size:22px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+.card{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--secondary);padding:10px 12px;border-radius:4px;box-shadow:0 1px 2px #0002}
+.card b{font:700 24px Georgia,serif;color:var(--primary);display:block}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:14px;box-shadow:0 1px 2px #0002;margin-bottom:14px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.bar{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:12px}.bar span:first-child{width:96px;flex:none}
+.bar i{display:block;height:14px;background:var(--primary);border-radius:2px}.bar i.g{background:var(--secondary)}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.tools input,.tools select,.f input,.f select{padding:7px 9px;border:1px solid var(--input-border);border-radius:4px;background:var(--input-background);color:var(--text-primary)}
+.btn{background:var(--button-primary-background);color:var(--button-primary-text);border:0;padding:7px 14px;border-radius:4px;cursor:pointer}.btn:hover{background:var(--primary-hover)}
+.btn.alt{background:var(--button-secondary-background);color:var(--button-secondary-text);border:1px solid var(--border-strong)}.btn.alt:hover{filter:brightness(.95)}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;background:var(--surface)}
+th{background:var(--primary);color:var(--button-primary-text);text-align:left;padding:8px;font-weight:600;white-space:nowrap}
+td{padding:8px;border-bottom:1px solid var(--border);white-space:nowrap}tr:hover td{background:var(--primary-light)}
+td a{color:var(--primary);font-weight:600;cursor:pointer;text-decoration:underline}
+.pill{padding:2px 9px;border-radius:10px;font-size:12px;color:#fff;background:var(--status-draft)}
+.Active{background:var(--status-approved)}.Expired{background:var(--status-overdue)}.Suspended{background:var(--status-pending)}.Cancelled{background:var(--status-draft)}.Pending{background:var(--status-in-progress)}
+fieldset{border:0;border-top:4px solid var(--secondary);background:var(--surface);border-radius:6px;padding:12px 16px 16px;margin:0 0 14px;box-shadow:0 1px 2px #0002}
+legend{font:700 17px Georgia,serif;color:var(--primary);padding:0 6px}
+.f{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.f label{display:block;font-size:12px;color:var(--text-secondary)}.f input,.f select{width:100%}
+.err{color:var(--status-overdue);margin:8px 0}.ok{color:var(--status-approved);margin:8px 0}
+.thms{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:12px}
+.thm{background:var(--surface);color:var(--text-primary);border:2px solid var(--border);border-radius:8px;padding:10px;text-align:left;cursor:pointer}
+.thm:hover{border-color:var(--border-strong)}.thm.on{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-light)}
+.thm b{display:block;font-size:13px}.thm small{color:var(--text-secondary)}
+.sw{display:flex;height:46px;border-radius:6px;overflow:hidden;border:1px solid var(--border);margin-bottom:8px;background:var(--background)}
+.sw i{flex:1}.sw i:first-child{flex:2}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:340px;max-width:100%;background:var(--surface);color:var(--text-primary);border-left:4px solid var(--secondary);box-shadow:-6px 0 24px #0004;z-index:15;display:flex;flex-direction:column;transform:translateX(105%);visibility:hidden;transition:transform .22s,visibility .22s}
+.drawer.open{transform:none;visibility:visible}
+#cbk{position:fixed;inset:0;z-index:14;display:none}#cbk.open{display:block}
+.dh{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border)}.dh h2{margin:0;font-size:19px}
+.db{padding:16px;overflow:auto;flex:1}.db h3{margin:0 0 8px;font-size:15px;color:var(--primary)}.db .tools{margin-bottom:18px}
+.drawer .thms{grid-template-columns:1fr 1fr;margin-top:8px}.drawer .thm{padding:8px}
+.tools input{min-width:230px}
+.chk{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-secondary)}
+.arch td{opacity:.55}
+.act{margin:0 0 14px}.act select{padding:5px 8px;border:1px solid var(--input-border);border-radius:4px;background:var(--input-background);color:var(--text-primary)}.act .btn{margin:4px 6px 0 0}
+.hist{margin:8px 0 0;padding:0;list-style:none;font-size:13px}.hist li{padding:2px 0;color:var(--text-secondary)}
+.imp table{font-size:12px}.imp td,.imp th{padding:5px 8px;white-space:normal}
+.imp .sum{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}.imp .sum span{padding:4px 10px;border-radius:12px;font-size:12px;color:#fff}
+.imp .s-ok{background:var(--status-approved)}.imp .s-bad{background:var(--status-overdue)}.imp .s-warn{background:var(--status-pending)}
+.card.lk{cursor:pointer}.card.lk:hover,.card.lk:focus{border-color:var(--secondary);outline:none;box-shadow:0 2px 6px #0003}
+th.s{cursor:pointer;user-select:none}th.s:hover{text-decoration:underline}
+.pgn{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0;font-size:13px;color:var(--text-secondary)}.pgn select{padding:5px 8px;border:1px solid var(--input-border);border-radius:4px;background:var(--input-background);color:var(--text-primary)}
+.msort{display:none}
+.rhead{margin:0 0 12px;line-height:1.5}.rpt h3{margin:18px 0 6px}.tot td{font-weight:700;border-top:2px solid var(--border)}.sig{display:flex;gap:40px;margin-top:44px}.sig div{flex:1;border-top:1px solid var(--border);padding-top:4px;font-size:12px}
+.rs h3 small{font-weight:400;color:var(--text-secondary)}
+#pr{display:none}
+.hint{font-size:12px;color:var(--text-secondary);margin:10px 0 0}
+.modal{position:fixed;inset:0;background:#0007;display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:20px;z-index:9}
+.mb{background:var(--surface);color:var(--text-primary);border-radius:8px;max-width:760px;width:100%;padding:18px}
+.mb.wide{max-width:920px;padding:20px 24px 24px}
+.mh{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.mh h2{margin:0}.mh .noprint{display:flex;gap:8px}
+.pg{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;align-items:start}
+.pd section{border:1px solid var(--border);border-radius:6px;padding:12px 16px 14px;margin:0 0 14px}.pd section:last-child{margin-bottom:0}
+.pd h3{margin:0 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border);font-size:16px;color:var(--primary)}
+.pd h4{margin:12px 0 4px;font-size:13px;color:var(--text-secondary)}
+.pd ul{margin:0;padding:0;list-style:none}.pd li{padding:2px 0}
+.kv{display:grid;grid-template-columns:130px minmax(0,1fr);gap:6px 14px;margin:0}
+.kv dt{color:var(--text-secondary);font-size:13px}.kv dd{margin:0;overflow-wrap:anywhere}
+.pi{position:sticky;top:0}.pi .upl{margin-top:10px;font-size:12px;color:var(--text-secondary)}.pi .upl input{max-width:100%}
+.idc{width:340px;max-width:100%;border:2px solid var(--primary);border-radius:10px;overflow:hidden;background:var(--surface)}
+.idc .h{background:var(--primary);color:var(--button-primary-text);text-align:center;padding:6px;font:700 12px Georgia,serif;border-bottom:3px solid var(--secondary)}
+.idc .b{display:flex;gap:12px;padding:12px}.ph{width:92px;height:116px;background:var(--border);color:var(--text-muted);border:2px solid var(--secondary);object-fit:cover;display:flex;align-items:center;justify-content:center;font-size:11px;text-align:center;flex:none}
+.idc dl{margin:0;font-size:12px}.idc dt{color:var(--text-muted);font-size:10px}.idc dd{margin:0 0 4px;font-weight:600}
+.idc .vf{padding:0 12px 10px;font-size:10px;color:var(--text-muted)}
+.note{font-size:12px;background:var(--primary-light);border:1px solid var(--secondary);padding:8px;border-radius:4px;margin-bottom:12px}
+.err:empty{display:none}#msg:not(:empty){background:color-mix(in srgb,var(--status-overdue) 12%,var(--surface));border:1px solid var(--status-overdue);padding:8px 10px;border-radius:4px;font-weight:600}
+.mb a{color:var(--primary);font-weight:600;cursor:pointer;text-decoration:underline}
+#toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--primary);color:var(--button-primary-text);padding:10px 16px;border-radius:6px;z-index:20;display:none;border:2px solid var(--secondary)}
+@media(max-width:640px){.msort{display:inline-block}main{padding:12px}.rt{border:0;background:none}.rt tr:has(>th){display:none}.rt,.rt tbody,.rt tr,.rt td{display:block}
+.rt tr{border:1px solid var(--border);border-radius:6px;margin:0 0 10px;padding:6px 10px;background:var(--surface)}
+.rt td{display:flex;justify-content:space-between;gap:12px;border:0;padding:4px 0!important;white-space:normal;text-align:right}.rt td::before{content:attr(data-label);color:var(--text-secondary);font-size:12px;text-align:left;flex:none}
+.rt td[colspan]::before{content:none}.tools input,.tools select{flex:1 1 100%}}
+@media(max-width:760px){#burger{display:block}nav{position:fixed;top:62px;bottom:0;left:-230px;z-index:5;transition:left .2s}nav.open{left:0}.pg{grid-template-columns:1fr}.pi{position:static}.kv{grid-template-columns:110px minmax(0,1fr)}}
+@media print{.pgn{display:none!important}.rpt *,#pr *{color:#000!important;background:transparent!important}.rpt table,.rpt th,.rpt td{border:1px solid #000!important}.notice{break-inside:avoid;page-break-inside:avoid;border:1px solid #000;padding:14px 16px;margin:0 0 16px;font-size:13px;line-height:1.5}.notice:nth-child(3n){break-after:page;page-break-after:always}.notice .nh{text-align:center;margin-bottom:8px}.notice .nf{margin-top:12px}body.pn header,body.pn .wrap,body.pn #modal{display:none!important}body.pn #pr{display:block}}
+@media print{body.vw{display:none!important}header,nav,.tools,.noprint,.drawer,#cbk{display:none!important}.modal{position:static;background:none;padding:0}.mb{box-shadow:none}.pi{position:static}}
+</style></head><body>
+<header><button id="burger" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
+<img class="logo" src="data:image/jpeg;base64,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" alt="Sangguniang Bayan ng Mogpog logo"><div><b>MOGPOG TODA/PODA FRANCHISE MANAGEMENT SYSTEM</b><small>Office of the Sangguniang Bayan · Municipality of Mogpog, Province of Marinduque</small></div>
+<span class="sp"></span><span id="bk" style="display:flex;gap:8px;align-items:center"></span><label style="font-size:12px">Demo role: <select id="role" class="demo" onchange="setRole(this.value)">
+<option value="super_admin">Super Administrator</option><option value="admin">Administrator</option><option value="viewer">Viewer</option></select></label></header>
+<div class="wrap"><nav id="nav"></nav><main id="main"></main></div><div id="modal"></div><div id="cbk" onclick="closeCust()"></div><aside id="cust" class="drawer" aria-label="Customization"></aside><div id="toast"></div><div id="pr"></div>
+<script>
+try{var SAVED=JSON.parse(localStorage.getItem("mtpfms3")||"null")}catch(e){var SAVED=null}
+let storeOK=true;try{localStorage.setItem("_t","1");localStorage.removeItem("_t")}catch(e){storeOK=false}
+const A={TODA:["ARMOTODA","ASPTODA","BMTODA","BPTODA","BTODA","BSMBBCTODA","CAPTODA","ICLBTODA","GUITODA","MATODA","MMMTODA","MTLTTA","NJBTODA","SMMPHTODA"],PODA:["MPODA","NLPODA","SPODA"]};
+const ST=["Active","Expired","Suspended","Cancelled","Pending"],BR=["Anapog-Sibucao", "Argao", "Balanacan", "Banto", "Bintakay", "Bocboc", "Butansapa", "Candahon", "Capayang", "Danao", "Dulong Bayan (Pob.)", "Gitnang Bayan (Pob.)", "Guisian", "Hinadharan", "Hinanggayon", "Ino", "Janagdong", "Lamesa", "Laon", "Magapua", "Malayak", "Malusak", "Mampaitan", "Mangyan-Mababad", "Market Site (Pob.)", "Mataas Na Bayan", "Mendez", "Nangka I (Pob.)", "Nangka II", "Paye", "Pili", "Puting Buhangin", "Sayao", "Silangan", "Sumangga", "Tarug", "Villa Mendez (Pob.)"];
+const FN=["Juan Dela Cruz (sample)","Maria Santos (sample)","Jose Reyes (sample)","Ana Garcia (sample)","Pedro Ramos (sample)","Luz Mendoza (sample)","Carlo Bautista (sample)","Rosa Aquino (sample)","Ramon Cruz (sample)","Elena Flores (sample)","Mario Navarro (sample)","Tina Castro (sample)","Noel Villanueva (sample)","Gina Torres (sample)","Ben Salazar (sample)","Lita Ocampo (sample)","Rey Pascual (sample)","Mina Soriano (sample)"];
+const OFF=[-40,-5,10,25,45,70,85,120,200,300,-90,15,55,95,150,22,-12,260];
+const D0=new Date(),iso=n=>new Date(D0.getTime()+n*864e5).toISOString().slice(0,10);
+let data=FN.map((n,i)=>{const c=i%4==3?"PODA":"TODA",as=A[c];return{id:i+1,cls:i==5?"Driver-Operator":"Operator",asg:null,mtop:"MTOP-SAMPLE-"+i,or:"OR-SAMPLE-"+i,ordate:iso(OFF[i]-380),name:n,cat:c,assoc:as[i%as.length],brgy:BR[i%BR.length],addr:"Purok "+(i%5+1)+", "+BR[i%BR.length],phone:"09XX-000-"+String(1000+i),issued:iso(OFF[i]-365),exp:iso(OFF[i]),status:i==4?"Suspended":i==9?"Cancelled":i==12?"Pending":"Active",plate:"SAMPLE-"+(100+i),vtype:"Tricycle",model:"Sample Model",color:["Red","Blue","Green"][i%3],chassis:"CHS-SAMPLE-"+i,pub:i%2==0,photo:null,ref:Math.random().toString(36).slice(2,10)+Math.random().toString(36).slice(2,10)}});
+[["Dino Lopez (sample)",1],["Vic Tan (sample)",2],["Mark Uy (sample)",4]].forEach(([n,o],k)=>{const p=data.find(x=>x.id==o),b=BR[(k*7+3)%BR.length];
+data.push({id:19+k,cls:"Driver",asg:o,name:n,cat:p.cat,assoc:p.assoc,brgy:b,addr:"Purok "+(k+1)+", "+b,phone:"09XX-000-"+(2000+k),issued:"",exp:"",status:"",plate:"",mtop:"",or:"",ordate:"",vtype:"",model:"",color:"",chassis:"",pub:false,photo:null,ref:Math.random().toString(36).slice(2,18)})});
+const norm=r=>{delete r.motor;r.chassis=r.chassis||"";r.hist=r.hist||[];r.sh=r.sh||[];r.tr=r.tr||[];r.arch=r.arch||null;r.ordate=r.ordate||"";return r},D=()=>data.filter(r=>!r.arch),FR=()=>D().filter(r=>r.cls!="Driver"),CL=["Operator","Driver","Driver-Operator"],VT=["Tricycle","Tribike","Other"];
+data.forEach(norm);
+const log=[];let nextId=100,role="super_admin",view="Dashboard",lastBk=null,chg=0,editId=null,PA=null;
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const days=r=>Math.ceil((new Date(r.exp)-new Date(iso(0)))/864e5);
+const eff=r=>r.status=="Active"&&days(r)<0?"Expired":r.status;
+const pill=s=>`<span class="pill ${s}">${s}</span>`;
+const isAdm=()=>role=="admin"||role=="super_admin";
+const MENU={super_admin:["Dashboard","TODA Holders","PODA Holders","Franchise Holders","All Franchise","Expiration Monitoring","Renewal Season","Reports","Data Quality","Public Directory","Activity Logs"],
+admin:["Dashboard","TODA Holders","PODA Holders","Franchise Holders","Expiration Monitoring","Renewal Season","Reports","Data Quality","Public Directory"],
+viewer:["Dashboard","Franchise Holders","Expiration Monitoring"]};
+function setRole(r){role=r;if(!MENU[r].includes(view))view=MENU[r][0];draw()}
+function fresh(p){return Object.assign({q:"",assoc:"",st:"",br:"",cl:"",exp:"",arch:false,sort:"",dir:1,pg:0,ps:25,all:false,y:"",sg:""},p||{})}
+function goF(v,p){if(!MENU[role].includes(v))return;view=v;flt=fresh(p);document.getElementById("nav").classList.remove("open");draw()}
+function go(v){view=v;flt=fresh();document.getElementById("nav").classList.remove("open");draw()}
+function draw(){document.getElementById("bk").innerHTML=`<button class="demo" onclick="openCust()">Customization</button>`+(isAdm()?`<button class="demo" onclick="exportBk()">Export backup</button><label class="demo" style="cursor:pointer">Import backup<input type="file" accept=".json" hidden onchange="importBk(this)"></label>`:"");document.body.classList.toggle("vw",role=="viewer");document.body.classList.remove("pn");document.getElementById("nav").innerHTML=MENU[role].map(m=>`<a class="${m==view?"on":""}" onclick="go('${m}')">${m}</a>`).join("")+(role=="viewer"?"":`<a onclick="alert('Demo only: real logout needs Supabase Auth.')">Logout</a>`);
+const V={"Dashboard":dash,"TODA Holders":()=>reg("TODA"),"PODA Holders":()=>reg("PODA"),"Franchise Holders":()=>reg(null),"All Franchise":allfr,"Renewal Season":renew,"Reports":reports,"Data Quality":dq,"Vehicle Registry":vehicles,"Associations":assocs,"Expiration Monitoring":expiry,"Public Directory":pubdir,"Activity Logs":logs};
+document.getElementById("main").innerHTML=(storeOK?"":`<div class="note">This browser is blocking storage, so new records will be lost when you close the page. Open the file directly in Chrome or Edge, or use Export backup after adding records.</div>`)+(V[view]?V[view]():`<h2>${view}</h2><div class="panel">Not built in this demo yet.</div>`)}
+function bars(rows,cls){const mx=Math.max(1,...rows.map(r=>r[1]));return rows.map(r=>`<div class="bar"><span>${esc(r[0])}</span><i class="${cls||""}" style="width:${r[1]/mx*100}%"></i><b>${r[1]}</b></div>`).join("")}
+let DC=[];function dcard(i){const x=DC[i];if(x)goF(x[2],x[3])}
+function bkNote(){const d=lastBk?new Date(lastBk).toLocaleDateString():"never";return `<div class="note">${!lastBk||chg?"⚠ ":""}Records are stored only in this browser. Last backup: <b>${d}</b>${chg?` · ${chg} change${chg>1?"s":""} since`:""}. <button class="btn alt" onclick="exportBk()">Export backup now</button></div>`}
+function dash(){const F=FR(),c=f=>F.filter(f).length,E=r=>eff(r);const w=n=>c(r=>E(r)=="Active"&&days(r)>=0&&days(r)<=n);
+const by=k=>{const m={};D().forEach(r=>m[r[k]]=(m[r[k]]||0)+1);return Object.entries(m).sort((a,b)=>b[1]-a[1])};
+const sc=ST.map(s=>[s,c(r=>E(r)==s)]),cy=+iso(0).slice(0,4);
+return `<h2>Dashboard</h2>${isAdm()?`<div class="tools"><button class="btn" onclick="openForm()">+ Register</button></div>${bkNote()}`:""}<div class="cards">${(DC=[["Franchise holders",D().length,"Franchise Holders",{}],["TODA franchises",c(r=>r.cat=="TODA"),"TODA Holders",{}],["PODA franchises",c(r=>r.cat=="PODA"),"PODA Holders",{}],["Active",sc[0][1],"Franchise Holders",{st:"Active"}],["Expired",sc[1][1],"Franchise Holders",{st:"Expired"}],["Pending",sc[4][1],"Franchise Holders",{st:"Pending"}],["Expiring ≤30 days",w(30),"Franchise Holders",{exp:"30"}],["Expiring ≤60 days",w(60),"Franchise Holders",{exp:"60"}],["Expiring ≤90 days",w(90),"Franchise Holders",{exp:"90"}],["Due for renewal "+cy,dueList(cy).length,"Renewal Season",{}],["Vehicles",F.length],["Drivers",D().length-F.length,"Franchise Holders",{cl:"Driver"}],["TODA associations",A.TODA.length],["PODA associations",A.PODA.length]]).map((x,i)=>x[2]&&MENU[role].includes(x[2])?`<div class="card lk" role="button" tabindex="0" title="Open list" onclick="dcard(${i})" onkeydown="if(event.key=='Enter')dcard(${i})">${x[0]}<b>${x[1]}</b></div>`:`<div class="card">${x[0]}<b>${x[1]}</b></div>`).join("")}</div>
+<div class="two"><div class="panel"><h3>TODA vs PODA (holders)</h3>${bars(by("cat"))}</div><div class="panel"><h3>Franchise status</h3>${bars(sc,"g")}</div>
+<div class="panel"><h3>Expiration monitoring</h3>${bars([["Expired",c(r=>E(r)!="Cancelled"&&days(r)<0)],["Within 30 days",w(30)],["31–60 days",w(60)-w(30)],["61–90 days",w(90)-w(60)]],"g")}</div>
+<div class="panel"><h3>Holders per association</h3>${bars(by("assoc"))}</div></div>`}
+let flt=fresh();
+const EXL={"30":"Expiring ≤30 days","60":"Expiring ≤60 days","90":"Expiring ≤90 days"};
+const SK={name:r=>r.name,cls:r=>r.cls,cat:r=>r.cat,assoc:r=>r.assoc,brgy:r=>r.brgy,exp:r=>r.cls=="Driver"?"":r.exp,st:r=>r.cls=="Driver"?"":eff(r)};
+const SL={name:"Holder",cls:"Classification",cat:"Type",assoc:"Association",brgy:"Barangay",exp:"Expires",st:"Status"};
+function sortBy(k){if(flt.sort!=k){flt.sort=k;flt.dir=1}else if(flt.dir==1)flt.dir=-1;else{flt.sort="";flt.dir=1}draw()}
+function sortSel(k){flt.sort=k;flt.dir=1;draw()}
+function printAll(){flt.all=true;draw();const d=()=>{flt.all=false;if(!flt.all)draw();removeEventListener("afterprint",d)};addEventListener("afterprint",d);print()}
+function reg(cat){const q=flt.q.toLowerCase(),hit=r=>!q||[r.name,r.mtop,r.plate,r.or].join(" ").toLowerCase().includes(q),exm=r=>!flt.exp||(r.cls!="Driver"&&eff(r)=="Active"&&days(r)>=0&&days(r)<=+flt.exp);
+const rows=data.filter(r=>(flt.arch&&role=="super_admin"||!r.arch)&&(!cat||r.cat==cat)&&hit(r)&&exm(r)&&(!flt.cl||r.cls==flt.cl)&&(!flt.assoc||r.assoc==flt.assoc)&&(!flt.st||(r.cls!="Driver"&&eff(r)==flt.st))&&(!flt.br||r.brgy==flt.br));
+const op=(a,v)=>a.map(x=>`<option ${x==v?"selected":""}>${x}</option>`).join("");
+const dv=r=>r.cls=="Driver";let ord=[];
+if(flt.sort){const f=SK[flt.sort];ord=rows.slice().sort((a,b)=>String(f(a)).localeCompare(String(f(b)),undefined,{numeric:true,sensitivity:"base"})*flt.dir||a.name.localeCompare(b.name))}
+else{rows.filter(r=>!dv(r)).forEach(o=>{ord.push(o);rows.filter(d=>d.asg==o.id).forEach(d=>ord.push(d))});rows.forEach(d=>{if(!ord.includes(d))ord.push(d)})}
+const nd=o=>D().filter(d=>d.asg==o.id).length;
+const sig=JSON.stringify([cat,flt.q,flt.cl,flt.assoc,flt.st,flt.br,flt.exp,flt.arch,flt.sort,flt.dir,flt.ps]);if(flt.sg!==sig){flt.sg=sig;flt.pg=0}
+const n=ord.length,ps=flt.all?Math.max(n,1):(+flt.ps||25),pages=Math.max(1,Math.ceil(n/ps));flt.pg=Math.min(Math.max(0,flt.pg||0),pages-1);const a=flt.pg*ps,vis=ord.slice(a,a+ps);
+const pager=n>25?`<div class="pgn"><span>${a+1}–${Math.min(a+ps,n)} of ${n}</span><button class="btn alt" ${flt.pg?"":"disabled"} onclick="flt.pg--;draw()">‹ Prev</button><span>Page ${flt.pg+1} of ${pages}</span><button class="btn alt" ${flt.pg<pages-1?"":"disabled"} onclick="flt.pg++;draw()">Next ›</button><select onchange="flt.ps=+this.value;draw()">${[25,50,100].map(x=>`<option value="${x}" ${x==flt.ps?"selected":""}>${x} per page</option>`).join("")}</select></div>`:`<div class="pgn"><span>${n} record${n==1?"":"s"}</span></div>`;
+const th=(k)=>`<th class="s" onclick="sortBy('${k}')" title="Click to sort">${SL[k]}${flt.sort==k?(flt.dir==1?" ▲":" ▼"):""}</th>`;
+return `<h2>${cat?cat+" Franchise Holders":"Franchise Holders"}</h2><div class="tools">${isAdm()?`<button class="btn" onclick="openForm()">+ Register</button><button class="btn alt" onclick="openImport()">Import CSV</button>`:""}<input placeholder="Search name, MTOP, plate or OR no." value="${esc(flt.q)}" oninput="flt.q=this.value;redraw()" id="q">
+<select onchange="flt.cl=this.value;draw()"><option value="">All classifications</option>${op(CL,flt.cl)}</select>
+<select onchange="flt.assoc=this.value;draw()"><option value="">All associations</option>${op(cat?A[cat]:[...A.TODA,...A.PODA],flt.assoc)}</select>
+<select onchange="flt.st=this.value;draw()"><option value="">All statuses</option>${op(ST,flt.st)}</select>
+<select onchange="flt.exp=this.value;draw()"><option value="">Any expiry</option>${Object.entries(EXL).map(([k,v])=>`<option value="${k}" ${k==flt.exp?"selected":""}>${v}</option>`).join("")}</select>
+<select onchange="flt.br=this.value;draw()"><option value="">All barangays</option>${op(BR,flt.br)}</select>
+<select class="msort" onchange="sortSel(this.value)"><option value="">Sort: default</option>${Object.entries(SL).map(([k,v])=>`<option value="${k}" ${k==flt.sort?"selected":""}>Sort: ${v}</option>`).join("")}</select>
+${role=="super_admin"?`<label class="chk"><input type="checkbox" ${flt.arch?"checked":""} onchange="flt.arch=this.checked;draw()">Show archived</label>`:""}
+${isAdm()?`<button class="btn alt" onclick="csv('${cat||""}')">Export CSV</button><button class="btn alt" onclick="printAll()">Print</button>`:""}</div>
+<div class="tw"><table class="rt"><tr>${["name","cls","cat","assoc","brgy","exp","st"].map(th).join("")}</tr>${vis.map(r=>`<tr class="${r.arch?"arch":""}"><td data-label="Holder" style="${dv(r)&&!flt.sort?"padding-left:28px":""}">${dv(r)&&!flt.sort?"↳ ":""}<a onclick="prof(${r.id})">${esc(r.name)}</a>${!dv(r)&&nd(r)?` <small>(${nd(r)} driver${nd(r)>1?"s":""})</small>`:""}${r.arch?" <small>(archived)</small>":""}</td><td data-label="Classification">${r.cls}</td><td data-label="Type">${r.cat}</td><td data-label="Association">${r.assoc}</td><td data-label="Barangay">${r.brgy}</td><td data-label="Expires">${dv(r)?"—":r.exp}</td><td data-label="Status">${dv(r)?"—":pill(eff(r))}</td></tr>`).join("")||`<tr><td colspan=7>No records match these filters.</td></tr>`}</table></div>${pager}`}
+function redraw(c){const p=document.getElementById("q").selectionStart;draw();const q=document.getElementById("q");q.focus();q.setSelectionRange(p,p)}
+const COLS=[["Full name","name"],["Address","addr"],["Barangay","brgy"],["Contact number","phone"],["Classification","cls"],["Type of franchise","cat"],["Association","assoc"],["Assigned operator","opr"],["Date of issuance","issued"],["Expiration date","exp"],["Status","status"],["Plate number","plate"],["MTOP No.","mtop"],["OR No.","or"],["OR date issued","ordate"],["Vehicle type","vtype"],["Make and model","model"],["Color","color"],["Chassis number","chassis"]];
+const cq=v=>'"'+String(v==null?"":v).replace(/"/g,'""')+'"',dlf=(name,text,type)=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+text],{type:(type||"text/csv")+";charset=utf-8"}));a.download=name;a.click()};
+function csv(cat){const rows=D().filter(r=>!cat||r.cat==cat),dr=r=>r.cls=="Driver",on=r=>{const o=dr(r)&&data.find(x=>x.id==r.asg);return o?o.name:""};
+const val=(r,k)=>k=="opr"?on(r):k=="status"?(dr(r)?"":eff(r)):r[k];
+dlf((cat||"franchise-holders").toLowerCase()+"-"+iso(0)+".csv",[COLS.map(c=>cq(c[0])).join(",")].concat(rows.map(r=>COLS.map(c=>cq(val(r,c[1]))).join(","))).join("\r\n"))}
+function parseCSV(t){t=t.replace(/^\ufeff/,"");const rows=[];let row=[],f="",q=false;for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++}else q=false}else f+=c}else if(c=='"')q=true;else if(c==","){row.push(f);f=""}else if(c=="\n"||c=="\r"){if(c=="\r"&&t[i+1]=="\n")i++;row.push(f);f="";rows.push(row);row=[]}else f+=c}
+if(f!==""||row.length){row.push(f);rows.push(row)}return rows.map(r=>r.map(x=>x.trim())).filter(r=>r.some(x=>x!==""))}
+function pDate(v){if(!v)return "";let y,m,d,x;if(x=/^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(v)){y=+x[1];m=+x[2];d=+x[3]}else if(x=/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(v)){m=+x[1];d=+x[2];y=+x[3]}else return null;
+const t=new Date(Date.UTC(y,m-1,d));if(t.getUTCFullYear()!=y||t.getUTCMonth()!=m-1||t.getUTCDate()!=d)return null;return y+"-"+String(m).padStart(2,"0")+"-"+String(d).padStart(2,"0")}
+const pick=(v,list)=>list.find(x=>x.toLowerCase()==String(v||"").trim().toLowerCase());
+const dec31=iss=>(iss||iso(0)).slice(0,4)+"-12-31",lc=v=>String(v||"").trim().toLowerCase();
+let imp=null;
+function openImport(){imp=null;document.getElementById("modal").innerHTML=`<div class="modal"><div class="mb wide imp"><div class="mh"><h2>Import holders from CSV</h2><button class="btn" onclick="closeModal()">Close</button></div>
+<p>Use the template so the column names match. Required: <b>Full name, Address, Barangay</b>. Operators also need <b>Type of franchise, Association</b> and <b>MTOP No.</b>; drivers need <b>Assigned operator</b> (the operator's name or MTOP No.). Dates: <b>YYYY-MM-DD</b> or <b>m/d/yyyy</b>. Expiration date is optional (defaults to December 31 of the issuance year). Photos cannot be imported.</p>
+<div class="tools"><button class="btn alt" onclick="tplCsv()">Download template</button><label class="btn" style="cursor:pointer">Choose CSV file<input type="file" accept=".csv,text/csv" hidden onchange="readImp(this)"></label></div><div id="impout"></div></div></div>`}
+function tplCsv(){dlf("holders-import-template.csv",[COLS.map(c=>cq(c[0])).join(","),['Juan Dela Cruz','Purok 1, Argao','Argao','09XX-000-0000','Operator','TODA','ARMOTODA','','2026-01-15','','Active','ABC123','MTOP-0001','OR-0001','2026-01-10','Tricycle','Honda TMX','Red','M12345'].map(cq).join(","),['Pedro Santos','Purok 2, Argao','Argao','','Driver','TODA','','MTOP-0001','','','','','','','','','','',''].map(cq).join(",")].join("\r\n"))}
+function readImp(el){const f=el.files[0];el.value="";if(!f)return;const rd=new FileReader();rd.onload=()=>{try{runImp(parseCSV(String(rd.result)))}catch(e){g$("impout").innerHTML=`<p class="err">Could not read that file: ${esc(e.message)}</p>`}};rd.readAsText(f)}
+function runImp(rows){const out=g$("impout");if(rows.length<2)return out.innerHTML=`<p class="err">The file has no data rows.</p>`;
+const hd=rows[0].map(h=>h.toLowerCase()),ix={};COLS.forEach(([h,k])=>{ix[k]=hd.indexOf(h.toLowerCase())});
+const miss=["name","addr","brgy"].filter(k=>ix[k]<0).map(k=>COLS.find(c=>c[1]==k)[0]);if(miss.length)return out.innerHTML=`<p class="err">Missing column(s): ${esc(miss.join(", "))}. Download the template to see the expected headers.</p>`;
+const cell=(r,k)=>ix[k]<0?"":(r[ix[k]]||"");
+const items=rows.slice(1).map((r,i)=>({row:i+2,o:Object.fromEntries(COLS.map(c=>[c[1],cell(r,c[1])])),err:[],warn:[],rec:null}));
+const good=[],seenM=new Set(data.filter(x=>x.mtop).map(x=>lc(x.mtop))),seenKey={plate:new Set(),or:new Set(),chassis:new Set()};
+data.filter(x=>!x.arch).forEach(x=>["plate","or","chassis"].forEach(k=>x[k]&&seenKey[k].add(lc(x[k]))));
+const base=it=>{const o=it.o;const name=o.name.trim(),addr=o.addr.trim(),b=pick(o.brgy,BR);if(!name)it.err.push("Full name is required");if(!addr)it.err.push("Address is required");if(!b)it.err.push("Barangay is not in the Mogpog list");
+const cls=o.cls?pick(o.cls,CL):"Operator";if(!cls)it.err.push("Classification must be Operator, Driver or Driver-Operator");
+if(name&&b&&data.some(x=>!x.arch&&lc(x.name)==lc(name)&&x.brgy==b)||name&&b&&good.some(g=>lc(g.name)==lc(name)&&g.brgy==b))it.warn.push("Same name already registered in "+b);
+return{name,addr,brgy:b||"",phone:o.phone,cls}};
+const mk=(it,b)=>{if(it.err.length)return;it.rec=Object.assign(b,{id:nextId++,pub:false,photo:null,ref:Math.random().toString(36).slice(2,18),hist:[],arch:null});good.push(it.rec)};
+items.filter(it=>lc(it.o.cls)!="driver").forEach(it=>{const o=it.o,b=base(it);if(b.cls=="Driver")return;
+const cat=pick(o.cat,["TODA","PODA"]),as=cat&&pick(o.assoc,A[cat]);if(!cat)it.err.push("Type of franchise must be TODA or PODA");else if(!as)it.err.push("Association does not belong to "+cat);
+const mt=o.mtop.trim();if(!mt)it.err.push("MTOP No. is required");else if(seenM.has(lc(mt)))it.err.push("MTOP No. "+mt+" is already used");
+const iss=pDate(o.issued),od=pDate(o.ordate),ex=o.exp?pDate(o.exp):"";if(iss===null)it.err.push("Date of issuance is not a valid date");if(od===null)it.err.push("OR date issued is not a valid date");if(ex===null)it.err.push("Expiration date is not a valid date");
+const vt=o.vtype?pick(o.vtype,VT):"Tricycle";if(!vt)it.err.push("Vehicle type must be one of: "+VT.join(", "));const st=o.status?pick(o.status,ST):"Active";if(!st)it.err.push("Status must be one of: "+ST.join(", "));
+[["plate","Plate"],["or","OR No."],["chassis","Chassis No."]].forEach(([k,l])=>{const v=o[k].trim();if(v&&seenKey[k].has(lc(v)))it.warn.push(l+" "+v+" is already used")});
+if(!it.err.length){seenM.add(lc(mt));["plate","or","chassis"].forEach(k=>o[k].trim()&&seenKey[k].add(lc(o[k])))}
+mk(it,Object.assign(b,{asg:null,cat,assoc:as,issued:iss||"",exp:ex||dec31(iss),status:st,plate:o.plate,mtop:mt,or:o.or,ordate:od||"",vtype:vt,model:o.model,color:o.color,chassis:o.chassis}))});
+items.filter(it=>lc(it.o.cls)=="driver").forEach(it=>{const o=it.o,b=base(it);if(b.cls!="Driver")return;const key=lc(o.opr);if(!key)return it.err.push("Assigned operator is required for drivers");
+const ops=[...data.filter(x=>!x.arch&&x.cls!="Driver"),...good.filter(g=>g.cls!="Driver")],m=ops.filter(x=>lc(x.mtop)==key),n=ops.filter(x=>lc(x.name)==key),c=m.length?m:n;
+if(!c.length)return it.err.push("Assigned operator not found (use the name or MTOP No. of an existing or imported operator)");if(c.length>1)return it.err.push("More than one operator matches; use the operator's MTOP No.");
+const p=c[0];if(o.cat&&pick(o.cat,["TODA","PODA"])!=p.cat)it.err.push("Type of franchise does not match the operator's ("+p.cat+")");
+mk(it,Object.assign(b,{asg:p.id,cat:p.cat,assoc:p.assoc,issued:"",exp:"",status:"",plate:"",mtop:"",or:"",ordate:"",vtype:"",model:"",color:"",chassis:""}))});
+imp={good,items};const bad=items.filter(i=>i.err.length),wn=items.filter(i=>!i.err.length&&i.warn.length),sh=bad.concat(wn);
+out.innerHTML=`<div class="sum"><span class="s-ok">${good.length} ready to import</span><span class="s-bad">${bad.length} with errors (skipped)</span><span class="s-warn">${wn.length} with warnings</span></div>
+${sh.length?`<div class="tw"><table><tr><th>Row</th><th>Name</th><th>Problem</th></tr>${sh.slice(0,60).map(i=>`<tr><td>${i.row}</td><td>${esc(i.o.name)}</td><td>${i.err.length?`<b>${esc(i.err.join("; "))}</b>`:esc("Warning: "+i.warn.join("; "))}</td></tr>`).join("")}</table></div>${sh.length>60?`<p class="hint">Showing the first 60 of ${sh.length}.</p>`:""}`:""}
+<div class="tools" style="margin-top:12px">${good.length?`<button class="btn" onclick="doImp()">Import ${good.length} row${good.length>1?"s":""}</button>`:""}${bad.length?`<button class="btn alt" onclick="errCsv()">Download error report</button>`:""}</div>`}
+function errCsv(){const b=imp.items.filter(i=>i.err.length);dlf("import-errors-"+iso(0)+".csv",[["Row","Full name","Problem"].map(cq).join(",")].concat(b.map(i=>[i.row,i.o.name,i.err.join("; ")].map(cq).join(","))).join("\r\n"))}
+function doImp(){if(!imp||!imp.good.length)return;const n=imp.good.length,sk=imp.items.length-n;imp.good.forEach(r=>data.push(r));L("Imported "+n+" holder"+(n>1?"s":"")+" from CSV"+(sk?" ("+sk+" row"+(sk>1?"s":"")+" skipped)":""));imp=null;closeModal();draw();toast("Imported "+n+" record"+(n>1?"s":""))}
+const yrsOf=r=>{const s=new Set();if(r.exp)s.add(+r.exp.slice(0,4));(r.hist||[]).forEach(h=>[h.from,h.to].forEach(d=>d&&s.add(+d.slice(0,4))));return[...s]};
+function byYear(){const q=(flt.q||"").toLowerCase(),by={};data.filter(r=>r.cls!="Driver"&&(!q||[r.name,r.mtop,r.plate,r.or].join(" ").toLowerCase().includes(q))).forEach(r=>yrsOf(r).forEach(y=>(by[y]=by[y]||[]).push(r)));return by}
+const stFor=(r,y)=>y==+r.exp.slice(0,4)?pill(eff(r)):"Renewed",stTx=(r,y)=>y==+r.exp.slice(0,4)?eff(r):"Renewed";
+function allfr(){if(role!="super_admin")return `<h2>All Franchise</h2><p>Available to the Super Administrator only.</p>`;
+const by=byYear(),all=Object.keys(by).map(Number).sort((a,b)=>b-a),sel=flt.yr?all.filter(y=>y==flt.yr):all;
+return `<h2>All Franchise</h2><p class="hint">Every registered franchise holder, grouped by the year their franchise was valid (each ends on December 31). A renewed holder appears under every year they held a franchise; earlier years show "Renewed". Archived records are included. Drivers are not listed because they hold no franchise.</p>
+<div class="tools"><input placeholder="Search name, MTOP, plate or OR no." value="${esc(flt.q||"")}" oninput="flt.q=this.value;redraw()" id="q">
+<select onchange="flt.yr=this.value;draw()"><option value="">All years</option>${all.map(y=>`<option ${y==flt.yr?"selected":""}>${y}</option>`).join("")}</select><button class="btn alt" onclick="print()">Print</button></div>
+${sel.map(y=>{const rows=by[y].slice().sort((a,b)=>a.name.localeCompare(b.name));return `<h3>${y} <small>(${rows.length} holder${rows.length>1?"s":""})</small> <button class="btn alt noprint" onclick="yrCsv(${y})">Export CSV</button></h3>
+<div class="tw"><table class="rt"><tr><th>Holder</th><th>Type</th><th>Association</th><th>MTOP No.</th><th>Plate</th><th>Barangay</th><th>Valid until</th><th>Status</th></tr>${rows.map(r=>`<tr class="${r.arch?"arch":""}"><td data-label="Holder"><a onclick="prof(${r.id})">${esc(r.name)}</a>${r.arch?" <small>(archived)</small>":""}</td><td data-label="Type">${r.cat}</td><td data-label="Association">${esc(r.assoc)}</td><td data-label="MTOP No.">${esc(r.mtop)}</td><td data-label="Plate">${esc(r.plate)}</td><td data-label="Barangay">${esc(r.brgy)}</td><td data-label="Valid until">${y}-12-31</td><td data-label="Status">${stFor(r,y)}</td></tr>`).join("")}</table></div>`}).join("")||`<p>No records match.</p>`}`}
+function yrCsv(y){if(role!="super_admin")return;const rows=(byYear()[y]||[]).slice().sort((a,b)=>a.name.localeCompare(b.name)),val=(r,k)=>k=="opr"?"":k=="status"?stTx(r,y):k=="exp"?y+"-12-31":r[k];
+dlf("all-franchise-"+y+".csv",[COLS.map(c=>cq(c[0])).join(",")].concat(rows.map(r=>COLS.map(c=>cq(val(r,c[1]))).join(","))).join("\r\n"));L("Exported All Franchise "+y+" ("+rows.length+" holders)")}
+const dueList=y=>FR().filter(r=>r.exp&&r.status!="Cancelled"&&r.status!="Suspended"&&+r.exp.slice(0,4)<=y);
+function renew(){const cy=+iso(0).slice(0,4),y=+(flt.y||cy),left=Math.ceil((new Date(y+"-12-31")-new Date(iso(0)))/864e5),all=dueList(y),list=all.filter(r=>!flt.assoc||r.assoc==flt.assoc),late=list.filter(r=>+r.exp.slice(0,4)<y).length,sus=FR().filter(r=>r.status=="Suspended"&&+(r.exp||"0").slice(0,4)<=y).length;
+const groups=["TODA","PODA"].flatMap(c=>A[c].map(a=>[a,list.filter(r=>r.assoc==a).sort((p,q)=>p.name.localeCompare(q.name))])).filter(g=>g[1].length);
+return `<h2>Renewal Season</h2><p class="hint">All franchises expire on December 31. This list shows operators whose franchise expires in ${y} or earlier, grouped by association. Cancelled and suspended holders are left out${sus?` (${sus} suspended)`:""}.</p>
+<div class="tools"><select onchange="flt.y=this.value;draw()">${[cy,cy+1].map(v=>`<option value="${v}" ${v==y?"selected":""}>Expiring ${v}</option>`).join("")}</select>
+<select onchange="flt.assoc=this.value;draw()"><option value="">All associations</option>${[...A.TODA,...A.PODA].map(a=>`<option ${a==flt.assoc?"selected":""}>${a}</option>`).join("")}</select>
+<button class="btn" onclick="printNotices('${esc(flt.assoc||"").replace(/'/g,"\\'")}')" ${list.length?"":"disabled"}>Print ${list.length} renewal notice${list.length==1?"":"s"}</button><button class="btn alt" onclick="print()">Print list</button></div>
+<div class="note"><b>${list.length}</b> to renew · <b>${late}</b> overdue from earlier years · ${left>=0?`<b>${left}</b> day${left==1?"":"s"} until December 31, ${y}`:`December 31, ${y} has passed`}</div>
+<div class="rs">${groups.map(([a,rows])=>`<div class="panel"><h3>${esc(a)} <small>(${rows.length}) </small><button class="btn alt noprint" onclick="printNotices('${a}')">Print notices</button></h3><div class="tw"><table class="rt"><tr><th>Holder</th><th>MTOP No.</th><th>Plate</th><th>Barangay</th><th>Expires</th><th>Status</th></tr>${rows.map(r=>`<tr><td data-label="Holder"><a onclick="prof(${r.id})">${esc(r.name)}</a></td><td data-label="MTOP No.">${esc(r.mtop)}</td><td data-label="Plate">${esc(r.plate)}</td><td data-label="Barangay">${esc(r.brgy)}</td><td data-label="Expires">${r.exp}</td><td data-label="Status">${pill(eff(r))}</td></tr>`).join("")}</table></div></div>`).join("")||`<div class="panel">Nothing to renew for this selection.</div>`}</div>`}
+function printNotices(a){const cy=+iso(0).slice(0,4),y=+(flt.y||cy),L2=dueList(y).filter(r=>!a||r.assoc==a).sort((p,q)=>p.assoc.localeCompare(q.assoc)||p.name.localeCompare(q.name));if(!L2.length)return toast("No holders to notify.");
+const today=new Date().toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"});
+g$("pr").innerHTML=L2.map(r=>{const od=days(r)<0;return `<div class="notice"><div class="nh">MUNICIPALITY OF MOGPOG<br><b>FRANCHISE RENEWAL NOTICE</b></div><div>Date: ${today}</div><p><b>${esc(r.name)}</b><br>${esc(r.addr)}${r.addr?", ":""}${esc(r.brgy)}<br>${esc(r.assoc)} (${r.cat}) · MTOP No. ${esc(r.mtop)} · Plate ${esc(r.plate)||"—"}</p>
+<p>${od?`Our records show that your franchise expired on <b>${r.exp}</b>. Please renew it as soon as possible.`:`Our records show that your franchise expires on <b>${r.exp}</b>. Please renew it on or before that date.`} Franchises are valid until December 31 of each year. Please bring this notice when you renew.</p><div class="nf">Received by: ______________________ &nbsp; Date: ____________</div></div>`}).join("");
+document.body.classList.add("pn");const d=()=>{document.body.classList.remove("pn");g$("pr").innerHTML="";removeEventListener("afterprint",d)};addEventListener("afterprint",d);L("Printed "+L2.length+" renewal notice"+(L2.length>1?"s":"")+(a?" for "+a:""));print()}
+let RPT={};
+function rtab(id,title,head,rows,from){const tot=head.map((h,i)=>i==0?"Total":i<from?"":rows.reduce((t,r)=>t+r[i],0));RPT[id]={title,head,rows:rows.concat([tot])};
+return `<h3>${title}</h3><div class="tw"><table class="rt"><tr>${head.map(h=>`<th>${esc(h)}</th>`).join("")}</tr>${rows.map(r=>`<tr>${r.map((v,i)=>`<td data-label="${esc(head[i])}">${esc(String(v))}</td>`).join("")}</tr>`).join("")}<tr class="tot">${tot.map((v,i)=>`<td data-label="${esc(head[i])}">${esc(String(v))}</td>`).join("")}</tr></table></div><div class="tools noprint" style="margin-top:6px"><button class="btn alt" onclick="rptCsv('${id}')">Export CSV</button></div>`}
+function rptCsv(id){const t=RPT[id];if(!t)return;dlf("report-"+id+"-"+iso(0)+".csv",[t.head.map(cq).join(",")].concat(t.rows.map(r=>r.map(cq).join(","))).join("\r\n"));L("Exported report: "+t.title)}
+function reports(){const ops=FR(),dr=D().filter(r=>r.cls=="Driver"),ct=(rs,s)=>rs.filter(r=>eff(r)==s).length,H=["Active","Pending","Expired","Suspended","Cancelled"],line=(rs,ds)=>[rs.length,...H.map(h=>ct(rs,h)),ds.length],
+today=new Date().toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"});
+const byA=["TODA","PODA"].flatMap(c=>A[c].map(a=>[a,c,...line(ops.filter(r=>r.assoc==a),dr.filter(r=>r.assoc==a))])),byB=BR.map(b=>[b,...line(ops.filter(r=>r.brgy==b),dr.filter(r=>r.brgy==b))]),byS=ST.map(s=>[s,ops.filter(r=>r.cat=="TODA"&&eff(r)==s).length,ops.filter(r=>r.cat=="PODA"&&eff(r)==s).length,ops.filter(r=>eff(r)==s).length]);
+RPT={};
+return `<div class="rpt"><h2>Reports</h2><div class="tools"><button class="btn" onclick="L('Printed franchise summary report');print()">Print / Save as PDF</button></div>
+<div class="rhead"><b>MUNICIPALITY OF MOGPOG</b><br>Franchise Holders Summary Report<br>As of ${today} · ${ops.length} franchise holders (operators), ${dr.length} drivers. Archived records are excluded. Status "Expired" includes franchises past their expiry date.</div>
+${rtab("association","By association",["Association","Type","Holders",...H,"Drivers"],byA,2)}${rtab("barangay","By barangay",["Barangay","Holders",...H,"Drivers"],byB,1)}${rtab("status","By status",["Status","TODA","PODA","Total"],byS,1)}
+<div class="sig"><div>Prepared by</div><div>Noted by</div></div></div>`}
+function vehicles(){return `<h2>Vehicle Registry</h2><div class="tw"><table class="rt"><tr><th>Holder</th><th>Plate</th><th>MTOP no.</th><th>OR no.</th><th>OR date issued</th><th>Type</th><th>Make/Model</th><th>Color</th>${isAdm()?"<th>Chassis No.</th>":""}</tr>${FR().map(r=>`<tr><td data-label="Holder">${esc(r.name)}</td><td data-label="Plate">${esc(r.plate)}</td><td data-label="MTOP no.">${esc(r.mtop)}</td><td data-label="OR no.">${esc(r.or)}</td><td data-label="OR date issued">${r.ordate||"—"}</td><td data-label="Type">${esc(r.vtype)}</td><td data-label="Make/Model">${esc(r.model)}</td><td data-label="Color">${esc(r.color)}</td>${isAdm()?`<td data-label="Chassis No.">${esc(r.chassis)}</td>`:""}</tr>`).join("")}</table></div>`}
+function assocs(){return `<h2>Associations</h2><div class="two">${["TODA","PODA"].map(c=>`<div class="panel"><h3>${c}</h3>${bars(A[c].map(a=>[a,D().filter(r=>r.assoc==a).length]))}</div>`).join("")}</div>`}
+function expiry(){const g=[["Already expired",r=>days(r)<0&&r.status!="Cancelled"],["Within 30 days",r=>days(r)>=0&&days(r)<=30],["31–60 days",r=>days(r)>30&&days(r)<=60],["61–90 days",r=>days(r)>60&&days(r)<=90]];
+return `<h2>Expiration Monitoring</h2><div class="tools">${isAdm()?`<button class="btn alt" onclick="print()">Print report</button>`:""}</div>`+g.map(([t,f])=>{const rows=FR().filter(f);return `<div class="panel"><h3>${t} (${rows.length})</h3>${rows.map(r=>`<div>${esc(r.name)} · ${r.assoc} · ${r.exp} (${days(r)<0?-days(r)+" days ago":days(r)+" days left"})</div>`).join("")||"None"}</div>`}).join("")}
+function pubdir(){const rows=D().filter(r=>r.pub);return `<h2>Public Directory</h2><div class="tw"><table class="rt"><tr><th>Category</th><th>Association</th><th>Status</th></tr>${rows.map(r=>`<tr><td data-label="Category">${r.cat}</td><td data-label="Association">${r.assoc}</td><td data-label="Status">${pill(eff(r))}</td></tr>`).join("")}</table></div>`}
+const TH=[["maroon-gold","Maroon · Gold (Classic)"],["maroon-cream-black","Maroon · Cream · Black"],["burgundy-champagne","Burgundy · Champagne"],["dark-blue-white-black","Dark Blue · White · Black"],["navy-silver","Navy · Silver"],["royal-blue","Royal Blue"],["slate-blue","Slate Blue"],["forest-green","Forest Green"],["deep-green-beige","Deep Green · Beige"],["olive-green","Olive Green"],["sage-ivory","Sage · Ivory"],["deep-teal-sand","Deep Teal · Sand"],["neutral-black-white","Neutral · Black & White"]];
+let theme="maroon-gold",mode="light";
+try{const t=JSON.parse(localStorage.getItem("mtpfms-theme2")||"null");if(t&&TH.some(x=>x[0]==t.theme)){theme=t.theme;mode=t.mode=="dark"?"dark":"light"}}catch(e){}
+function applyTheme(){const h=document.documentElement;h.dataset.theme=theme;h.dataset.mode=mode;try{localStorage.setItem("mtpfms-theme2",JSON.stringify({theme,mode}))}catch(e){}}
+function setTheme(t,m){if(t)theme=t;if(m)mode=m;applyTheme();renderCust()}
+function renderCust(){document.getElementById("cust").innerHTML=`<div class="dh"><h2>Customization</h2><button class="btn alt" onclick="closeCust()" aria-label="Close">✕</button></div><div class="db"><h3>Mode</h3><div class="tools"><button class="btn ${mode=="light"?"":"alt"}" onclick="setTheme(null,'light')">Light</button><button class="btn ${mode=="dark"?"":"alt"}" onclick="setTheme(null,'dark')">Dark</button></div>
+<h3>Theme</h3><p class="hint" style="margin-top:0">Applies to every page and is saved in this browser.</p>
+<div class="thms">${TH.map(([id,n])=>`<button class="thm ${id==theme?"on":""}" onclick="setTheme('${id}')"><span class="sw" data-theme="${id}" data-mode="${mode}"><i style="background:var(--primary)"></i><i style="background:var(--secondary)"></i><i style="background:var(--sidebar-background)"></i><i style="background:var(--surface)"></i></span><b>${n}</b><small>${id==theme?"✓ Selected":"Click to apply"}</small></button>`).join("")}</div></div>`}
+function openCust(){const d=document.getElementById("cust");if(d.classList.contains("open"))return closeCust();renderCust();d.classList.add("open");document.getElementById("cbk").classList.add("open")}
+function closeCust(){document.getElementById("cust").classList.remove("open");document.getElementById("cbk").classList.remove("open")}
+document.addEventListener("keydown",e=>{if(e.key=="Escape")closeCust()});
+function logs(){return `<h2>Activity Logs</h2><div class="tw"><table class="rt"><tr><th>Time</th><th>Role</th><th>Action</th></tr>${log.map(l=>`<tr><td data-label="Time">${l[0]}</td><td data-label="Role">${l[1]}</td><td data-label="Action" style="white-space:normal">${esc(l[2])}</td></tr>`).join("")||"<tr><td colspan=3>No activity yet. Add or edit a record to see entries.</td></tr>"}</table></div>`}
+function L(a){log.unshift([new Date().toLocaleString(),role,a]);if(!/^(Viewed|Printed|Exported) /.test(a))chg++;persist()}
+function closeModal(){camStop();shot=null;editId=null;PA=null;imp=null;document.getElementById("modal").innerHTML=""}
+function pa(id,t){PA=t?{id,t}:null;prof(id)}
+function prof(id){const r=data.find(x=>x.id==id);if(!isAdm())L("Viewed "+r.name);const ad=isAdm(),sa=role=="super_admin",dr=r.cls=="Driver",op=dr&&data.find(x=>x.id==r.asg),dl=D().filter(x=>x.asg==r.id),V=v=>esc(v)||"—",K=(k,v)=>`<dt>${k}</dt><dd>${v}</dd>`,act=PA&&PA.id==id?PA.t:null,canRenew=ad&&!dr&&!r.arch&&r.status!="Suspended"&&r.status!="Cancelled";
+const cy=+iso(0).slice(0,4),ey=!dr&&r.exp?+r.exp.slice(0,4):cy,sug=!dr&&days(r)<0?Math.max(cy,ey):ey+1;
+const panel=act=="transfer"?trPanel(r):act=="renew"?`<div class="note act noprint"><b>Renew franchise</b> (current expiry ${V(r.exp)}). Valid until December 31, <select id="ry">${[sug,sug+1].map(y=>`<option>${y}</option>`).join("")}</select><br><button class="btn" onclick="doRenew(${r.id})">Confirm renewal</button><button class="btn alt" onclick="pa(${r.id},null)">Cancel</button></div>`:
+act=="archive"?`<div class="note act noprint">${dl.length?`<b>Cannot archive yet.</b> This operator still has ${dl.length} active driver${dl.length>1?"s":""}. Archive or reassign them first.<br><button class="btn alt" onclick="pa(${r.id},null)">OK</button>`:`<b>Archive this record?</b> It will be hidden from lists, the dashboard and the public directory, and can be restored by a Super Administrator.<br><button class="btn" onclick="doArchive(${r.id})">Confirm archive</button><button class="btn alt" onclick="pa(${r.id},null)">Cancel</button>`}</div>`:"";
+const hs=r.hist||[];
+document.getElementById("modal").innerHTML=`<div class="modal"><div class="mb wide"><div class="mh"><h2>${esc(r.name)}${r.arch?` <small>(archived)</small>`:""}</h2><div class="noprint">${ad&&!r.arch?`<button class="btn alt" onclick="openForm(${r.id})">Edit</button>`:""}${canRenew?`<button class="btn alt" onclick="pa(${r.id},'renew')">Renew</button>`:""}${ad&&!dr&&!r.arch?`<button class="btn alt" onclick="pa(${r.id},'transfer')">Transfer</button>`:""}${sa&&!r.arch?`<button class="btn alt" onclick="pa(${r.id},'archive')">Archive</button>`:""}${sa&&r.arch?`<button class="btn alt" onclick="doRestore(${r.id})">Restore</button>`:""}${ad?`<button class="btn alt" onclick="print()">Print</button>`:""}<button class="btn" onclick="closeModal()">Close</button></div></div>${panel}
+<div class="pg"><div class="pd">
+<section><h3>Personal Information</h3><dl class="kv">${K("Barangay",V(r.brgy))}${ad?K("Address",V(r.addr))+K("Contact no.",V(r.phone)):K("Contact details","<i>Restricted</i>")}</dl></section>
+<section><h3>Franchise Information</h3><dl class="kv">${K("Classification",r.cls)}${K("Type",r.cat)}${K("Association",V(r.assoc))}${dr?K("Operator",op?`<a onclick="prof(${op.id})">${esc(op.name)}</a>`:"—"):K("Date issued",V(r.issued))+K("Expires",V(r.exp))+K("Status",pill(eff(r)))}</dl>${dr?`<p class="hint">A driver holds no franchise or vehicle of their own.</p>`:""}${dl.length?`<h4>Drivers</h4><ul>${dl.map(d=>`<li>↳ <a onclick="prof(${d.id})">${esc(d.name)}</a></li>`).join("")}</ul>`:""}${hs.length?`<h4>Renewal history</h4><ul class="hist">${hs.map(h=>`<li>${esc(h.at)}: ${esc(h.from)} → ${esc(h.to)}</li>`).join("")}</ul>`:""}</section>
+${dr?"":histSec(r)}
+${dr?"":`<section><h3>Vehicle Information</h3><dl class="kv">${K("Plate no.",V(r.plate))}${K("MTOP No.",V(r.mtop))}${K("OR No.",V(r.or))}${K("OR date issued",V(r.ordate))}${K("Vehicle type",V(r.vtype))}${K("Make and model",V(r.model))}${K("Color",V(r.color))}${ad?K("Chassis No.",V(r.chassis)):K("Chassis No.","<i>Restricted</i>")}</dl></section>`}
+</div><div class="pi"><div class="idc"><div class="h">MUNICIPALITY OF MOGPOG · FRANCHISE HOLDER ID</div><div class="b">${r.photo?`<img class="ph" src="${r.photo}">`:`<div class="ph">No photo</div>`}<dl><dt>Name:</dt><dd>${esc(r.name)}</dd><dt>Classification / Type:</dt><dd>${r.cls} · ${r.cat}</dd><dt>Association:</dt><dd>${esc(r.assoc)}</dd>${dr&&op?`<dt>Operator:</dt><dd>${esc(op.name)}</dd>`:""}<dt>Expires:</dt><dd>${dr?"—":r.exp}</dd></dl></div>
+<div class="vf">Verify: /verify/${r.ref} (QR image not generated in this demo)</div></div>
+${ad?`<div class="noprint upl"><input type="file" accept="image/*" onchange="photo(${r.id},this)"><div>Upload photo (stays in this page only)</div></div>`:""}</div></div></div></div>`}
+function doRenew(id){const r=data.find(x=>x.id==id);if(!r||!isAdm())return;if(r.status=="Suspended"||r.status=="Cancelled")return toast("Set the status to Active first (Edit), then renew.");
+const to=g$("ry").value+"-12-31";if(to<=r.exp)return toast("The new expiry must be later than "+r.exp+".");r.hist=r.hist||[];r.hist.unshift({at:iso(0),from:r.exp,to,role});const from=r.exp;r.exp=to;r.status="Active";L("Renewed "+r.name+": expiry "+from+" → "+to);PA=null;draw();prof(id);toast("Renewed until "+to)}
+function doArchive(id){const r=data.find(x=>x.id==id);if(role!="super_admin"||!r)return;if(D().some(d=>d.asg==id))return toast("Archive or reassign this operator's drivers first.");r.arch=iso(0);L("Archived "+r.name);closeModal();draw();toast("Archived "+r.name)}
+function doRestore(id){const r=data.find(x=>x.id==id);if(role!="super_admin"||!r)return;r.arch=null;L("Restored "+r.name);draw();prof(id);toast("Restored "+r.name)}
+function photo(id,el){const f=el.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{data.find(x=>x.id==id).photo=rd.result;L("Photo updated #"+id);prof(id)};rd.readAsDataURL(f)}
+let shot=null,strm=null;
+const camStop=()=>{strm&&strm.getTracks().forEach(t=>t.stop());strm=null},camMsg=t=>{const e=document.getElementById("cmsg");if(e)e.textContent=t},g$=id=>document.getElementById(id);
+function camShow(){if(!g$("cv"))return;const on=!!strm;g$("cv").hidden=!on;g$("ci").hidden=on||!shot;if(shot)g$("ci").src=shot;g$("cph").hidden=on||!!shot;g$("cgo").hidden=on;g$("cgo").textContent=shot?"Retake":"Start camera";g$("csn").hidden=!on;g$("crm").hidden=!shot||on}
+async function camStart(){if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return camMsg("This page cannot access a camera (it must be opened over https or from localhost). Use Upload instead.");
+try{camStop();shot=null;const st=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user",width:{ideal:1280},height:{ideal:960}},audio:false});if(!g$("cv")){st.getTracks().forEach(t=>t.stop());return}strm=st;g$("cv").srcObject=strm;camShow();camMsg("Camera is on. Center the face in the frame, then press Capture photo.")}
+catch(e){camMsg("Camera unavailable: "+(e.name=="NotAllowedError"?"permission was denied.":e.name=="NotFoundError"?"no camera was found on this device.":e.name=="NotReadableError"?"the camera is in use by another app.":e.message)+" You can still use Upload instead.");camShow()}}
+function crop(s,w,h){const c=document.createElement("canvas");c.width=320;c.height=400;let sw=w,sh=w*1.25;if(sh>h){sh=h;sw=h*.8}c.getContext("2d").drawImage(s,(w-sw)/2,(h-sh)/2,sw,sh,0,0,320,400);return c.toDataURL("image/jpeg",.82)}
+function camSnap(){const v=g$("cv");if(!v.videoWidth)return camMsg("Camera is still starting. Try again in a second.");shot=crop(v,v.videoWidth,v.videoHeight);camStop();camShow();camMsg("Photo ready. It will be saved with this holder. Press Retake to replace it.")}
+function camFile(el){const f=el.files[0];el.value="";if(!f)return;const rd=new FileReader();rd.onload=()=>{const im=new Image();im.onload=()=>{camStop();shot=crop(im,im.naturalWidth,im.naturalHeight);camShow();camMsg("Photo ready. It will be saved with this holder.")};im.onerror=()=>camMsg("That file is not a readable image.");im.src=rd.result};rd.readAsDataURL(f)}
+function camClear(){camStop();shot=null;camShow();camMsg("Photo removed.")}
+function openForm(id){editId=id||null;const ed=editId?data.find(x=>x.id==editId):null;shot=ed?ed.photo:null;strm=null;PA=null;document.getElementById("modal").innerHTML=`<div class="modal"><div class="mb"><h2>${ed?"EDIT FRANCHISE HOLDER":"ADD NEW FRANCHISE HOLDER"}</h2><p class="note">Fields marked * are required.</p>${ed&&ed.cls!="Driver"?`<p class="note">To change the holder or the association, use <b>Transfer</b> on the holder's page so the old holder stays on record. Use Edit only to correct mistakes.</p>`:""}<p class="note"><b>Data privacy notice:</b> Personal information, contact numbers and photos collected here are used only for franchise registration and monitoring and are handled under the Data Privacy Act of 2012 (RA 10173). Access is limited to authorized personnel.</p><form onsubmit="save(event)">
+<fieldset><legend>A. Personal Information</legend><div class="f"><label>Full name*<input name="name" required></label><label>Address*<input name="addr" required></label><label>Barangay*<select name="brgy" required><option value="">Select barangay</option>${BR.map(b=>`<option>${b}</option>`).join("")}</select></label><label>Contact number (admins only)<input name="phone"></label></div></fieldset>
+<fieldset><legend>B. Franchise Information</legend><div class="f"><label>Classification*<select name="cls" id="cl" required onchange="swC()">${(ed?(ed.cls=="Driver"?["Driver"]:["Operator","Driver-Operator"]):CL).map(c=>`<option>${c}</option>`).join("")}</select></label>
+<label>Type of franchise*<select name="cat" id="cat" required onchange="fillA()"><option value="">Select</option><option>TODA</option><option>PODA</option></select></label>
+<label>Name of association*<select name="assoc" id="assoc" required onchange="asgSel()"><option value="">Select association</option></select></label>
+<label class="drv" hidden>Assigned operator*<select name="asg" id="asg" required disabled onchange="asgA()"><option value="">Select operator</option></select></label>
+<label class="opr">Date of issuance<input type="date" name="issued"></label><label class="opr">Status<select name="status" onchange="stChg()">${ST.map(s=>`<option>${s}</option>`).join("")}</select></label></div><p class="hint opr">Expiration is always December 31 (of the issuance year, or this year if none is entered). To extend a franchise, use Renew on the holder's page.</p><div id="sc" class="note" hidden><b>Status change</b> <span id="sreq"></span><div class="f" style="margin-top:6px"><label>Date<input type="date" name="sdate" disabled></label><label>Decided by<input name="sby" placeholder="Name, office or resolution no." disabled></label><label>Reason<input name="sreason" disabled></label></div></div></fieldset>
+<fieldset class="opr"><legend>C. Vehicle Information</legend><div class="f"><label>Plate number<input name="plate"></label><label>MTOP No.*<input name="mtop" required></label><label>OR No.<input name="or"></label><label>OR date issued<input type="date" name="ordate"></label><label>Vehicle type<select name="vtype">${VT.map(v=>`<option>${v}</option>`).join("")}</select></label><label>Make and model<input name="model"></label><label>Color<input name="color"></label><label>Chassis number (restricted)<input name="chassis"></label></div></fieldset>
+<fieldset><legend>D. Photo Identification (Camera)</legend><div class="f" style="grid-template-columns:200px 1fr;align-items:start"><div><div id="cph" class="ph" style="width:200px;height:250px">No photo yet</div><video id="cv" autoplay playsinline muted hidden style="width:200px;height:250px;object-fit:cover;transform:scaleX(-1);border:2px solid var(--secondary);background:#333"></video><img id="ci" alt="Captured holder photo" hidden style="width:200px;height:250px;object-fit:cover;border:2px solid var(--secondary)"></div>
+<div><button type="button" class="btn" id="cgo" onclick="camStart()">Start camera</button> <button type="button" class="btn" id="csn" hidden onclick="camSnap()">Capture photo</button> <label class="btn alt" style="display:inline-block;cursor:pointer">Upload instead<input type="file" accept="image/*" capture="user" hidden onchange="camFile(this)"></label> <button type="button" class="btn alt" id="crm" hidden onclick="camClear()">Remove photo</button>
+<p id="cmsg" class="note" role="status" style="margin-top:8px">Optional. Capture a clear, front-facing photo of the holder or driver for identification. It appears on the holder ID card.</p></div></div></fieldset>
+<div id="msg" class="err" role="alert"></div><button class="btn">${ed?"Save changes":"Save franchise holder"}</button> <button type="button" class="btn alt" onclick="closeModal()">Cancel</button></form></div></div>`;fillA();if(ed)fillForm(ed)}
+function fillForm(r){const q=n=>document.querySelector(`[name=${n}]`);q("name").value=r.name;q("addr").value=r.addr;q("brgy").value=r.brgy;q("phone").value=r.phone||"";g$("cl").value=r.cls;swC();g$("cat").value=r.cat;fillA();
+if(r.cls=="Driver"){g$("asg").value=r.asg;asgA()}else{g$("assoc").value=r.assoc;["issued","status","plate","mtop","or","ordate","vtype","model","color","chassis"].forEach(k=>q(k).value=r[k]||"")}
+stChg();camShow();if(shot)camMsg("Current photo shown. Press Retake or Remove photo to change it.")}
+function swC(){setTimeout(stChg,0);const d=g$("cl").value=="Driver";document.querySelectorAll(".opr").forEach(e=>{e.hidden=d;e.querySelectorAll("input,select").forEach(i=>i.disabled=d)});document.querySelectorAll(".drv").forEach(e=>e.hidden=!d);fillA()}
+function fillA(){const c=g$("cat").value,d=g$("cl").value=="Driver",s=g$("assoc"),o=g$("asg"),ks=s.value,ko=o.value;
+s.disabled=d;s.innerHTML=d?`<option value="">From operator</option>`:`<option value="">Select association</option>`+(c?A[c].map(a=>`<option>${a}</option>`).join(""):["TODA","PODA"].map(t=>`<optgroup label="${t}">`+A[t].map(a=>`<option>${a}</option>`).join("")+`</optgroup>`).join(""));
+if(!d&&ks&&[...s.options].some(x=>x.value==ks))s.value=ks;
+o.disabled=!d;o.innerHTML=`<option value="">Select operator</option>`+data.filter(r=>!r.arch&&r.cls!="Driver"&&(!c||r.cat==c)).map(r=>`<option value="${r.id}">${esc(r.name)} (${esc(r.assoc)})</option>`).join("");
+if(d&&ko&&[...o.options].some(x=>x.value==ko))o.value=ko}
+function asgSel(){const a=g$("assoc").value;if(!a)return;const c=A.TODA.includes(a)?"TODA":"PODA";if(g$("cat").value!=c){g$("cat").value=c;fillA();g$("assoc").value=a}}
+function asgA(){const p=data.find(r=>r.id==g$("asg").value);if(p&&g$("cat").value!=p.cat){g$("cat").value=p.cat;fillA();g$("asg").value=p.id}g$("assoc").innerHTML=`<option value="">${p?esc(p.assoc):"From operator"}</option>`}
+const LBL=[["Name","name"],["Address","addr"],["Barangay","brgy"],["Contact","phone",1],["Classification","cls"],["Type","cat"],["Association","assoc"],["Date issued","issued"],["Expires","exp"],["Status","status"],["Plate","plate"],["MTOP No.","mtop"],["OR No.","or"],["OR date","ordate"],["Vehicle type","vtype"],["Make/model","model"],["Color","color"],["Chassis No.","chassis",1]];
+function diff(a,b){const o=n=>{const x=data.find(d=>d.id==n);return x?x.name:"—"},t=[];LBL.forEach(([l,k,hide])=>{if((a[k]||"")!=(b[k]||""))t.push(hide?l+": changed":l+": "+(a[k]||"—")+" → "+(b[k]||"—"))});if(a.asg!=b.asg)t.push("Operator: "+o(a.asg)+" → "+o(b.asg));if((a.photo||null)!=(b.photo||null))t.push("Photo updated");return t.join("; ")}
+function save(e){e.preventDefault();const m=g$("msg"),fail=t=>{m.textContent=t;toast(t);m.scrollIntoView&&m.scrollIntoView({block:"center",behavior:"smooth"})};m.textContent="";
+try{const f=Object.fromEntries(new FormData(e.target)),dr=f.cls=="Driver",ed=editId?data.find(x=>x.id==editId):null,others=data.filter(x=>!ed||x.id!=ed.id),warn=[];let rec,cat;
+if(!CL.includes(f.cls))return fail("Choose a classification.");
+const nm=(f.name||"").trim(),ad=(f.addr||"").trim();if(!nm||!ad)return fail("Full name and address are required.");
+const dn=others.find(x=>!x.arch&&lc(x.name)==lc(nm)&&x.brgy==f.brgy);if(dn)warn.push(nm+" is already registered in "+f.brgy);
+if(dr){const p=data.find(r=>r.id==f.asg&&r.cls!="Driver"&&!r.arch);if(!p)return fail("Choose the operator this driver works for.");if(p.cat!=f.cat)return fail("The operator belongs to a different franchise type.");cat=p.cat;
+rec={cls:"Driver",asg:p.id,cat:p.cat,assoc:p.assoc,issued:"",exp:"",status:"",plate:"",mtop:"",or:"",ordate:"",vtype:"",model:"",color:"",chassis:""}}
+else{cat=f.cat;if(!A[f.cat]||!A[f.cat].includes(f.assoc))return fail("Association does not belong to the selected franchise type.");
+f.mtop=(f.mtop||"").trim();if(!f.mtop)return fail("MTOP No. is required for operators.");const mm=others.find(x=>x.mtop&&lc(x.mtop)==lc(f.mtop));if(mm)return fail("MTOP No. "+f.mtop+" is already used by "+mm.name+(mm.arch?" (archived)":"")+".");
+[["plate","Plate"],["or","OR No."],["chassis","Chassis No."]].forEach(([k,l])=>{const v=(f[k]||"").trim();if(!v)return;const o=others.find(x=>!x.arch&&lc(x[k])==lc(v));if(o)warn.push(l+" "+v+" is also used by "+o.name)});
+const calc=dec31(f.issued),keep=ed&&(ed.hist&&ed.hist.length||(f.issued||"")==(ed.issued||""))&&ed.exp;
+rec={cls:f.cls,asg:null,cat:f.cat,assoc:f.assoc,issued:f.issued||"",exp:keep?ed.exp:calc,status:f.status,plate:f.plate||"",mtop:f.mtop,or:f.or||"",ordate:f.ordate||"",vtype:f.vtype||"",model:f.model||"",color:f.color||"",chassis:f.chassis||""}}
+const wk=warn.join("|");if(warn.length&&e.target.dataset.warned!=wk){e.target.dataset.warned=wk;return fail("Possible duplicate: "+warn.join("; ")+". Press Save again to confirm, or correct the entry.")}
+const base={name:nm,addr:ad,brgy:f.brgy,phone:f.phone||""};
+let sc=null;if(!dr){const old=ed?ed.status:"Active",ns=rec.status,hard=ns=="Suspended"||ns=="Cancelled";if(ed?ns!=old:hard){const rs=(f.sreason||"").trim(),by=(f.sby||"").trim();if(hard&&(!rs||!by))return fail("Enter the reason and who decided for the "+ns.toLowerCase()+" status.");sc={date:f.sdate||iso(0),from:ed?old:"",to:ns,reason:rs,by,role}}}
+if(ed){const before={...ed};Object.assign(ed,base,rec);ed.photo=shot;if(sc){ed.sh=ed.sh||[];ed.sh.unshift(sc)}let extra="";if(!dr){const ds=data.filter(d=>d.asg==ed.id);ds.forEach(d=>{d.cat=ed.cat;d.assoc=ed.assoc});if(ds.length&&(before.cat!=ed.cat||before.assoc!=ed.assoc))extra=" (updated "+ds.length+" driver"+(ds.length>1?"s":"")+")"}
+L("Edited "+ed.name+": "+(diff(before,ed)||"no changes")+extra);const id=ed.id;closeModal();draw();prof(id);toast("Saved changes to "+ed.name);return}
+{const nr=norm(Object.assign({id:nextId++,pub:false,photo:shot,ref:Math.random().toString(36).slice(2,18)},base,rec));if(sc)nr.sh=[sc];data.push(nr)}L("Added "+f.cls+" "+cat+" "+nm);
+view=cat+" Holders";flt=fresh();closeModal();draw();toast("Saved: "+nm)}catch(err){fail("Could not save: "+err.message)}}
+function persist(){try{localStorage.setItem("mtpfms3",JSON.stringify({data,log,nextId,lastBk,chg}))}catch(e){storeOK=false;toast("Not saved to this browser. Use Export backup to keep your records.")}}
+function toast(t){const x=g$("toast");if(!x)return;x.textContent=t;x.style.display="block";clearTimeout(x.t);x.t=setTimeout(()=>x.style.display="none",3500)}
+function exportBk(){lastBk=new Date().toISOString();chg=0;const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify({data,log,nextId,exportedAt:lastBk})],{type:"application/json"}));a.download="mtpfms-backup-"+iso(0)+".json";a.click();persist();draw()}
+function importBk(el){const f=el.files[0];el.value="";if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const o=JSON.parse(rd.result);if(!Array.isArray(o.data)||o.data.some(r=>!r||!r.cls||!("asg" in r)))throw 0;data=o.data.map(norm);lastBk=o.exportedAt||lastBk;chg=0;log.length=0;(o.log||[]).forEach(l=>log.push(l));nextId=o.nextId||nextId+1;persist();draw();toast("Backup restored")}catch(e){toast("That file is not a valid backup for this version.")}};rd.readAsText(f)}
+if(SAVED&&Array.isArray(SAVED.data)&&SAVED.data.every(r=>r&&"asg" in r)){data=SAVED.data.map(norm);(SAVED.log||[]).forEach(l=>log.push(l));nextId=SAVED.nextId||nextId;lastBk=SAVED.lastBk||null;chg=SAVED.chg||0}
+/* ===== Status history, transfers, data quality ===== */
+function histSec(r){const sh=r.sh||[],tr=r.tr||[];let h="";
+if(sh.length)h+=`<section><h3>Status history</h3><ul class="hist">${sh.map(x=>`<li><b>${esc(x.date)}</b>: ${x.from?esc(x.from)+" → ":""}${esc(x.to)}${x.reason?` · Reason: ${esc(x.reason)}`:""}${x.by?` · Decided by: ${esc(x.by)}`:""}</li>`).join("")}</ul></section>`;
+if(tr.length)h+=`<section><h3>Transfers and changes</h3><ul class="hist">${tr.map(x=>`<li><b>${esc(x.date)}</b>: ${esc(x.fromName)} → ${esc(x.toName)}${x.fromAssoc!=x.toAssoc?` · ${esc(x.fromAssoc)} → ${esc(x.toAssoc)}`:""}${x.note?` · ${esc(x.note)}`:""}${x.by?` · Approved by: ${esc(x.by)}`:""}</li>`).join("")}</ul></section>`;return h}
+function stChg(){const b=g$("sc");if(!b)return;const ed=editId?data.find(x=>x.id==editId):null,ns=document.querySelector("[name=status]"),dr=g$("cl").value=="Driver",v=ns?ns.value:"",hard=v=="Suspended"||v=="Cancelled",need=!dr&&(ed?v!=ed.status:hard);
+b.hidden=!need;b.querySelectorAll("input").forEach(i=>i.disabled=!need);g$("sreq").textContent=hard?"(reason and decided by are required)":"(optional details)";const d=b.querySelector("[name=sdate]");if(need&&!d.value)d.value=iso(0)}
+function trPanel(r){const sel=["TODA","PODA"].map(t=>`<optgroup label="${t}">`+A[t].map(a=>`<option ${a==r.assoc?"selected":""}>${a}</option>`).join("")+`</optgroup>`).join("");
+return `<div class="note act noprint"><b>Record a transfer or change</b><p class="hint" style="margin:4px 0 8px">The current holder and association stay on record in the history. MTOP, plate and vehicle details stay with the franchise. If the holder changes, the old photo is removed so a new one can be taken.</p><div class="f"><label>New holder name*<input id="tn" value="${esc(r.name)}"></label><label>Address*<input id="ta" value="${esc(r.addr)}"></label><label>Barangay*<select id="tb">${BR.map(b=>`<option ${b==r.brgy?"selected":""}>${esc(b)}</option>`).join("")}</select></label><label>Contact number<input id="tp" value="${esc(r.phone)}"></label><label>Association<select id="tas">${sel}</select></label><label>Date of transfer*<input type="date" id="td" value="${iso(0)}"></label><label>Approved by*<input id="tby" placeholder="Name, office or resolution no."></label><label>Remarks<input id="tnote" placeholder="e.g. sold to nephew, moved to another TODA"></label></div><div style="margin-top:8px"><button class="btn" onclick="doTransfer(${r.id})">Confirm transfer</button><button class="btn alt" onclick="pa(${r.id},null)">Cancel</button></div></div>`}
+function doTransfer(id){const r=data.find(x=>x.id==id);if(!r||!isAdm()||r.cls=="Driver"||r.arch)return;
+const nm=g$("tn").value.trim(),ad=g$("ta").value.trim(),b=g$("tb").value,ph=g$("tp").value.trim(),as=g$("tas").value,dt=g$("td").value,by=g$("tby").value.trim(),nt=g$("tnote").value.trim();
+if(!nm||!ad||!b)return toast("New holder name, address and barangay are required.");
+if(!dt||!by)return toast("Enter the transfer date and who approved it.");
+const hc=lc(nm)!=lc(r.name);if(!hc&&as==r.assoc)return toast("Change the holder or the association to record a transfer.");
+const nc=A.TODA.includes(as)?"TODA":"PODA",e={date:dt,fromName:r.name,toName:nm,fromAssoc:r.assoc,toAssoc:as,note:nt,by,role};
+r.tr=r.tr||[];r.tr.unshift(e);data.filter(d=>d.asg==r.id).forEach(d=>{d.assoc=as;d.cat=nc});
+r.name=nm;r.addr=ad;r.brgy=b;r.phone=ph;r.assoc=as;r.cat=nc;if(hc)r.photo=null;
+L("Transfer: "+e.fromName+" → "+nm+(as!=e.fromAssoc?"; association "+e.fromAssoc+" → "+as:"")+" (approved by "+by+")");
+PA=null;draw();prof(id);toast("Transfer recorded")}
+function dqData(){const rows=D(),miss=[],groups=[],v=x=>String(x||"").trim().toLowerCase(),ops=rows.filter(r=>r.cls!="Driver");
+rows.forEach(r=>{const m=[];if(r.cls!="Driver"&&!v(r.plate))m.push("Plate");if(!r.photo)m.push("Photo");if(!v(r.phone))m.push("Contact");if(m.length)miss.push([r,m])});
+const nk=r=>String(r.name).toLowerCase().replace(/\(sample\)/g,"").replace(/[^\p{L}\p{N} ]/gu," ").split(/\s+/).filter(Boolean).sort().join(" ");
+const grp=(label,key,list,show)=>{const m={};list.forEach(r=>{const k=key(r);if(k)(m[k]=m[k]||[]).push(r)});Object.values(m).filter(g=>g.length>1).forEach(g=>groups.push([label,show(g[0]),g]))};
+grp("Same name and barangay",r=>nk(r)&&nk(r)+"|"+r.brgy,rows,g=>g[0].name+" · "+g[0].brgy);
+[["Plate number","plate"],["MTOP No.","mtop"],["OR No.","or"],["Chassis No.","chassis"]].forEach(([l,k])=>grp(l,r=>v(r[k]),ops,g=>g[0][k]));
+return{miss,groups}}
+function dq(){if(!isAdm())return `<h2>Data Quality</h2><p>Available to administrators only.</p>`;
+const{miss,groups}=dqData(),f=flt.dq||"",cnt=k=>miss.filter(x=>x[1].includes(k)).length,list=miss.filter(x=>!f||x[1].includes(f)),cap=300,
+cell=(r,m,k)=>k=="Plate"&&r.cls=="Driver"?"n/a":m.includes(k)?"<b>Missing</b>":"OK";
+return `<h2>Data Quality</h2><p class="hint">Archived records are left out. Plate applies to operators only. Duplicates are matched on the same name in the same barangay (word order and punctuation ignored), or on the same plate, MTOP, OR or chassis number. Open a holder and use Edit to fix a record.</p>
+<div class="cards"><div class="card"><b>${cnt("Plate")}</b>Missing plate</div><div class="card"><b>${cnt("Photo")}</b>Missing photo</div><div class="card"><b>${cnt("Contact")}</b>Missing contact no.</div><div class="card"><b>${groups.length}</b>Possible duplicate groups</div></div>
+<div class="panel"><h3>Missing details (${list.length})</h3><div class="tools"><select onchange="flt.dq=this.value;draw()">${[["","Any missing detail"],["Plate","Missing plate"],["Photo","Missing photo"],["Contact","Missing contact no."]].map(o=>`<option value="${o[0]}" ${o[0]==f?"selected":""}>${o[1]}</option>`).join("")}</select><button class="btn alt" onclick="dqCsv('miss')">Export CSV</button></div>
+<div class="tw"><table class="rt"><tr><th>Holder</th><th>Type</th><th>Association</th><th>Barangay</th><th>Plate</th><th>Photo</th><th>Contact no.</th></tr>${list.slice(0,cap).map(([r,m])=>`<tr><td data-label="Holder"><a onclick="prof(${r.id})">${esc(r.name)}</a>${r.cls=="Driver"?" <small>(driver)</small>":""}</td><td data-label="Type">${r.cat}</td><td data-label="Association">${esc(r.assoc)}</td><td data-label="Barangay">${esc(r.brgy)}</td><td data-label="Plate">${cell(r,m,"Plate")}</td><td data-label="Photo">${cell(r,m,"Photo")}</td><td data-label="Contact no.">${cell(r,m,"Contact")}</td></tr>`).join("")||`<tr><td colspan="7">Nothing missing.</td></tr>`}</table></div>${list.length>cap?`<p class="hint">Showing the first ${cap} of ${list.length}. Export CSV for the full list.</p>`:""}</div>
+<div class="panel"><h3>Possible duplicates (${groups.length})</h3><div class="tools"><button class="btn alt" onclick="dqCsv('dup')">Export CSV</button></div>
+<div class="tw"><table class="rt"><tr><th>Matched on</th><th>Value</th><th>Holders</th></tr>${groups.slice(0,cap).map(g=>`<tr><td data-label="Matched on">${g[0]}</td><td data-label="Value">${esc(g[1])}</td><td data-label="Holders" style="white-space:normal">${g[2].map(r=>`<a onclick="prof(${r.id})">${esc(r.name)}</a> <small>(${esc(r.brgy)})</small>`).join(", ")}</td></tr>`).join("")||`<tr><td colspan="3">No possible duplicates found.</td></tr>`}</table></div>${groups.length>cap?`<p class="hint">Showing the first ${cap} of ${groups.length}.</p>`:""}</div>`}
+function dqCsv(t){if(!isAdm())return;const{miss,groups}=dqData();let head,body;
+if(t=="miss"){head=["Holder","Classification","Type","Association","Barangay","Missing"];body=miss.map(([r,m])=>[r.name,r.cls,r.cat,r.assoc,r.brgy,m.join("; ")])}
+else{head=["Matched on","Value","Holders"];body=groups.map(g=>[g[0],g[1],g[2].map(r=>r.name+" ("+r.brgy+")").join("; ")])}
+dlf("data-quality-"+t+"-"+iso(0)+".csv",[head.map(cq).join(",")].concat(body.map(r=>r.map(cq).join(","))).join("\r\n"));L("Exported data quality report ("+t+")")}
+
+applyTheme();draw();
+</script></body></html>

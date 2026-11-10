@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Motorized Tricycle Operator’s Permit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@700&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/permit.css">
+  <script src="js/permit.js" defer></script>
+</head>
+<body>
+
+  <!-- Letter-size sheet holding two identical permits (as in the PDF).
+       Duplicate or remove an <article class="permit"> block as needed. -->
+  <main class="sheet">
+
+    <article class="permit">
+
+      <!-- BACKGROUND OVERLAY PLACEHOLDER
+           Set the image in css/permit.css  →  --overlay-image -->
+      <div class="permit__overlay" role="presentation"></div>
+
+      <!-- HEADER -->
+      <header class="permit__header">
+        <!-- LOGO PLACEHOLDER: replace src with the municipal seal -->
+        <img class="permit__logo" src="assets/logo.png" alt="Municipal seal">
+        <h1 class="permit__title">Motorized Tricycle Operator’s Permit</h1>
+      </header>
+
+      <!-- MTOP NUMBER -->
+      <p class="permit__mtop">MTOP No.: <span class="permit__mtop-no">001</span></p>
+
+      <!-- PORTRAIT PLACEHOLDER: replace src with the operator’s photo -->
+      <img class="permit__portrait" src="assets/portrait.jpg" alt="Operator portrait">
+
+      <!-- NAME -->
+      <div class="permit__field permit__field--name">
+        <p class="permit__value-xl" data-fit="line" data-min-size="18">Lara Mae Rodelas Naling Subil-Laurente</p>
+        <p class="permit__caption">Name</p>
+      </div>
+
+      <!-- ADDRESS -->
+      <div class="permit__field permit__field--address">
+        <p class="permit__value-xl" data-fit="line" data-min-size="14">Anapog-Sibucao, Mogpog, Marinduque, Philippines, Earth, Milky Way</p>
+        <p class="permit__caption">Address</p>
+      </div>
+
+      <!-- UNIT SPECIFICATIONS -->
+      <section class="permit__block permit__block--unit">
+        <h2 class="permit__heading">Unit Specifications</h2>
+        <dl class="permit__list">
+          <dt>Make:</dt>       <dd>001</dd>
+          <dt>Plate No.:</dt>  <dd>001</dd>
+          <dt>Engine No.:</dt> <dd>001</dd>
+          <dt>Chassis No.:</dt><dd>001</dd>
+        </dl>
+      </section>
+
+      <!-- PERMIT INFORMATION -->
+      <section class="permit__block permit__block--info">
+        <h2 class="permit__heading">Permit Information</h2>
+        <dl class="permit__list permit__list--right">
+          <dt>Valid Until:</dt> <dd>DEC-1-2026</dd>
+          <dt>OR NO.:</dt>      <dd>001</dd>
+          <dt>DATE:</dt>        <dd>DEC-1-2026</dd>
+          <dt>AMOUNT:</dt>      <dd>PHP 1131.00</dd>
+          <dt>AUTHORIZED<br>ROUTE:</dt>
+          <dd data-fit="lines" data-max-lines="2" data-min-size="9">Anapog-Sibucao-Poblacion &amp; V.V</dd>
+        </dl>
+      </section>
+
+      <!-- SIGNATORIES -->
+      <div class="permit__sign permit__sign--verified">
+        <p class="permit__sign-label">Verified by:</p>
+        <p class="permit__sign-name">Vryant Rajehv M. Belison</p>
+        <p class="permit__sign-role">SB Secretary/MTFRB Secretary</p>
+      </div>
+
+      <div class="permit__sign permit__sign--approved">
+        <p class="permit__sign-label">Approved by:</p>
+        <p class="permit__sign-name">Augusto Leo M. Livelo</p>
+        <p class="permit__sign-role">Municipal Vice Mayor/MTFRB Chairman</p>
+      </div>
+
+      <!-- NOTICE -->
+      <p class="permit__notice">
+        This franchise is valid subject to vehicle registration with the Land Transportation Office (LTO).
+        <strong>This Franchise is <span class="permit__notice-alert">NOT TRANSFERABLE.</span></strong>
+      </p>
+
+      <!-- FOOTER -->
+      <footer class="permit__footer">
+        <p class="permit__footer-note">**Para po sa inyong hinaing at reklamo, maaari pong makipag-ugnayan sa mga numerong ito.**</p>
+        <p class="permit__footer-contacts">
+          <span>PNP Hotline: (042) 332-0613 / 09392710071</span>
+          <span>LTO: 331-1526</span>
+          <span>MTFRB: 0938-354-3149</span>
+        </p>
+      </footer>
+
+    </article>
+
+    <!-- SECOND COPY: same markup as above -->
+    <article class="permit">
+      <div class="permit__overlay" role="presentation"></div>
+
+      <header class="permit__header">
+        <img class="permit__logo" src="assets/logo.png" alt="Municipal seal">
+        <h1 class="permit__title">Motorized Tricycle Operator’s Permit</h1>
+      </header>
+
+      <p class="permit__mtop">MTOP No.: <span class="permit__mtop-no">001</span></p>
+
+      <img class="permit__portrait" src="assets/portrait.jpg" alt="Operator portrait">
+
+      <div class="permit__field permit__field--name">
+        <p class="permit__value-xl" data-fit="line" data-min-size="18">Ayra Kolyn Silvala-Torres-Asuncion</p>
+        <p class="permit__caption">Name</p>
+      </div>
+
+      <div class="permit__field permit__field--address">
+        <p class="permit__value-xl" data-fit="line" data-min-size="14">Anapog-Sibucao, Mogpog, Marinduque</p>
+        <p class="permit__caption">Address</p>
+      </div>
+
+      <section class="permit__block permit__block--unit">
+        <h2 class="permit__heading">Unit Specifications</h2>
+        <dl class="permit__list">
+          <dt>Make:</dt>       <dd>001</dd>
+          <dt>Plate No.:</dt>  <dd>001</dd>
+          <dt>Engine No.:</dt> <dd>001</dd>
+          <dt>Chassis No.:</dt><dd>001</dd>
+        </dl>
+      </section>
+
+      <section class="permit__block permit__block--info">
+        <h2 class="permit__heading">Permit Information</h2>
+        <dl class="permit__list permit__list--right">
+          <dt>Valid Until:</dt> <dd>DEC-1-2026</dd>
+          <dt>OR NO.:</dt>      <dd>001</dd>
+          <dt>DATE:</dt>        <dd>DEC-1-2026</dd>
+          <dt>AMOUNT:</dt>      <dd>PHP 1131.00</dd>
+          <dt>AUTHORIZED<br>ROUTE:</dt>
+          <dd data-fit="lines" data-max-lines="2" data-min-size="9">Anapog-Sibucao-Poblacion &amp; V.V</dd>
+        </dl>
+      </section>
+
+      <div class="permit__sign permit__sign--verified">
+        <p class="permit__sign-label">Verified by:</p>
+        <p class="permit__sign-name">Vryant Rajehv M. Belison</p>
+        <p class="permit__sign-role">SB Secretary/MTFRB Secretary</p>
+      </div>
+
+      <div class="permit__sign permit__sign--approved">
+        <p class="permit__sign-label">Approved by:</p>
+        <p class="permit__sign-name">Augusto Leo M. Livelo</p>
+        <p class="permit__sign-role">Municipal Vice Mayor/MTFRB Chairman</p>
+      </div>
+
+      <p class="permit__notice">
+        This franchise is valid subject to vehicle registration with the Land Transportation Office (LTO).
+        <strong>This Franchise is <span class="permit__notice-alert">NOT TRANSFERABLE.</span></strong>
+      </p>
+
+      <footer class="permit__footer">
+        <p class="permit__footer-note">**Para po sa inyong hinaing at reklamo, maaari pong makipag-ugnayan sa mga numerong ito.**</p>
+        <p class="permit__footer-contacts">
+          <span>PNP Hotline: (042) 332-0613 / 09392710071</span>
+          <span>LTO: 331-1526</span>
+          <span>MTFRB: 0938-354-3149</span>
+        </p>
+      </footer>
+    </article>
+
+  </main>
+
+</body>
+</html>
