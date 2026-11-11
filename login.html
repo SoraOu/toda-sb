@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="maroon-gold" data-mode="light"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sign in – MTPFMS</title>
+<script>try{var t=JSON.parse(localStorage.getItem("mtpfms-theme2")||"null");if(t){document.documentElement.dataset.theme=t.theme;document.documentElement.dataset.mode=t.mode=="dark"?"dark":"light"}}catch(e){}</script>
+<link rel="stylesheet" href="css/themes.css">
+<link rel="stylesheet" href="css/app.css">
+<style>
+ .lg{max-width:380px;margin:8vh auto;padding:0 16px}
+ .lg .panel{padding:22px}
+ .lg label{display:block;font-size:12px;margin:12px 0 4px}
+ .lg input{width:100%;padding:9px 10px;border:1px solid var(--input-border);border-radius:4px;background:var(--input-background);color:var(--text-primary)}
+ .lg .btn{width:100%;margin-top:16px;padding:10px}
+ #err{color:#b00020;font-size:13px;margin-top:12px;min-height:18px}
+</style>
+</head><body>
+<header><img class="logo" src="assets/logo.png" alt="Sangguniang Bayan ng Mogpog logo"><div><b>MOGPOG TODA/PODA FRANCHISE MANAGEMENT SYSTEM</b><small>Office of the Sangguniang Bayan · Municipality of Mogpog</small></div></header>
+<div class="lg"><div class="panel">
+ <h2>Sign in</h2>
+ <form id="f" novalidate>
+  <label for="em">Email</label><input id="em" type="email" autocomplete="username" required>
+  <label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password" required>
+  <button class="btn" id="go" type="submit">Sign in</button>
+  <div id="err" role="alert"></div>
+ </form>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/supabase-config.js"></script>
+<script>
+(function(){
+  var sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY),$=function(i){return document.getElementById(i)};
+  var MSG={norole:"This account has no role assigned. Ask the administrator.",net:"Could not reach the server. Check your connection."};
+  var q=new URLSearchParams(location.search).get("err");if(q&&MSG[q])$("err").textContent=MSG[q];
+  sb.auth.getSession().then(function(r){if(r.data.session&&!q)location.replace("dashboard.html")});
+  $("f").addEventListener("submit",function(e){
+    e.preventDefault();$("err").textContent="";
+    var em=$("em").value.trim(),pw=$("pw").value;
+    if(!em||!pw){$("err").textContent="Enter email and password.";return}
+    $("go").disabled=true;$("go").textContent="Signing in…";
+    sb.auth.signInWithPassword({email:em,password:pw}).then(function(r){
+      if(r.error){$("err").textContent="Wrong email or password.";$("go").disabled=false;$("go").textContent="Sign in";return}
+      location.replace("dashboard.html");
+    }).catch(function(){$("err").textContent=MSG.net;$("go").disabled=false;$("go").textContent="Sign in"});
+  });
+})();
+</script>
+</body></html>

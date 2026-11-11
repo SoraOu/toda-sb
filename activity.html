@@ -7,10 +7,12 @@
 <link rel="stylesheet" href="css/app.css">
 </head><body>
 <header><button id="burger" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
-<img class="logo" src="assets/logo.jpg" alt="Sangguniang Bayan ng Mogpog logo"><div><b>MOGPOG TODA/PODA FRANCHISE MANAGEMENT SYSTEM</b><small>Office of the Sangguniang Bayan · Municipality of Mogpog, Province of Marinduque</small></div>
-<span class="sp"></span><span id="bk" style="display:flex;gap:8px;align-items:center"></span><label style="font-size:12px">Demo role: <select id="role" class="demo" onchange="setRole(this.value)">
+<img class="logo" src="assets/logo.png" alt="Sangguniang Bayan ng Mogpog logo"><div><b>MOGPOG TODA/PODA FRANCHISE MANAGEMENT SYSTEM</b><small>Office of the Sangguniang Bayan · Municipality of Mogpog, Province of Marinduque</small></div>
+<span class="sp"></span><span id="bk" style="display:flex;gap:8px;align-items:center"></span><label style="font-size:12px;display:none">Demo role: <select id="role" class="demo" onchange="setRole(this.value)">
 <option value="super_admin">Super Administrator</option><option value="admin">Administrator</option><option value="viewer">Viewer</option></select></label></header>
 <div class="wrap"><nav id="nav"></nav><main id="main"></main></div><div id="modal"></div><div id="cbk" onclick="closeCust()"></div><aside id="cust" class="drawer" aria-label="Customization"></aside><div id="toast"></div><div id="pr"></div>
 <script>window.PAGE="Activity Logs"</script>
-<script src="js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/auth.js"></script>
 </body></html>
