@@ -32,19 +32,29 @@
   --card-h: 592px;
 }
 
-*, *::before, *::after { box-sizing: border-box; }
+/* Scoped to the permit so this file can also load inside the app
+   without touching the app's own page styles. */
+:where(.permit), :where(.permit) *, :where(.permit) *::before, :where(.permit) *::after { box-sizing: border-box; }
 
-html, body { margin: 0; padding: 0; }
-
-body {
+body.permit-page {
+  margin: 0;
+  padding: 0;
   background: #e9e9e9;
   font-family: var(--font-body);
+  color: var(--ink);
+}
+
+.permit {
+  font-family: var(--font-body);
+  font-size: 14px;
   color: var(--ink);
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
 
-p, h1, h2, dl, dt, dd { margin: 0; padding: 0; line-height: 1; }
+:where(.permit) :is(p, dl, dt, dd) { margin: 0; padding: 0; line-height: 1; }
+.permit h1, .permit h2 { margin: 0; padding: 0; line-height: 1; font-family: var(--font-body); }
+.permit .permit__title { font-family: var(--font-display); }
 
 .sheet {
   width: var(--card-w);
@@ -337,9 +347,36 @@ p, h1, h2, dl, dt, dd { margin: 0; padding: 0; line-height: 1; }
 @media (max-width: 580px) { .sheet { zoom: 0.4; } }
 
 /* ---------- Print ---------- */
-@page { size: letter portrait; margin: 0.25in; }
+@page permit { size: letter portrait; margin: 0.25in; }
+.sheet { page: permit; }
 
 @media print {
-  body { background: #fff; }
+  body.permit-page { background: #fff; }
   .sheet { zoom: 0.78; width: var(--card-w); padding: 0; margin: 0; gap: 12px; }
+}
+
+/* ==========================================================
+   In-app profile (holder popup). Loaded by js/app.js.
+   ========================================================== */
+.permit-wrap { margin-top: 18px; overflow: hidden; }
+.permit-wrap > h3 { margin: 0 0 8px; }
+.permit-sheet { width: var(--card-w); }
+.permit-sheet .permit { margin: 0; }
+.permit-copy2 { height: 0; overflow: hidden; visibility: hidden; }
+.permit .permit__portrait--empty {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; text-align: center; color: #555;
+}
+
+@media print {
+  /* "Print" in the popup: one permit, scaled to fit the page */
+  .permit-sheet { zoom: 0.7 !important; }
+  .permit-wrap > h3 { display: none; }
+  /* "Print permit": only the permit sheet, two copies on a letter page */
+  body.pp .wrap, body.pp header { display: none !important; }
+  body.pp .mb { padding: 0; max-width: none; box-shadow: none; background: none; }
+  body.pp .mb > :not(.permit-wrap) { display: none !important; }
+  body.pp .permit-wrap { margin: 0; overflow: visible; }
+  body.pp .permit-sheet { zoom: 0.78 !important; page: permit; }
+  body.pp .permit-copy2 { height: auto; overflow: visible; visibility: visible; margin-top: 12px; }
 }
