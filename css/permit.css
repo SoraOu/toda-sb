@@ -369,6 +369,9 @@ body.permit-page {
 }
 
 @media print {
+  /* app.css hides every <header> when printing; the permit's own header must stay */
+  .permit .permit__header { display: block !important; }
+
   /* "Print" in the popup: one permit, scaled to fit the page */
   .permit-sheet { zoom: 0.7 !important; }
   .permit-wrap > h3 { display: none; }
