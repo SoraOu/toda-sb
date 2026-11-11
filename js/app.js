@@ -84,7 +84,7 @@ const rows=data.filter(r=>(flt.arch&&role=="super_admin"||!r.arch)&&(!cat||r.cat
 const op=(a,v)=>a.map(x=>`<option ${x==v?"selected":""}>${x}</option>`).join("");
 const dv=r=>r.cls=="Driver";let ord=[];
 if(flt.sort){const f=SK[flt.sort];ord=rows.slice().sort((a,b)=>String(f(a)).localeCompare(String(f(b)),undefined,{numeric:true,sensitivity:"base"})*flt.dir||a.name.localeCompare(b.name))}
-else{rows.filter(r=>!dv(r)).forEach(o=>{ord.push(o);rows.filter(d=>d.asg==o.id).forEach(d=>ord.push(d))});rows.forEach(d=>{if(!ord.includes(d))ord.push(d)})}
+else{/* newest registration first; a driver stays under their operator, and a group with a new driver moves up */const kids=new Map();rows.forEach(d=>{if(d.asg!=null){const k=String(d.asg);if(!kids.has(k))kids.set(k,[]);kids.get(k).push(d)}});const nw=o=>(kids.get(String(o.id))||[]).reduce((m,d)=>Math.max(m,d.id),o.id),seen=new Set();rows.filter(r=>!dv(r)).map(o=>[o,nw(o)]).sort((a,b)=>b[1]-a[1]).forEach(([o])=>{ord.push(o);seen.add(o);(kids.get(String(o.id))||[]).sort((a,b)=>b.id-a.id).forEach(d=>{ord.push(d);seen.add(d)})});rows.filter(d=>!seen.has(d)).sort((a,b)=>b.id-a.id).forEach(d=>ord.push(d))}
 const nd=o=>D().filter(d=>d.asg==o.id).length;
 const sig=JSON.stringify([cat,flt.q,flt.cl,flt.assoc,flt.st,flt.br,flt.exp,flt.arch,flt.sort,flt.dir,flt.ps]);if(flt.sg!==sig){flt.sg=sig;flt.pg=0}
 const n=ord.length,ps=flt.all?Math.max(n,1):(+flt.ps||25),pages=Math.max(1,Math.ceil(n/ps));flt.pg=Math.min(Math.max(0,flt.pg||0),pages-1);const a=flt.pg*ps,vis=ord.slice(a,a+ps);
