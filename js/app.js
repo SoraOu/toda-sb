@@ -25,9 +25,13 @@ admin:["Dashboard","TODA Holders","PODA Holders","Franchise Holders","Expiration
 viewer:["Dashboard","Franchise Holders","Expiration Monitoring"]};
 function setRole(r){role=r;try{localStorage.setItem("mtpfms-role",r)}catch(e){}if(!MENU[r].includes(view))return go(MENU[r][0]);draw()}
 function fresh(p){return Object.assign({q:"",assoc:"",st:"",br:"",cl:"",exp:"",arch:false,sort:"",dir:1,pg:0,ps:25,all:false,y:"",sg:""},p||{})}
-function goF(v,p){if(!MENU[role].includes(v))return;location.href=PAGES[v]+qsOf(fresh(p))}
-function go(v){location.href=PAGES[v]}
-function draw(){document.getElementById("bk").innerHTML=`<button class="demo" onclick="openCust()">Customization</button>`+(isAdm()?`<button class="demo" onclick="exportBk()">Download copy</button>`:"");document.body.classList.toggle("vw",role=="viewer");document.body.classList.remove("pn");document.getElementById("nav").innerHTML=MENU[role].map(m=>`<a href="${PAGES[m]}" class="${m==view?"on":""}">${m}</a>`).join("")+`<a onclick="logout()">Logout</a>`;
+/* In-app navigation without a page reload. The .html URLs still work for refresh, bookmarks and new tabs. */
+function nav(v,p){if(!MENU[role].includes(v))return;closeModal();view=v;flt=fresh(p);document.title=v+" – MTPFMS";try{history.pushState(null,"",PAGES[v]+qsOf(flt))}catch(e){location.href=PAGES[v]+qsOf(flt);return}draw();window.scrollTo(0,0)}
+function spa(e,v){if(e.ctrlKey||e.metaKey||e.shiftKey||e.altKey||e.button>0)return true;nav(v);return false}
+function goF(v,p){nav(v,p)}
+function go(v){nav(v)}
+window.addEventListener("popstate",function(){var f=location.pathname.split("/").pop(),k=Object.keys(PAGES).find(function(x){return PAGES[x]==f});if(!k||!MENU[role].includes(k))return;closeModal();view=k;flt=fresh(readQS());document.title=k+" – MTPFMS";draw()});
+function draw(){document.getElementById("bk").innerHTML=`<button class="demo" onclick="DB.refresh()" title="Load the latest records from the database">↻ Refresh</button><button class="demo" onclick="openCust()">Customization</button>`+(isAdm()?`<button class="demo" onclick="exportBk()">Download copy</button>`:"");document.body.classList.toggle("vw",role=="viewer");document.body.classList.remove("pn");document.getElementById("nav").innerHTML=MENU[role].map(m=>`<a href="${PAGES[m]}" class="${m==view?"on":""}" onclick="return spa(event,'${m}')">${m}</a>`).join("")+`<a onclick="logout()">Logout</a>`;
 const V={"Dashboard":dash,"TODA Holders":()=>reg("TODA"),"PODA Holders":()=>reg("PODA"),"Franchise Holders":()=>reg(null),"All Franchise":allfr,"Renewal Season":renew,"Reports":reports,"Data Quality":dq,"Vehicle Registry":vehicles,"Associations":assocs,"Expiration Monitoring":expiry,"Public Directory":pubdir,"Activity Logs":logs};
 document.getElementById("main").innerHTML=(storeOK?"":`<div class="note">This browser is blocking storage, so new records will be lost when you close the page. Open the file directly in Chrome or Edge, or use Export backup after adding records.</div>`)+(V[view]?V[view]():`<h2>${view}</h2><div class="panel">Not built in this demo yet.</div>`)}
 function bars(rows,cls){const mx=Math.max(1,...rows.map(r=>r[1]));return rows.map(r=>`<div class="bar"><span>${esc(r[0])}</span><i class="${cls||""}" style="width:${r[1]/mx*100}%"></i><b>${r[1]}</b></div>`).join("")}

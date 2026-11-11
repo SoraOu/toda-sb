@@ -64,7 +64,7 @@
       if (!q.data) return sb.auth.signOut().finally(function () { bounce("norole"); });
       window.AUTH = { user: session.user, role: q.data.role, name: q.data.full_name };
       try { localStorage.setItem("mtpfms-role", q.data.role); } catch (e) {}
-      return dataQ.then(function () { return loadScript("js/app.js"); }).then(ready).catch(fail);
+      return dataQ.then(function () { return loadScript("js/app.js"); }).then(function () { window.DB.live(); }).then(ready).catch(fail);
     });
   }).catch(function () { bounce("net"); });
 })();
