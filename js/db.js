@@ -78,36 +78,39 @@
 
   /* ---------- load (before app.js starts) ---------- */
   async function load() {
-    var as = await all("associations", "id,name", "id");
-    as.forEach(function (a) { ASSOC.byName[a.name] = a.id; ASSOC.byId[a.id] = a.name; });
+    // all reads go out at the same time (they used to run one after another)
+    var R = await Promise.all([
+      all("associations", "id,name", "id"),
+      all("holders", "*", "id"),
+      all("holder_chassis", "holder_id,chassis_no", "holder_id"),          // admin-only: viewers get []
+      all("holder_renewals", "*", "id", false),
+      all("holder_status_history", "*", "id", false),
+      all("holder_transfers", "*", "id", false),
+      sb.from("activity_log").select("*").order("id", { ascending: false }).limit(500)   // super_admin only
+    ]);
+    R[0].forEach(function (a) { ASSOC.byName[a.name] = a.id; ASSOC.byId[a.id] = a.name; });
 
-    var rows = await all("holders", "*", "id");
-    var data = rows.map(fromRow), byId = new Map(data.map(function (r) { return [r.id, r]; }));
+    var data = R[1].map(fromRow), byId = new Map(data.map(function (r) { return [r.id, r]; }));
+    R[2].forEach(function (c) { var r = byId.get(c.holder_id); if (r) { r.chassis = c.chassis_no; CH.set(r.id, c.chassis_no); } });
 
-    // admin-only tables: viewers simply get empty lists back
-    var ch = await all("holder_chassis", "holder_id,chassis_no", "holder_id");
-    ch.forEach(function (c) { var r = byId.get(c.holder_id); if (r) { r.chassis = c.chassis_no; CH.set(r.id, c.chassis_no); } });
-
-    var rn = group(await all("holder_renewals", "*", "id", false));
-    var sh = group(await all("holder_status_history", "*", "id", false));
-    var tr = group(await all("holder_transfers", "*", "id", false));
+    var rn = group(R[3]), sh = group(R[4]), tr = group(R[5]);
     data.forEach(function (r) {
       (rn.get(r.id) || []).forEach(function (e) { r.hist.push({ at: e.renewed_on, from: e.old_expiry, to: e.new_expiry, role: e.by_role, _id: e.id }); });
       (sh.get(r.id) || []).forEach(function (e) { r.sh.push({ date: e.changed_on, from: e.from_status || "", to: e.to_status, reason: e.reason || "", by: e.decided_by || "", role: e.by_role, _id: e.id }); });
       (tr.get(r.id) || []).forEach(function (e) { r.tr.push({ date: e.transferred_on, fromName: e.from_name, toName: e.to_name, fromAssoc: ASSOC.byId[e.from_assoc], toAssoc: ASSOC.byId[e.to_assoc], note: e.note || "", by: e.approved_by, role: e.by_role, _id: e.id }); });
     });
 
-    // photos: private bucket -> signed URLs (4 hours)
-    var withPh = data.filter(function (r) { return r._pp; });
-    for (var i = 0; i < withPh.length; i += 200) {
-      var chunk = withPh.slice(i, i + 200);
-      var s = await sb.storage.from(BUCKET).createSignedUrls(chunk.map(function (r) { return r._pp; }), 14400);
-      if (!s.error && s.data) s.data.forEach(function (x, k) { if (x.signedUrl) { chunk[k].photo = x.signedUrl; chunk[k]._ph = x.signedUrl; } });
-    }
-
     var log = [];
-    var lg = await sb.from("activity_log").select("*").order("id", { ascending: false }).limit(500);
-    if (!lg.error && lg.data) log = lg.data.map(function (l) { return [new Date(l.at).toLocaleString(), l.role, fmtLog(l)]; });
+    if (!R[6].error && R[6].data) log = R[6].data.map(function (l) { return [new Date(l.at).toLocaleString(), l.role, fmtLog(l)]; });
+
+    // photos: private bucket -> signed URLs (4 hours), batches in parallel
+    var withPh = data.filter(function (r) { return r._pp; }), jobs = [];
+    for (var i = 0; i < withPh.length; i += 200) (function (chunk) {
+      jobs.push(sb.storage.from(BUCKET).createSignedUrls(chunk.map(function (r) { return r._pp; }), 14400).then(function (s) {
+        if (!s.error && s.data) s.data.forEach(function (x, k) { if (x.signedUrl) { chunk[k].photo = x.signedUrl; chunk[k]._ph = x.signedUrl; } });
+      }));
+    })(withPh.slice(i, i + 200));
+    await Promise.all(jobs);
 
     data.forEach(function (r) { SNAP.set(r.id, JSON.stringify(rowOf(r))); });
     window.DB_SEED = { data: data, log: log };
