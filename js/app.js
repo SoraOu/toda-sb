@@ -17,6 +17,32 @@ let data=[];
 const norm=r=>{delete r.motor;r.chassis=r.chassis||"";r.engine=r.engine||"";r.hist=r.hist||[];r.sh=r.sh||[];r.tr=r.tr||[];r.arch=r.arch||null;r.ordate=r.ordate||"";return r},D=()=>data.filter(r=>!r.arch),FR=()=>D().filter(r=>r.cls!="Driver"),CL=["Operator","Driver","Driver-Operator"],VT=["Tricycle","Tribike","Other"];
 data=(window.DB_SEED?window.DB_SEED.data:[]).map(norm);
 const log=(window.DB_SEED&&window.DB_SEED.log)||[];let nextId=1000000000,role=(window.AUTH&&window.AUTH.role)||"viewer",view=window.PAGE||"Dashboard",lastBk=null,chg=0,editId=null,PA=null;
+// Supplied association-based routes for Motorized Tricycle Operator's Permits.
+// Match by BOTH franchise type and association; NJBTODA exists in TODA and PODA.
+const AUTHORIZED_ROUTES={
+  TODA:{
+    ARMOTODA:"ARGAO-MOGPOG & V.V.",
+    ASPTODA:"ANAPOG-SIBUCAO-POBLACION & V.V.",
+    BMTODA:"BALANACAN-MOGPOG & V.V.",
+    BPTODA:"BOCBOC-PUTING BUHANGIN & V.V.",
+    BSMBBCTODA:"ILAYA-BAYAN & V.V.",
+    BTODA:"BINTAKAY-BAYAN & V.V.",
+    CAPTODA:"CAPAYANG-BAYAN & V.V.",
+    GUITODA:"GUISIAN-PAYE-BAYAN & V.V.",
+    ICLBTODA:"INO-CAPAYANG-LAON-BAYAN & V.V.",
+    MATODA:"MATAAS NA BAYAN-MAMPAITAN-BAYAN & V.V.",
+    MMMTODA:"MALAYAK-MAGAPUA & V.V.",
+    MTLTTA:"MOGPOG-TARUG-LAMESA & V.V.",
+    MTODA:"MOGPOG-BAYAN & V.V.",
+    NJBTODA:"NANGKA-JANAGDONG-BAYAN & V.V."
+  },
+  PODA:{
+    NJBTODA:"NANGKA-JANAGDONG-BAYAN & V.V",
+    NLPODA:"NANGKA-LAON-BAYAN & V.V.",
+    SPODA:"SUMANGGA-BAYAN & V.V."
+  }
+};
+const authorizedRoute=r=>AUTHORIZED_ROUTES[String(r.cat||"").trim().toUpperCase()]?.[String(r.assoc||"").trim().toUpperCase()]||"";
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const days=r=>Math.ceil((new Date(r.exp)-new Date(iso(0)))/864e5);
 const eff=r=>r.status=="Active"&&days(r)<0?"Expired":r.status;
@@ -192,7 +218,7 @@ ${r.photo?`<img class="permit__portrait" src="${r.photo}" alt="Operator portrait
 <div class="permit__field permit__field--name"><p class="permit__value-xl" data-fit="line" data-min-size="18">${esc(r.name)}</p><p class="permit__caption">Name</p></div>
 <div class="permit__field permit__field--address"><p class="permit__value-xl" data-fit="line" data-min-size="14">${esc(addr)}</p><p class="permit__caption">Address</p></div>
 <section class="permit__block permit__block--unit"><h2 class="permit__heading">Unit Specifications</h2><dl class="permit__list"><dt>Make:</dt><dd>${P(r.model)}</dd><dt>Plate No.:</dt><dd>${P(r.plate)}</dd><dt>Engine No.:</dt><dd>${P(r.engine)}</dd><dt>Chassis No.:</dt><dd>${ad?P(r.chassis):"Restricted"}</dd></dl></section>
-<section class="permit__block permit__block--info"><h2 class="permit__heading">Permit Information</h2><dl class="permit__list permit__list--right"><dt>Valid Until:</dt><dd>${P(pdt(r.exp?r.exp.slice(0,4)+"-12-31":""))}</dd><dt>OR NO.:</dt><dd>${P(r.or)}</dd><dt>DATE:</dt><dd>${P(pdt(r.ordate))}</dd><dt>AMOUNT:</dt><dd>—</dd><dt>AUTHORIZED<br>ROUTE:</dt><dd data-fit="lines" data-max-lines="2" data-min-size="9">—</dd></dl></section>
+<section class="permit__block permit__block--info"><h2 class="permit__heading">Permit Information</h2><dl class="permit__list permit__list--right"><dt>Valid Until:</dt><dd>${P(pdt(r.exp?r.exp.slice(0,4)+"-12-31":""))}</dd><dt>OR NO.:</dt><dd>${P(r.or)}</dd><dt>DATE:</dt><dd>${P(pdt(r.ordate))}</dd><dt>AMOUNT:</dt><dd>—</dd><dt>AUTHORIZED<br>ROUTE:</dt><dd data-fit="lines" data-max-lines="2" data-min-size="9">${esc(authorizedRoute(r)||"—")}</dd></dl></section>
 <div class="permit__sign permit__sign--verified"><p class="permit__sign-label">Verified by:</p><p class="permit__sign-name">Vryant Rajehv M. Belison</p><p class="permit__sign-role">SB Secretary/MTFRB Secretary</p></div>
 <div class="permit__sign permit__sign--approved"><p class="permit__sign-label">Approved by:</p><p class="permit__sign-name">Augusto Leo M. Livelo</p><p class="permit__sign-role">Municipal Vice Mayor/MTFRB Chairman</p></div>
 <p class="permit__notice">This franchise is valid subject to vehicle registration with the Land Transportation Office (LTO). <strong>This Franchise is <span class="permit__notice-alert">NOT TRANSFERABLE.</span></strong></p>
