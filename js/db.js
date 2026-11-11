@@ -40,7 +40,7 @@
       mtop_no: drv ? null : (r.mtop || null), or_no: r.or || null, or_date: r.ordate || null,
       issued_on: r.issued || null, expires_on: drv ? null : (r.exp || null),
       status: drv ? null : (r.status || null), plate_no: r.plate || null,
-      vehicle_type: r.vtype || null, vehicle_model: r.model || null, color: r.color || null,
+      vehicle_type: r.vtype || null, vehicle_model: r.model || null, color: r.color || null, engine_no: r.engine || null,
       is_public: !!r.pub, archived_on: r.arch || null
     };
   }
@@ -50,7 +50,7 @@
       phone: h.phone || "", cat: h.category, assoc: ASSOC.byId[h.association_id], mtop: h.mtop_no || "",
       or: h.or_no || "", ordate: h.or_date || "", issued: h.issued_on || "", exp: h.expires_on || "",
       status: h.status || "", plate: h.plate_no || "", vtype: h.vehicle_type || "", model: h.vehicle_model || "",
-      color: h.color || "", chassis: "", pub: !!h.is_public, photo: null, arch: h.archived_on || null,
+      color: h.color || "", chassis: "", engine: h.engine_no || "", pub: !!h.is_public, photo: null, arch: h.archived_on || null,
       hist: [], sh: [], tr: [], _db: true, _pp: h.photo_path || null, _ph: null
     };
   }
@@ -58,7 +58,7 @@
   /* ---------- activity log text ---------- */
   var LBL = { expires_on: "expiry", issued_on: "issued", status: "status", name: "name", address: "address",
     barangay: "barangay", phone: "contact", association_id: "association", mtop_no: "MTOP", plate_no: "plate",
-    or_no: "OR no.", or_date: "OR date", vehicle_type: "vehicle type", vehicle_model: "model", color: "color",
+    or_no: "OR no.", or_date: "OR date", vehicle_type: "vehicle type", vehicle_model: "model", color: "color", engine_no: "engine no.",
     is_public: "public", category: "type", operator_id: "operator", classification: "class", photo_path: "photo" };
   function show(k, v) {
     if (v === null || v === undefined || v === "") return "—";
