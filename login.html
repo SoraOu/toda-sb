@@ -38,7 +38,7 @@
     if(!em||!pw){$("err").textContent="Enter email and password.";return}
     $("go").disabled=true;$("go").textContent="Signing in…";
     sb.auth.signInWithPassword({email:em,password:pw}).then(function(r){
-      if(r.error){$("err").textContent="Wrong email or password.";$("go").disabled=false;$("go").textContent="Sign in";return}
+      if(r.error){$("err").textContent=r.error.code==="email_not_confirmed"?"Account not confirmed. Ask the administrator.":"Wrong email or password.";$("go").disabled=false;$("go").textContent="Sign in";return}
       location.replace("dashboard.html");
     }).catch(function(){$("err").textContent=MSG.net;$("go").disabled=false;$("go").textContent="Sign in"});
   });

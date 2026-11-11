@@ -4,19 +4,17 @@ function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
 function qsOf(f){var d=fresh(),p=new URLSearchParams();Object.keys(d).forEach(function(k){if(k=="all")return;if(f[k]!==d[k]&&f[k]!==""&&f[k]!=null)p.set(k,typeof d[k]=="boolean"?(f[k]?"1":"0"):f[k])});var s=p.toString();return s?"?"+s:""}
 function readQS(){var d=fresh(),o={},p=new URLSearchParams(location.search);Object.keys(d).forEach(function(k){if(k=="all"||!p.has(k))return;var v=p.get(k);o[k]=typeof d[k]=="number"?(+v||d[k]):typeof d[k]=="boolean"?v=="1":v});return o}
 /* ===== ORIGINAL DEMO CODE ===== */
-try{var SAVED=JSON.parse(localStorage.getItem("mtpfms3")||"null")}catch(e){var SAVED=null}
+var SAVED=null;
 let storeOK=true;try{localStorage.setItem("_t","1");localStorage.removeItem("_t")}catch(e){storeOK=false}
 const A={TODA:["ARMOTODA","ASPTODA","BMTODA","BPTODA","BTODA","BSMBBCTODA","CAPTODA","ICLBTODA","GUITODA","MATODA","MMMTODA","MTLTTA","NJBTODA","SMMPHTODA"],PODA:["MPODA","NLPODA","SPODA"]};
 const ST=["Active","Expired","Suspended","Cancelled","Pending"],BR=["Anapog-Sibucao", "Argao", "Balanacan", "Banto", "Bintakay", "Bocboc", "Butansapa", "Candahon", "Capayang", "Danao", "Dulong Bayan (Pob.)", "Gitnang Bayan (Pob.)", "Guisian", "Hinadharan", "Hinanggayon", "Ino", "Janagdong", "Lamesa", "Laon", "Magapua", "Malayak", "Malusak", "Mampaitan", "Mangyan-Mababad", "Market Site (Pob.)", "Mataas Na Bayan", "Mendez", "Nangka I (Pob.)", "Nangka II", "Paye", "Pili", "Puting Buhangin", "Sayao", "Silangan", "Sumangga", "Tarug", "Villa Mendez (Pob.)"];
 const FN=["Juan Dela Cruz (sample)","Maria Santos (sample)","Jose Reyes (sample)","Ana Garcia (sample)","Pedro Ramos (sample)","Luz Mendoza (sample)","Carlo Bautista (sample)","Rosa Aquino (sample)","Ramon Cruz (sample)","Elena Flores (sample)","Mario Navarro (sample)","Tina Castro (sample)","Noel Villanueva (sample)","Gina Torres (sample)","Ben Salazar (sample)","Lita Ocampo (sample)","Rey Pascual (sample)","Mina Soriano (sample)"];
 const OFF=[-40,-5,10,25,45,70,85,120,200,300,-90,15,55,95,150,22,-12,260];
 const D0=new Date(),iso=n=>new Date(D0.getTime()+n*864e5).toISOString().slice(0,10);
-let data=FN.map((n,i)=>{const c=i%4==3?"PODA":"TODA",as=A[c];return{id:i+1,cls:i==5?"Driver-Operator":"Operator",asg:null,mtop:"MTOP-SAMPLE-"+i,or:"OR-SAMPLE-"+i,ordate:iso(OFF[i]-380),name:n,cat:c,assoc:as[i%as.length],brgy:BR[i%BR.length],addr:"Purok "+(i%5+1)+", "+BR[i%BR.length],phone:"09XX-000-"+String(1000+i),issued:iso(OFF[i]-365),exp:iso(OFF[i]),status:i==4?"Suspended":i==9?"Cancelled":i==12?"Pending":"Active",plate:"SAMPLE-"+(100+i),vtype:"Tricycle",model:"Sample Model",color:["Red","Blue","Green"][i%3],chassis:"CHS-SAMPLE-"+i,pub:i%2==0,photo:null,ref:Math.random().toString(36).slice(2,10)+Math.random().toString(36).slice(2,10)}});
-[["Dino Lopez (sample)",1],["Vic Tan (sample)",2],["Mark Uy (sample)",4]].forEach(([n,o],k)=>{const p=data.find(x=>x.id==o),b=BR[(k*7+3)%BR.length];
-data.push({id:19+k,cls:"Driver",asg:o,name:n,cat:p.cat,assoc:p.assoc,brgy:b,addr:"Purok "+(k+1)+", "+b,phone:"09XX-000-"+(2000+k),issued:"",exp:"",status:"",plate:"",mtop:"",or:"",ordate:"",vtype:"",model:"",color:"",chassis:"",pub:false,photo:null,ref:Math.random().toString(36).slice(2,18)})});
+let data=[];
 const norm=r=>{delete r.motor;r.chassis=r.chassis||"";r.hist=r.hist||[];r.sh=r.sh||[];r.tr=r.tr||[];r.arch=r.arch||null;r.ordate=r.ordate||"";return r},D=()=>data.filter(r=>!r.arch),FR=()=>D().filter(r=>r.cls!="Driver"),CL=["Operator","Driver","Driver-Operator"],VT=["Tricycle","Tribike","Other"];
-data.forEach(norm);
-const log=[];let nextId=100,role=(["super_admin","admin","viewer"].includes(lsGet("mtpfms-role"))?lsGet("mtpfms-role"):"super_admin"),view=window.PAGE||"Dashboard",lastBk=null,chg=0,editId=null,PA=null;
+data=(window.DB_SEED?window.DB_SEED.data:[]).map(norm);
+const log=(window.DB_SEED&&window.DB_SEED.log)||[];let nextId=1000000000,role=(window.AUTH&&window.AUTH.role)||"viewer",view=window.PAGE||"Dashboard",lastBk=null,chg=0,editId=null,PA=null;
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const days=r=>Math.ceil((new Date(r.exp)-new Date(iso(0)))/864e5);
 const eff=r=>r.status=="Active"&&days(r)<0?"Expired":r.status;
@@ -29,12 +27,12 @@ function setRole(r){role=r;try{localStorage.setItem("mtpfms-role",r)}catch(e){}i
 function fresh(p){return Object.assign({q:"",assoc:"",st:"",br:"",cl:"",exp:"",arch:false,sort:"",dir:1,pg:0,ps:25,all:false,y:"",sg:""},p||{})}
 function goF(v,p){if(!MENU[role].includes(v))return;location.href=PAGES[v]+qsOf(fresh(p))}
 function go(v){location.href=PAGES[v]}
-function draw(){document.getElementById("bk").innerHTML=`<button class="demo" onclick="openCust()">Customization</button>`+(isAdm()?`<button class="demo" onclick="exportBk()">Export backup</button><label class="demo" style="cursor:pointer">Import backup<input type="file" accept=".json" hidden onchange="importBk(this)"></label>`:"");document.body.classList.toggle("vw",role=="viewer");document.body.classList.remove("pn");document.getElementById("nav").innerHTML=MENU[role].map(m=>`<a href="${PAGES[m]}" class="${m==view?"on":""}">${m}</a>`).join("")+`<a onclick="logout()">Logout</a>`;
+function draw(){document.getElementById("bk").innerHTML=`<button class="demo" onclick="openCust()">Customization</button>`+(isAdm()?`<button class="demo" onclick="exportBk()">Download copy</button>`:"");document.body.classList.toggle("vw",role=="viewer");document.body.classList.remove("pn");document.getElementById("nav").innerHTML=MENU[role].map(m=>`<a href="${PAGES[m]}" class="${m==view?"on":""}">${m}</a>`).join("")+`<a onclick="logout()">Logout</a>`;
 const V={"Dashboard":dash,"TODA Holders":()=>reg("TODA"),"PODA Holders":()=>reg("PODA"),"Franchise Holders":()=>reg(null),"All Franchise":allfr,"Renewal Season":renew,"Reports":reports,"Data Quality":dq,"Vehicle Registry":vehicles,"Associations":assocs,"Expiration Monitoring":expiry,"Public Directory":pubdir,"Activity Logs":logs};
 document.getElementById("main").innerHTML=(storeOK?"":`<div class="note">This browser is blocking storage, so new records will be lost when you close the page. Open the file directly in Chrome or Edge, or use Export backup after adding records.</div>`)+(V[view]?V[view]():`<h2>${view}</h2><div class="panel">Not built in this demo yet.</div>`)}
 function bars(rows,cls){const mx=Math.max(1,...rows.map(r=>r[1]));return rows.map(r=>`<div class="bar"><span>${esc(r[0])}</span><i class="${cls||""}" style="width:${r[1]/mx*100}%"></i><b>${r[1]}</b></div>`).join("")}
 let DC=[];function dcard(i){const x=DC[i];if(x)goF(x[2],x[3])}
-function bkNote(){const d=lastBk?new Date(lastBk).toLocaleDateString():"never";return `<div class="note">${!lastBk||chg?"⚠ ":""}Records are stored only in this browser. Last backup: <b>${d}</b>${chg?` · ${chg} change${chg>1?"s":""} since`:""}. <button class="btn alt" onclick="exportBk()">Export backup now</button></div>`}
+function bkNote(){return `<div class="note">Records are saved in the online database and are shared across all devices. <button class="btn alt" onclick="exportBk()">Download a copy (JSON)</button></div>`}
 function dash(){const F=FR(),c=f=>F.filter(f).length,E=r=>eff(r);const w=n=>c(r=>E(r)=="Active"&&days(r)>=0&&days(r)<=n);
 const by=k=>{const m={};D().forEach(r=>m[r[k]]=(m[r[k]]||0)+1);return Object.entries(m).sort((a,b)=>b[1]-a[1])};
 const sc=ST.map(s=>[s,c(r=>E(r)==s)]),cy=+iso(0).slice(0,4);
@@ -250,10 +248,9 @@ if(ed){const before={...ed};Object.assign(ed,base,rec);ed.photo=shot;if(sc){ed.s
 L("Edited "+ed.name+": "+(diff(before,ed)||"no changes")+extra);const id=ed.id;closeModal();draw();prof(id);toast("Saved changes to "+ed.name);return}
 {const nr=norm(Object.assign({id:nextId++,pub:false,photo:shot,ref:Math.random().toString(36).slice(2,18)},base,rec));if(sc)nr.sh=[sc];data.push(nr)}L("Added "+f.cls+" "+cat+" "+nm);
 view=cat+" Holders";flt=fresh();try{history.replaceState(null,"",PAGES[view])}catch(e){}closeModal();draw();toast("Saved: "+nm)}catch(err){fail("Could not save: "+err.message)}}
-function persist(){try{localStorage.setItem("mtpfms3",JSON.stringify({data,log,nextId,lastBk,chg}))}catch(e){storeOK=false;toast("Not saved to this browser. Use Export backup to keep your records.")}}
+function persist(){if(window.DB)DB.flush()}
 function toast(t){const x=g$("toast");if(!x)return;x.textContent=t;x.style.display="block";clearTimeout(x.t);x.t=setTimeout(()=>x.style.display="none",3500)}
 function exportBk(){lastBk=new Date().toISOString();chg=0;const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify({data,log,nextId,exportedAt:lastBk})],{type:"application/json"}));a.download="mtpfms-backup-"+iso(0)+".json";a.click();persist();draw()}
-function importBk(el){const f=el.files[0];el.value="";if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const o=JSON.parse(rd.result);if(!Array.isArray(o.data)||o.data.some(r=>!r||!r.cls||!("asg" in r)))throw 0;data=o.data.map(norm);lastBk=o.exportedAt||lastBk;chg=0;log.length=0;(o.log||[]).forEach(l=>log.push(l));nextId=o.nextId||nextId+1;persist();draw();toast("Backup restored")}catch(e){toast("That file is not a valid backup for this version.")}};rd.readAsText(f)}
 if(SAVED&&Array.isArray(SAVED.data)&&SAVED.data.every(r=>r&&"asg" in r)){data=SAVED.data.map(norm);(SAVED.log||[]).forEach(l=>log.push(l));nextId=SAVED.nextId||nextId;lastBk=SAVED.lastBk||null;chg=SAVED.chg||0}
 /* ===== Status history, transfers, data quality ===== */
 function histSec(r){const sh=r.sh||[],tr=r.tr||[];let h="";
