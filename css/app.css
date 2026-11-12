@@ -100,3 +100,14 @@ body>header small{font-size:16.5px}
 body>header .logo{width:63px;height:63px;border-width:3px}
 .wrap{min-height:calc(100vh - 99px)}
 }
+/* Holders: Table / Cards switch and card view */
+.vt{display:inline-flex}.vt .btn{border-radius:0}.vt .btn:first-child{border-radius:4px 0 0 4px}.vt .btn:last-child{border-radius:0 4px 4px 0}
+.msort.show{display:inline-block}
+.hcg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px}
+.hc{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px;min-width:0}
+.hc.arch{opacity:.55}
+.hch{display:flex;align-items:baseline;gap:8px;font:700 16px Georgia,serif}.hch a{color:var(--primary);cursor:pointer}
+.hcn{background:var(--primary);color:var(--button-primary-text);border-radius:10px;padding:1px 8px;font:600 12px system-ui,sans-serif}
+.hcs{color:var(--text-secondary);font-size:13px;margin:2px 0 8px}
+.hc .kv{grid-template-columns:110px minmax(0,1fr);font-size:13px}.hc .kv a{color:var(--primary);cursor:pointer;font-weight:600}
+.hcf{margin-top:10px;padding-top:8px;border-top:1px solid var(--border);font-size:13px;display:flex;gap:8px;align-items:center}
