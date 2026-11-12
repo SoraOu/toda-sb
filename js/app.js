@@ -104,9 +104,12 @@ ${isAdm()?`<button class="btn alt" onclick="csv('${cat||""}')">Export CSV</butto
 function redraw(c){const p=document.getElementById("q").selectionStart;draw();const q=document.getElementById("q");q.focus();q.setSelectionRange(p,p)}
 const COLS=[["Full name","name"],["Address","addr"],["Barangay","brgy"],["Contact number","phone"],["Classification","cls"],["Type of franchise","cat"],["Association","assoc"],["Assigned operator","opr"],["Date of issuance","issued"],["Expiration date","exp"],["Status","status"],["Plate number","plate"],["MTOP No.","mtop"],["OR No.","or"],["OR date issued","ordate"],["Vehicle type","vtype"],["Make and model","model"],["Color","color"],["Chassis number","chassis"],["Engine number","engine"],["Amount","amount"]];
 const cq=v=>'"'+String(v==null?"":v).replace(/"/g,'""')+'"',dlf=(name,text,type)=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+text],{type:(type||"text/csv")+";charset=utf-8"}));a.download=name;a.click()};
-function csv(cat){const rows=D().filter(r=>!cat||r.cat==cat),dr=r=>r.cls=="Driver",on=r=>{const o=dr(r)&&data.find(x=>x.id==r.asg);return o?o.name:""};
-const val=(r,k)=>k=="opr"?on(r):k=="status"?(dr(r)?"":eff(r)):r[k];
-dlf((cat||"franchise-holders").toLowerCase()+"-"+iso(0)+".csv",[COLS.map(c=>cq(c[0])).join(",")].concat(rows.map(r=>COLS.map(c=>cq(val(r,c[1]))).join(","))).join("\r\n"))}
+function csv(cat){/* roster layout: title rows, then NO./NAME/ADDRESS/... ; operators only, newest registration first */const br=flt.br||"",rows=D().filter(r=>r.cls!="Driver"&&(!cat||r.cat==cat)&&(!br||r.brgy==br)).sort((a,b)=>b.id-a.id),yc={};
+rows.forEach(r=>{const y=(r.exp||"").slice(0,4);if(y)yc[y]=(yc[y]||0)+1});
+const yr=Object.keys(yc).sort((a,b)=>yc[b]-yc[a]||b-a)[0]||String(new Date().getFullYear()),title=(br?br.toUpperCase()+"-":"")+"MOGPOG "+(cat||"TODA/PODA"),
+head=["NO.","NAME","ADDRESS","ENGINE MAKE","LTO/Plate No.","MOTOR No.","CHASSIS No.","MTOP No.","O.R. No.:","DATE","REMARKS","CONTACT No."],pad=t=>[t].concat(Array(head.length-1).fill(""));
+const lines=[pad(title),pad(yr),head].concat(rows.map((r,n)=>[n+1,r.name,r.addr,r.model,r.plate,r.engine,r.chassis,r.mtop,r.or,r.ordate,"",r.phone]));
+dlf(title.toLowerCase().replace(/[^a-z0-9]+/g,"-")+"-"+yr+".csv",lines.map(l=>l.map(cq).join(",")).join("\r\n"))}
 function parseCSV(t){t=t.replace(/^\ufeff/,"");const rows=[];let row=[],f="",q=false;for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++}else q=false}else f+=c}else if(c=='"')q=true;else if(c==","){row.push(f);f=""}else if(c=="\n"||c=="\r"){if(c=="\r"&&t[i+1]=="\n")i++;row.push(f);f="";rows.push(row);row=[]}else f+=c}
 if(f!==""||row.length){row.push(f);rows.push(row)}return rows.map(r=>r.map(x=>x.trim())).filter(r=>r.some(x=>x!==""))}
 function pDate(v){if(!v)return "";let y,m,d,x;if(x=/^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(v)){y=+x[1];m=+x[2];d=+x[3]}else if(x=/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(v)){m=+x[1];d=+x[2];y=+x[3]}else return null;
