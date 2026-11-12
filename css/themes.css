@@ -1,5 +1,3 @@
-block below (tokens per theme). Users pick a theme on the Customization page; the attributes above are the default. -->
-<style id="themes">
 /* Agenda Tracker: 11 themes, Light + Dark, 25 tokens per mode. */
 :root { --status-approved:#23834A; --status-pending:#B7791F; --status-overdue:#C62828; --status-rejected:#C62828; --status-draft:#737B84; --status-in-progress:#326FA8; }
 
