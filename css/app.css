@@ -92,3 +92,11 @@ th.s{cursor:pointer;user-select:none}th.s:hover{text-decoration:underline}
 @media(max-width:760px){#burger{display:block}nav{position:fixed;top:62px;bottom:0;left:-230px;z-index:5;transition:left .2s}nav.open{left:0}.pg{grid-template-columns:1fr}.pi{position:static}.kv{grid-template-columns:110px minmax(0,1fr)}}
 @media print{.pgn{display:none!important}.rpt *,#pr *{color:#000!important;background:transparent!important}.rpt table,.rpt th,.rpt td{border:1px solid #000!important}.notice{break-inside:avoid;page-break-inside:avoid;border:1px solid #000;padding:14px 16px;margin:0 0 16px;font-size:13px;line-height:1.5}.notice:nth-child(3n){break-after:page;page-break-after:always}.notice .nh{text-align:center;margin-bottom:8px}.notice .nf{margin-top:12px}body.pn header,body.pn .wrap,body.pn #modal{display:none!important}body.pn #pr{display:block}}
 @media print{body.vw{display:none!important}header,nav,.tools,.noprint,.drawer,#cbk{display:none!important}.modal{position:static;background:none;padding:0}.mb{box-shadow:none}.pi{position:static}}
+/* Top banner is 1.5x its original size on desktop; phones keep the compact banner */
+@media(min-width:761px){
+body>header{padding:15px 24px;border-bottom-width:6px;gap:18px}
+body>header b{font-size:22.5px}
+body>header small{font-size:16.5px}
+body>header .logo{width:63px;height:63px;border-width:3px}
+.wrap{min-height:calc(100vh - 99px)}
+}

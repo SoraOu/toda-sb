@@ -98,6 +98,8 @@ body.permit-page {
 }
 
 /* Logo placeholder */
+/* app.css styles every <header> as the site banner; keep the permit's own bar plain */
+.permit .permit__header { display: block; padding: 0; gap: 0; border: 0; }
 .permit__logo {
   position: absolute;
   left: 21px;
