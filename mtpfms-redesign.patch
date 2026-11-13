@@ -1,0 +1,493 @@
+diff --git a/activity.html b/activity.html
+index d4eed0c..3dabb36 100644
+--- a/activity.html
++++ b/activity.html
+@@ -4,9 +4,10 @@
+ <title>Activity Logs – MTPFMS</title>
+ <script>try{var t=JSON.parse(localStorage.getItem("mtpfms-theme2")||"null");if(t){document.documentElement.dataset.theme=t.theme;document.documentElement.dataset.mode=t.mode=="dark"?"dark":"light"}}catch(e){}</script>
+ <link rel="stylesheet" href="css/themes.css">
+-<link rel="stylesheet" href="css/app.css">
++<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
++<link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/redesign.css">
+ </head><body>
+-<header><button id="burger" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
++<header><button id="burger" onclick="toggleNav()" aria-label="Toggle navigation" aria-controls="nav">☰</button>
+ <img class="logo" src="assets/logo.png" alt="Sangguniang Bayan ng Mogpog logo"><div><b>MOGPOG TODA/PODA FRANCHISE MANAGEMENT SYSTEM</b><small>Office of the Sangguniang Bayan · Municipality of Mogpog, Province of Marinduque</small></div>
+ <span class="sp"></span><span id="bk" style="display:flex;gap:8px;align-items:center"></span><label style="font-size:12px;display:none">Demo role: <select id="role" class="demo" onchange="setRole(this.value)">
+ <option value="super_admin">Super Administrator</option><option value="admin">Administrator</option><option value="viewer">Viewer</option></select></label></header>
+diff --git a/all-franchise.html b/all-franchise.html
+index 948abb4..773d9f0 100644
+--- a/all-franchise.html
++++ b/all-franchise.html
+@@ -4,9 +4,10 @@
+ <title>All Franchise – MTPFMS</title>
+ <script>try{var t=JSON.parse(localStorage.getItem("mtpfms-theme2")||"null");if(t){document.documentElement.dataset.theme=t.theme;document.documentElement.dataset.mode=t.mode=="dark"?"dark":"light"}}catch(e){}</script>
+ <link rel="stylesheet" href="css/themes.css">
+-<link rel="stylesheet" href="css/app.css">
++<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
++<link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/redesign.css">
+ </head><body>
+-<header><button id="burger" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
++<header><button id="burger" onclick="toggleNav()" aria-label="Toggle navigation" aria-controls="nav">☰</button>
+ <img class="logo" src="assets/logo.png" alt="Sangguniang Bayan ng Mogpog logo"><div><b>MOGPOG TODA/PODA FRANCHISE MANAGEMENT SYSTEM</b><small>Office of the Sangguniang Bayan · Municipality of Mogpog, Province of Marinduque</small></div>
+ <span class="sp"></span><span id="bk" style="display:flex;gap:8px;align-items:center"></span><label style="font-size:12px;display:none">Demo role: <select id="role" class="demo" onchange="setRole(this.value)">
+ <option value="super_admin">Super Administrator</option><option value="admin">Administrator</option><option value="viewer">Viewer</option></select></label></header>
+diff --git a/css/redesign.css b/css/redesign.css
+new file mode 100644
+index 0000000..c150a78
+--- /dev/null
++++ b/css/redesign.css
+@@ -0,0 +1,126 @@
++/* MTPFMS institutional redesign. Loaded after app.css; relies only on the theme variables in themes.css,
++   so every colour theme and light/dark mode keeps working. */
++:root{--hh:64px;--navw:248px;--navc:68px;--r:10px;--sh:0 1px 3px rgba(20,10,10,.10),0 1px 2px rgba(20,10,10,.06);--font:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
++html[data-mode=dark]{--sh:0 1px 3px rgba(0,0,0,.5)}
++body,select,input,button,textarea{font-family:var(--font)}
++body{font-size:14px;-webkit-font-smoothing:antialiased}
++h1,h2,h3,.serif,legend,.card b,header b{font-family:var(--font)}
++h2{font-size:24px;font-weight:700;letter-spacing:-.01em}
++.panel,fieldset{border-radius:var(--r);box-shadow:var(--sh)}
++.btn{border-radius:8px;font-weight:500;display:inline-flex;align-items:center;gap:6px}
++.ic{flex:none;display:block}
++a:focus-visible,button:focus-visible,[role=button]:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
++
++/* ---------- header ---------- */
++body>header{min-height:var(--hh);padding:8px 20px;gap:14px;border-bottom:3px solid var(--secondary);box-shadow:0 2px 6px rgba(0,0,0,.18);position:sticky;top:0;z-index:20}
++body>header b{font-size:16px;font-weight:700;letter-spacing:.2px;line-height:1.25}
++body>header small{font-size:12px;opacity:.88;margin-top:1px}
++body>header .logo{width:46px;height:46px;border-width:2px}
++#burger{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;font-size:18px;border-radius:8px;cursor:pointer}
++#burger:hover,.hbtn:hover{background:rgba(255,255,255,.14)}
++#bk{gap:10px!important}
++.hbtn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid rgba(255,255,255,.35);border-radius:8px;background:none;color:inherit;cursor:pointer}
++.hbtn:disabled{cursor:default;opacity:.7}
++.hbadge{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--secondary);color:#2b1400;font:700 11px/18px var(--font);text-align:center}
++.hprof{display:flex;align-items:center;gap:9px;padding:3px 10px 3px 3px;border-radius:999px;background:rgba(255,255,255,.12)}
++.hav{width:32px;height:32px;border-radius:50%;background:var(--secondary);color:#2b1400;display:flex;align-items:center;justify-content:center;font:700 12px var(--font)}
++.hpt{display:flex;flex-direction:column;line-height:1.2;max-width:170px}.hpt b{font-size:13px!important;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.hpt small{font-size:11px!important;margin:0}
++
++/* ---------- sidebar ---------- */
++.wrap{align-items:flex-start;min-height:calc(100vh - var(--hh))}
++nav{width:var(--navw);padding:10px 0 20px;position:sticky;top:var(--hh);height:calc(100vh - var(--hh));overflow-y:auto;overflow-x:hidden;border-right:0;transition:width .2s}
++.ng{padding:6px 10px 2px}.ng+.ng{border-top:1px solid color-mix(in srgb,var(--sidebar-text) 14%,transparent);margin-top:6px;padding-top:12px}
++.nh{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:0 10px 6px;color:color-mix(in srgb,var(--secondary) 80%,var(--sidebar-text))}
++nav a{display:flex;align-items:center;gap:11px;margin:1px 0;padding:9px 10px;border-left:0;border-radius:8px;font-size:13.5px;font-weight:500;position:relative;white-space:nowrap;outline-offset:-2px}
++nav a .ic{opacity:.85}
++nav a:hover{background:color-mix(in srgb,var(--sidebar-text) 12%,transparent)}
++nav a.on{background:var(--sidebar-active-background);color:var(--sidebar-active-text);font-weight:600;box-shadow:inset 3px 0 0 var(--secondary)}
++nav a.on .ic{color:var(--secondary);opacity:1}
++nav a:focus-visible{outline:2px solid var(--secondary)}
++body.nav-collapsed nav{width:var(--navc)}
++body.nav-collapsed nav a{justify-content:center;padding:10px 0}body.nav-collapsed nav a span{display:none}
++body.nav-collapsed .nh{font-size:0;padding:0;height:1px;margin:2px 14px 8px;background:color-mix(in srgb,var(--sidebar-text) 20%,transparent)}
++body.nav-collapsed nav a.on{box-shadow:none;outline:2px solid color-mix(in srgb,var(--secondary) 70%,transparent);outline-offset:-2px}
++main{padding:22px 26px;max-width:1500px}
++
++/* ---------- page header ---------- */
++.pghd{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;margin-bottom:16px}
++.pghd h2{margin:0}.sub{margin:2px 0 0;color:var(--text-secondary);font-size:13px}.pghd .tools{margin:0}
++.note{border-radius:8px}
++
++/* ---------- KPI cards ---------- */
++.kpis{grid-template-columns:repeat(auto-fill,minmax(184px,1fr));gap:12px;margin-bottom:18px}
++.card.kpi{--tone:var(--primary);position:relative;display:flex;flex-direction:column;gap:2px;padding:14px 14px 12px;border:1px solid var(--border);border-left:1px solid var(--border);border-top:3px solid var(--tone);border-radius:var(--r);box-shadow:var(--sh);transition:box-shadow .15s,transform .15s,border-color .15s}
++.kpi.ok{--tone:var(--status-approved)}.kpi.bad{--tone:var(--status-overdue)}.kpi.warn{--tone:var(--status-pending)}.kpi.info{--tone:var(--status-in-progress)}
++.ki{position:absolute;top:11px;right:11px;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--tone);background:color-mix(in srgb,var(--tone) 13%,transparent)}
++.ki .ic{width:16px;height:16px}
++.kl{font-size:12.5px;font-weight:600;color:var(--text-secondary);padding-right:36px;min-height:2.6em;line-height:1.3}
++.card.kpi b.kv{font:700 30px/1.15 var(--font);letter-spacing:-.02em;color:var(--text-primary);display:block;font-variant-numeric:tabular-nums}
++.kd{font-size:11.5px;color:var(--text-secondary)}
++.card.kpi.lk:hover,.card.kpi.lk:focus-visible{transform:translateY(-2px);box-shadow:0 6px 16px rgba(20,10,10,.16);border-color:var(--tone)}
++.card.kpi.lk:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
++
++/* ---------- sections and charts ---------- */
++.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-bottom:14px}
++.two{gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));margin-bottom:14px}
++.grid3 .panel,.two .panel{margin-bottom:0}
++.sec{padding:16px 18px}
++.sh{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
++.sh h3{margin:0;font-size:14.5px;font-weight:600;display:flex;align-items:center;gap:8px;color:var(--text-primary)}
++.sh h3 .ic{color:var(--primary)}
++.cnt{font-size:11.5px;font-weight:600;padding:1px 8px;border-radius:999px;background:var(--primary-light);color:var(--primary)}
++.va{font-size:12.5px;font-weight:600;color:var(--primary);text-decoration:none;white-space:nowrap}.va:hover{text-decoration:underline}
++.dn{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
++.dn svg{width:148px;height:148px;flex:none;transform:rotate(0)}
++.dnt{font:700 8px var(--font);fill:var(--text-primary)}.dns{font:500 2.7px var(--font);fill:var(--text-secondary)}
++.lg{list-style:none;margin:0;padding:0;flex:1;min-width:150px}
++.lg li{display:grid;grid-template-columns:12px 1fr auto 38px;align-items:center;gap:8px;padding:4px 0;font-size:13px}
++.lg li i,.lg.inl i{width:10px;height:10px;border-radius:3px;display:inline-block}
++.lg li b{font-variant-numeric:tabular-nums}.lg li small{color:var(--text-secondary);text-align:right}
++.lg.inl{display:flex;gap:16px;margin-top:10px;font-size:12px;color:var(--text-secondary)}.lg.inl span{display:flex;align-items:center;gap:6px}
++.hbs{display:flex;flex-direction:column;gap:9px}
++.hb{display:grid;grid-template-columns:minmax(80px,120px) 1fr 38px;align-items:center;gap:10px;font-size:12.5px}
++.hb>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-secondary)}
++.hb>b{text-align:right;font-variant-numeric:tabular-nums}
++.trk{height:11px;border-radius:6px;background:color-mix(in srgb,var(--text-secondary) 15%,transparent);overflow:hidden;display:flex}
++.trk i{display:block;height:100%;min-width:0;border-radius:0}
++.trk:not(.st) i{border-radius:6px}
++.scr{max-height:320px;overflow-y:auto;padding-right:6px}
++
++/* lists */
++.ls{list-style:none;margin:0;padding:0}
++.ls li{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
++.ls li:last-child{border-bottom:0}
++.ls a{color:var(--primary);font-weight:600;cursor:pointer;text-decoration:none}.ls a:hover{text-decoration:underline}
++.ls small{display:block;color:var(--text-secondary);font-size:12px;margin-top:1px}
++.act2{font-size:13px}
++.tag{flex:none;font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:999px;background:color-mix(in srgb,var(--text-secondary) 14%,transparent);color:var(--text-primary)}
++.tag.w{background:color-mix(in srgb,var(--status-pending) 18%,transparent);color:var(--status-pending)}
++.em{color:var(--text-secondary);margin:6px 0;font-size:13px}.more{color:var(--text-secondary);font-size:12px;margin:8px 0 0}
++.rm{display:grid;grid-template-columns:1fr 1fr;gap:10px}
++.rm div{border:1px solid var(--border);border-radius:8px;padding:10px 12px}
++.rm b{display:block;font-size:24px;font-weight:700;color:var(--primary);font-variant-numeric:tabular-nums}.rm span{font-size:12px;color:var(--text-secondary)}
++.sy{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
++.sy:last-child{border-bottom:0}.sy span{color:var(--text-secondary)}
++.sd{font-weight:600;display:inline-flex;align-items:center;gap:7px}
++.sd.ok::before,.sd.warn::before,.sd.bad::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
++.sd.ok{color:var(--status-approved)}.sd.warn{color:var(--status-pending)}.sd.bad{color:var(--status-overdue)}
++
++/* ---------- responsive ---------- */
++@media(max-width:1100px){main{padding:18px}}
++@media(max-width:760px){
++  :root{--hh:60px}
++  body>header{padding:8px 12px;gap:10px}
++  body>header b{font-size:13px}body>header small{display:none}
++  body>header .logo{width:38px;height:38px}
++  nav{position:fixed;top:var(--hh);bottom:0;left:-270px;width:260px;height:auto;z-index:25;transition:left .2s;box-shadow:4px 0 18px rgba(0,0,0,.3)}
++  nav.open{left:0}
++  body.nav-collapsed nav{width:260px}body.nav-collapsed nav a{justify-content:flex-start;padding:9px 10px}body.nav-collapsed nav a span{display:inline}
++  body.nav-collapsed .nh{font-size:10.5px;height:auto;margin:0;padding:0 10px 6px;background:none}
++  main{padding:14px 12px}.hpt{display:none}.hprof{padding:3px}
++  .kpis{grid-template-columns:repeat(2,1fr);gap:10px}
++  .card.kpi b.kv{font-size:26px}
++  .grid3,.two{grid-template-columns:1fr}
++}
++@media(max-width:420px){body>header b{font-size:12px}.kpis{gap:8px}.kd{display:none}}
++@media print{.hbtn,.hprof,#burger{display:none!important}}
+diff --git a/dashboard.html b/dashboard.html
+index 66ad8ad..9580991 100644
+--- a/dashboard.html
++++ b/dashboard.html
+@@ -4,9 +4,10 @@
+ <title>Dashboard – MTPFMS</title>
+ <script>try{var t=JSON.parse(localStorage.getItem("mtpfms-theme2")||"null");if(t){document.documentElement.dataset.theme=t.theme;document.documentElement.dataset.mode=t.mode=="dark"?"dark":"light"}}catch(e){}</script>
+ <link rel="stylesheet" href="css/themes.css">
+-<link rel="stylesheet" href="css/app.css">
++<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
++<link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/redesign.css">
+ </head><body>
+-<header><button id="burger" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
++<header><button id="burger" onclick="toggleNav()" aria-label="Toggle navigation" aria-controls="nav">☰</button>
+ <img class="logo" src="assets/logo.png" alt="Sangguniang Bayan ng Mogpog logo"><div><b>MOGPOG TODA/PODA FRANCHISE MANAGEMENT SYSTEM</b><small>Office of the Sangguniang Bayan · Municipality of Mogpog, Province of Marinduque</small></div>
+ <span class="sp"></span><span id="bk" style="display:flex;gap:8px;align-items:center"></span><label style="font-size:12px;display:none">Demo role: <select id="role" class="demo" onchange="setRole(this.value)">
+ <option value="super_admin">Super Administrator</option><option value="admin">Administrator</option><option value="viewer">Viewer</option></select></label></header>
+diff --git a/data-quality.html b/data-quality.html
+index 7e29589..aeb65db 100644
+--- a/data-quality.html
++++ b/data-quality.html
+@@ -4,9 +4,10 @@
+ <title>Data Quality – MTPFMS</title>
+ <script>try{var t=JSON.parse(localStorage.getItem("mtpfms-theme2")||"null");if(t){document.documentElement.dataset.theme=t.theme;document.documentElement.dataset.mode=t.mode=="dark"?"dark":"light"}}catch(e){}</script>
+ <link rel="stylesheet" href="css/themes.css">
+-<link rel="stylesheet" href="css/app.css">
++<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
++<link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/redesign.css">
+ </head><body>
+-<header><button id="burger" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
++<header><button id="burger" onclick="toggleNav()" aria-label="Toggle navigation" aria-controls="nav">☰</button>
+ <img class="logo" src="assets/logo.png" alt="Sangguniang Bayan ng Mogpog logo"><div><b>MOGPOG TODA/PODA FRANCHISE MANAGEMENT SYSTEM</b><small>Office of the Sangguniang Bayan · Municipality of Mogpog, Province of Marinduque</small></div>
+ <span class="sp"></span><span id="bk" style="display:flex;gap:8px;align-items:center"></span><label style="font-size:12px;display:none">Demo role: <select id="role" class="demo" onchange="setRole(this.value)">
+ <option value="super_admin">Super Administrator</option><option value="admin">Administrator</option><option value="viewer">Viewer</option></select></label></header>
+diff --git a/directory.html b/directory.html
+index 5ce88fd..a2699e1 100644
+--- a/directory.html
++++ b/directory.html
+@@ -4,9 +4,10 @@
+ <title>Public Directory – MTPFMS</title>
+ <script>try{var t=JSON.parse(localStorage.getItem("mtpfms-theme2")||"null");if(t){document.documentElement.dataset.theme=t.theme;document.documentElement.dataset.mode=t.mode=="dark"?"dark":"light"}}catch(e){}</script>
+ <link rel="stylesheet" href="css/themes.css">
+-<link rel="stylesheet" href="css/app.css">
++<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
++<link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/redesign.css">
+ </head><body>
+-<header><button id="burger" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
++<header><button id="burger" onclick="toggleNav()" aria-label="Toggle navigation" aria-controls="nav">☰</button>
+ <img class="logo" src="assets/logo.png" alt="Sangguniang Bayan ng Mogpog logo"><div><b>MOGPOG TODA/PODA FRANCHISE MANAGEMENT SYSTEM</b><small>Office of the Sangguniang Bayan · Municipality of Mogpog, Province of Marinduque</small></div>
+ <span class="sp"></span><span id="bk" style="display:flex;gap:8px;align-items:center"></span><label style="font-size:12px;display:none">Demo role: <select id="role" class="demo" onchange="setRole(this.value)">
+ <option value="super_admin">Super Administrator</option><option value="admin">Administrator</option><option value="viewer">Viewer</option></select></label></header>
+diff --git a/expiration.html b/expiration.html
+index 999a445..c58ef2d 100644
+--- a/expiration.html
++++ b/expiration.html
+@@ -4,9 +4,10 @@
+ <title>Expiration Monitoring – MTPFMS</title>
+ <script>try{var t=JSON.parse(localStorage.getItem("mtpfms-theme2")||"null");if(t){document.documentElement.dataset.theme=t.theme;document.documentElement.dataset.mode=t.mode=="dark"?"dark":"light"}}catch(e){}</script>
+ <link rel="stylesheet" href="css/themes.css">
+-<link rel="stylesheet" href="css/app.css">
++<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
++<link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/redesign.css">
+ </head><body>
+-<header><button id="burger" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
++<header><button id="burger" onclick="toggleNav()" aria-label="Toggle navigation" aria-controls="nav">☰</button>
+ <img class="logo" src="assets/logo.png" alt="Sangguniang Bayan ng Mogpog logo"><div><b>MOGPOG TODA/PODA FRANCHISE MANAGEMENT SYSTEM</b><small>Office of the Sangguniang Bayan · Municipality of Mogpog, Province of Marinduque</small></div>
+ <span class="sp"></span><span id="bk" style="display:flex;gap:8px;align-items:center"></span><label style="font-size:12px;display:none">Demo role: <select id="role" class="demo" onchange="setRole(this.value)">
+ <option value="super_admin">Super Administrator</option><option value="admin">Administrator</option><option value="viewer">Viewer</option></select></label></header>
+diff --git a/holders.html b/holders.html
+index 39b8892..04f5645 100644
+--- a/holders.html
++++ b/holders.html
+@@ -4,9 +4,10 @@
+ <title>Franchise Holders – MTPFMS</title>
+ <script>try{var t=JSON.parse(localStorage.getItem("mtpfms-theme2")||"null");if(t){document.documentElement.dataset.theme=t.theme;document.documentElement.dataset.mode=t.mode=="dark"?"dark":"light"}}catch(e){}</script>
+ <link rel="stylesheet" href="css/themes.css">
+-<link rel="stylesheet" href="css/app.css">
++<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
++<link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/redesign.css">
+ </head><body>
+-<header><button id="burger" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
++<header><button id="burger" onclick="toggleNav()" aria-label="Toggle navigation" aria-controls="nav">☰</button>
+ <img class="logo" src="assets/logo.png" alt="Sangguniang Bayan ng Mogpog logo"><div><b>MOGPOG TODA/PODA FRANCHISE MANAGEMENT SYSTEM</b><small>Office of the Sangguniang Bayan · Municipality of Mogpog, Province of Marinduque</small></div>
+ <span class="sp"></span><span id="bk" style="display:flex;gap:8px;align-items:center"></span><label style="font-size:12px;display:none">Demo role: <select id="role" class="demo" onchange="setRole(this.value)">
+ <option value="super_admin">Super Administrator</option><option value="admin">Administrator</option><option value="viewer">Viewer</option></select></label></header>
+diff --git a/js/app.js b/js/app.js
+index 1e56f57..d64aa82 100644
+--- a/js/app.js
++++ b/js/app.js
+@@ -60,19 +60,44 @@ function spa(e,v){if(e.ctrlKey||e.metaKey||e.shiftKey||e.altKey||e.button>0)retu
+ function goF(v,p){nav(v,p)}
+ function go(v){nav(v)}
+ window.addEventListener("popstate",function(){var f=location.pathname.split("/").pop(),k=Object.keys(PAGES).find(function(x){return PAGES[x]==f});if(!k||!MENU[role].includes(k))return;closeModal();view=k;flt=fresh(readQS());document.title=k+" – MTPFMS";draw()});
+-function draw(){document.getElementById("bk").innerHTML=`<button class="demo" onclick="openCust()">Customization</button>`;document.body.classList.toggle("vw",role=="viewer");document.body.classList.remove("pn");document.getElementById("nav").innerHTML=MENU[role].map(m=>`<a href="${PAGES[m]}" class="${m==view?"on":""}" onclick="return spa(event,'${m}')">${m}</a>`).join("")+`<a onclick="logout()">Logout</a>`;
++function draw(){document.getElementById("bk").innerHTML=hdrTools();document.body.classList.toggle("vw",role=="viewer");document.body.classList.remove("pn");document.getElementById("nav").innerHTML=window.mtNav(MENU[role],view,true);document.getElementById("nav").classList.remove("open");
+ const V={"Dashboard":dash,"TODA Holders":()=>reg("TODA"),"PODA Holders":()=>reg("PODA"),"Franchise Holders":()=>reg(null),"All Franchise":allfr,"Renewal Season":renew,"Reports":reports,"Data Quality":dq,"Vehicle Registry":vehicles,"Associations":assocs,"Expiration Monitoring":expiry,"Public Directory":pubdir,"Activity Logs":logs};
+ document.getElementById("main").innerHTML=(storeOK?"":`<div class="note">This browser is blocking storage, so new records will be lost when you close the page. Open the file directly in Chrome or Edge, or use Export backup after adding records.</div>`)+(V[view]?V[view]():`<h2>${view}</h2><div class="panel">Not built in this demo yet.</div>`)}
+ function bars(rows,cls){const mx=Math.max(1,...rows.map(r=>r[1]));return rows.map(r=>`<div class="bar"><span>${esc(r[0])}</span><i class="${cls||""}" style="width:${r[1]/mx*100}%"></i><b>${r[1]}</b></div>`).join("")}
+ let DC=[];function dcard(i){const x=DC[i];if(x)goF(x[2],x[3])}
+ function bkNote(){return `<div class="note">Records are saved in the online database and are shared across all devices.</div>`}
+-function dash(){const F=FR(),c=f=>F.filter(f).length,E=r=>eff(r);const w=n=>c(r=>E(r)=="Active"&&days(r)>=0&&days(r)<=n);
++const ROLEN={super_admin:"Super Administrator",admin:"Administrator",viewer:"Viewer"};
++const attnN=()=>FR().filter(r=>eff(r)!="Cancelled"&&days(r)<=30&&eff(r)!="Suspended"&&eff(r)!="Pending").length;
++function hdrTools(){const n=attnN(),nm=(window.AUTH&&(AUTH.name||(AUTH.user&&AUTH.user.email)))||ROLEN[role],ini=String(nm).trim().split(/\s+/).map(w=>w[0]).slice(0,2).join("").toUpperCase()||"U",can=MENU[role].includes("Expiration Monitoring");
++return `<button class="hbtn" ${can?`onclick="goF('Expiration Monitoring')"`:"disabled"} aria-label="Notifications: ${n} franchise${n==1?"":"s"} expired or expiring within 30 days" title="${n} expired or expiring within 30 days">${mtIcon("bell")}${n?`<span class="hbadge">${n>99?"99+":n}</span>`:""}</button><div class="hprof" title="${esc(nm)}"><span class="hav" aria-hidden="true">${esc(ini)}</span><span class="hpt"><b>${esc(nm)}</b><small>${ROLEN[role]||role}</small></span></div>`}
++function syncHtml(){const D_=window.DB,on=navigator.onLine!==false,ls=D_&&D_.liveStatus,bad=!!document.getElementById("dberr"),row=(l,v,t)=>`<div class="sy"><span>${l}</span><b class="sd ${t}">${v}</b></div>`;
++return row("Database",D_?(on?"Connected":"Offline"):"Unavailable",D_&&on?"ok":"bad")+row("Live updates",ls=="SUBSCRIBED"?"Live":!ls?"Connecting…":"Reconnecting…",ls=="SUBSCRIBED"?"ok":"warn")+row("Saving",bad?"Not saved":"All changes saved",bad?"bad":"ok")+row("Records loaded",data.length,"n")+row("Last loaded",D_&&D_.loadedAt?new Date(D_.loadedAt).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}):"—","n")}
++function drawSync(){const e=document.getElementById("syncbox");if(e)e.innerHTML=syncHtml()}
++if(!window._syncT){window._syncT=setInterval(drawSync,15000);addEventListener("online",drawSync);addEventListener("offline",drawSync)}
++const SCOL={Active:"var(--status-approved)",Expired:"var(--status-overdue)",Suspended:"var(--status-pending)",Cancelled:"var(--status-draft)",Pending:"var(--status-in-progress)"};
++function donut(rows,total){let off=25;const seg=rows.filter(r=>r[1]>0).map(r=>{const p=total?r[1]/total*100:0,s=`<circle cx="21" cy="21" r="15.915" fill="none" stroke="${SCOL[r[0]]||"var(--primary)"}" stroke-width="5.5" stroke-dasharray="${p} ${100-p}" stroke-dashoffset="${off}"><title>${esc(r[0])}: ${r[1]}</title></circle>`;off-=p;return s}).join("");
++return `<div class="dn"><svg viewBox="0 0 42 42" role="img" aria-label="Franchise status: ${rows.map(r=>r[0]+" "+r[1]).join(", ")}"><circle cx="21" cy="21" r="15.915" fill="none" stroke="var(--border)" stroke-width="5.5"/>${seg}<text x="21" y="21.5" text-anchor="middle" class="dnt">${total}</text><text x="21" y="26.5" text-anchor="middle" class="dns">franchises</text></svg><ul class="lg">${rows.map(r=>`<li><i style="background:${SCOL[r[0]]}"></i><span>${r[0]}</span><b>${r[1]}</b><small>${total?Math.round(r[1]/total*100):0}%</small></li>`).join("")}</ul></div>`}
++function hbars(rows,col){const mx=Math.max(1,...rows.map(r=>r[1]));return `<div class="hbs">${rows.map(r=>`<div class="hb"><span title="${esc(r[0])}">${esc(r[0])}</span><div class="trk"><i style="width:${r[1]/mx*100}%;background:${(r[2]||col)||"var(--primary)"}"></i></div><b>${r[1]}</b></div>`).join("")}</div>`}
++function stack(rows){const mx=Math.max(1,...rows.map(r=>r[1]+r[2]));return `<div class="hbs">${rows.map(r=>`<div class="hb"><span>${r[0]}</span><div class="trk st" role="img" aria-label="${r[0]}: TODA ${r[1]}, PODA ${r[2]}"><i style="width:${r[1]/mx*100}%;background:var(--primary)" title="TODA ${r[1]}"></i><i style="width:${r[2]/mx*100}%;background:var(--secondary)" title="PODA ${r[2]}"></i></div><b>${r[1]+r[2]}</b></div>`).join("")}</div><div class="lg inl"><span><i style="background:var(--primary)"></i>TODA</span><span><i style="background:var(--secondary)"></i>PODA</span></div>`}
++function dash(){const F=FR(),c=f=>F.filter(f).length,E=r=>eff(r);const w=n=>c(r=>E(r)==="Active"&&days(r)>=0&&days(r)<=n);
+ const by=k=>{const m={};D().forEach(r=>m[r[k]]=(m[r[k]]||0)+1);return Object.entries(m).sort((a,b)=>b[1]-a[1])};
+-const sc=ST.map(s=>[s,c(r=>E(r)==s)]),cy=+iso(0).slice(0,4);
+-return `<h2>Dashboard</h2>${isAdm()?`<div class="tools"><button class="btn" onclick="openForm()">+ Register</button></div>${bkNote()}`:""}<div class="cards">${(DC=[["Franchise holders",D().length,"Franchise Holders",{}],["TODA franchises",c(r=>r.cat=="TODA"),"TODA Holders",{}],["PODA franchises",c(r=>r.cat=="PODA"),"PODA Holders",{}],["Active",sc[0][1],"Franchise Holders",{st:"Active"}],["Expired",sc[1][1],"Franchise Holders",{st:"Expired"}],["Pending",sc[4][1],"Franchise Holders",{st:"Pending"}],["Expiring ≤30 days",w(30),"Franchise Holders",{exp:"30"}],["Expiring ≤60 days",w(60),"Franchise Holders",{exp:"60"}],["Expiring ≤90 days",w(90),"Franchise Holders",{exp:"90"}],["Due for renewal "+cy,dueList(cy).length,"Renewal Season",{}],["Vehicles",F.length],["Drivers",D().length-F.length,"Franchise Holders",{cl:"Driver"}],["TODA associations",A.TODA.length],["PODA associations",A.PODA.length]]).map((x,i)=>x[2]&&MENU[role].includes(x[2])?`<div class="card lk" role="button" tabindex="0" title="Open list" onclick="dcard(${i})" onkeydown="if(event.key=='Enter')dcard(${i})">${x[0]}<b>${x[1]}</b></div>`:`<div class="card">${x[0]}<b>${x[1]}</b></div>`).join("")}</div>
+-<div class="two"><div class="panel"><h3>TODA vs PODA (holders)</h3>${bars(by("cat"))}</div><div class="panel"><h3>Franchise status</h3>${bars(sc,"g")}</div>
+-<div class="panel"><h3>Expiration monitoring</h3>${bars([["Expired",c(r=>E(r)!="Cancelled"&&days(r)<0)],["Within 30 days",w(30)],["31–60 days",w(60)-w(30)],["61–90 days",w(90)-w(60)]],"g")}</div>
+-<div class="panel"><h3>Holders per association</h3>${bars(by("assoc"))}</div></div>`}
++const sc=ST.map(s=>[s,c(r=>E(r)==s)]),cy=+iso(0).slice(0,4),pct=n=>F.length?Math.round(n/F.length*100)+"% of franchises":"No franchises yet",can=v=>MENU[role].includes(v),due=dueList(cy);
++const K=(DC=[["Franchise holders",D().length,"Franchise Holders",{},"users","","Operators and drivers on file"],["TODA franchises",c(r=>r.cat=="TODA"),"TODA Holders",{},"bike","","Tricycle operators"],["PODA franchises",c(r=>r.cat=="PODA"),"PODA Holders",{},"bus","","Other PODA operators"],["Active",sc[0][1],"Franchise Holders",{st:"Active"},"check-circle","ok",pct(sc[0][1])],["Expired",sc[1][1],"Franchise Holders",{st:"Expired"},"x-circle","bad",pct(sc[1][1])],["Pending",sc[4][1],"Franchise Holders",{st:"Pending"},"hourglass","info",pct(sc[4][1])],["Expiring ≤30 days",w(30),"Franchise Holders",{exp:"30"},"clock","warn","Active franchises"],["Expiring ≤60 days",w(60),"Franchise Holders",{exp:"60"},"clock","warn","Active franchises"],["Expiring ≤90 days",w(90),"Franchise Holders",{exp:"90"},"clock","warn","Active franchises"],["Due for renewal "+cy,due.length,"Renewal Season",{},"refresh-cw","info","Through Dec 31, "+cy],["Vehicles",F.length,null,null,"bike","","Registered franchises"],["Drivers",D().length-F.length,"Franchise Holders",{cl:"Driver"},"user","","Assigned to operators"],["TODA associations",A.TODA.length,null,null,"building","","Registered"],["PODA associations",A.PODA.length,null,null,"building","","Registered"]]);
++const card=(x,i)=>{const b=`<span class="ki">${mtIcon(x[4])}</span><span class="kl">${x[0]}</span><b class="kv">${x[1]}</b><small class="kd">${esc(x[6])}</small>`;return x[2]&&can(x[2])?`<div class="card kpi lk ${x[5]}" role="button" tabindex="0" title="Open list" onclick="dcard(${i})" onkeydown="if(event.key=='Enter'||event.key==' '){event.preventDefault();dcard(${i})}">${b}</div>`:`<div class="card kpi ${x[5]}">${b}</div>`};
++const exs=F.filter(r=>E(r)=="Active"&&days(r)>=0&&days(r)<=90).sort((a,b)=>days(a)-days(b)),pend=F.filter(r=>E(r)=="Pending"),late=due.filter(r=>+r.exp.slice(0,4)<cy).length,left=Math.ceil((new Date(cy+"-12-31")-new Date(iso(0)))/864e5),sus=F.filter(r=>r.status=="Suspended"&&+(r.exp||"0").slice(0,4)<=cy).length;
++const sec=(t,ic,n,v,body,extra)=>`<section class="panel sec"><div class="sh"><h3>${mtIcon(ic)}${t}${n!=null?` <span class="cnt">${n}</span>`:""}</h3>${v&&can(v)?`<a class="va" href="${PAGES[v]}" onclick="return spa(event,'${v}')">View all</a>`:""}</div>${body}${extra||""}</section>`;
++const li=(r,r2)=>`<li><div><a onclick="prof(${r.id})" tabindex="0" onkeydown="if(event.key=='Enter')prof(${r.id})">${esc(r.name)}</a><small>${esc(r2)}</small></div></li>`;
++const exl=exs.slice(0,6).map(r=>`<li><div><a tabindex="0" onclick="prof(${r.id})" onkeydown="if(event.key=='Enter')prof(${r.id})">${esc(r.name)}</a><small>${esc(r.assoc)} · expires ${esc(r.exp)}</small></div><span class="tag ${days(r)<=30?"w":"n"}">${days(r)==0?"Today":days(r)+" day"+(days(r)==1?"":"s")}</span></li>`).join("");
++return `<div class="pghd"><div><h2>Dashboard</h2><p class="sub">${new Date().toLocaleDateString("en-PH",{weekday:"long",year:"numeric",month:"long",day:"numeric"})}</p></div>${isAdm()?`<div class="tools"><button class="btn" onclick="openForm()">${mtIcon("plus")} Register</button></div>`:""}</div>${isAdm()?bkNote():""}<div class="cards kpis">${K.map(card).join("")}</div>
++<div class="grid3"><section class="panel sec"><div class="sh"><h3>Franchise status</h3></div>${donut(sc,F.length)}</section>
++<section class="panel sec"><div class="sh"><h3>Status by franchise type</h3></div>${stack(ST.map(s=>[s,c(r=>r.cat=="TODA"&&E(r)==s),c(r=>r.cat=="PODA"&&E(r)==s)]))}</section>
++<section class="panel sec"><div class="sh"><h3>Expiration monitoring</h3></div>${hbars([["Expired",c(r=>E(r)!="Cancelled"&&days(r)<0),"var(--status-overdue)"],["Within 30 days",w(30),"var(--status-pending)"],["31–60 days",w(60)-w(30),"var(--secondary)"],["61–90 days",w(90)-w(60),"var(--status-in-progress)"]])}</section></div>
++<div class="two"><section class="panel sec"><div class="sh"><h3>TODA vs PODA (holders)</h3></div>${hbars(by("cat"))}</section><section class="panel sec"><div class="sh"><h3>Holders per association</h3></div><div class="scr">${hbars(by("assoc"))}</div></section></div>
++<div class="two">${sec("Upcoming Franchise Expirations","clock",exs.length,"Expiration Monitoring",exl?`<ul class="ls">${exl}</ul>`:`<p class="em">No active franchises expire within 90 days.</p>`,exs.length>6?`<p class="more">Showing the 6 soonest of ${exs.length}.</p>`:"")}
++${sec("Pending Applications","hourglass",pend.length,"Franchise Holders",pend.length?`<ul class="ls">${pend.slice(0,6).map(r=>li(r,[r.assoc,r.brgy].filter(Boolean).join(" · "))).join("")}</ul>`:`<p class="em">No pending applications.</p>`,pend.length>6?`<p class="more">Showing 6 of ${pend.length}.</p>`:"")}
++${can("Renewal Season")?sec("Renewal Monitoring","refresh-cw",null,"Renewal Season",`<div class="rm"><div><b>${due.length}</b><span>Due for ${cy}</span></div><div><b>${late}</b><span>Overdue from earlier years</span></div><div><b>${sus}</b><span>Suspended</span></div><div><b>${left}</b><span>Days left in ${cy}</span></div></div>`):""}
++${can("Activity Logs")?sec("Recent System Activities","activity",null,"Activity Logs",log.length?`<ul class="ls">${log.slice(0,6).map(l=>`<li><div><span class="act2">${esc(l[2])}</span><small>${esc(l[0])} · ${esc(ROLEN[l[1]]||l[1])}</small></div></li>`).join("")}</ul>`:`<p class="em">No activity yet.</p>`):""}
++<section class="panel sec"><div class="sh"><h3>${mtIcon("database")}Database &amp; Synchronization</h3></div><div id="syncbox">${syncHtml()}</div></section></div>`}
+ let flt=fresh(readQS());
+ const EXL={"30":"Expiring ≤30 days","60":"Expiring ≤60 days","90":"Expiring ≤90 days"};
+ const SK={name:r=>r.name,cls:r=>r.cls,cat:r=>r.cat,assoc:r=>r.assoc,brgy:r=>r.brgy,exp:r=>r.cls=="Driver"?"":r.exp,st:r=>r.cls=="Driver"?"":eff(r),addr:r=>r.addr||"",model:r=>r.model||"",plate:r=>r.plate||"",engine:r=>r.engine||"",chassis:r=>r.chassis||"",mtop:r=>r.mtop||"",or:r=>r.or||"",ordate:r=>r.ordate||"",phone:r=>r.phone||""};
+@@ -245,7 +270,7 @@ document.getElementById("modal").innerHTML=`<div class="modal"><div class="mb wi
+ <section><h3>Franchise Information</h3><dl class="kv">${K("Classification",r.cls)}${K("Type",r.cat)}${K("Association",V(r.assoc))}${dr?K("Operator",op?`<a onclick="prof(${op.id})">${esc(op.name)}</a>`:"—"):K("Date issued",V(r.issued))+K("Expires",V(r.exp))+K("Status",pill(eff(r)))+K("Amount",amountDisplay(r.amount))}</dl>${dr?`<p class="hint">A driver holds no franchise or vehicle of their own.</p>`:""}${dl.length?`<h4>Drivers</h4><ul>${dl.map(d=>`<li>↳ <a onclick="prof(${d.id})">${esc(d.name)}</a></li>`).join("")}</ul>`:""}${hs.length?`<h4>Renewal history</h4><ul class="hist">${hs.map(h=>`<li>${esc(h.at)}: ${esc(h.from)} → ${esc(h.to)}</li>`).join("")}</ul>`:""}</section>
+ ${dr?"":histSec(r)}
+ ${dr?"":`<section><h3>Vehicle Information</h3><dl class="kv">${K("Plate no.",V(r.plate))}${K("MTOP No.",V(r.mtop))}${K("OR No.",V(r.or))}${K("OR date issued",V(r.ordate))}${K("Vehicle type",V(r.vtype))}${K("Make and model",V(r.model))}${K("Color",V(r.color))}${K("Engine No.",V(r.engine))}${ad?K("Chassis No.",V(r.chassis)):K("Chassis No.","<i>Restricted</i>")}</dl></section>`}
+-</div>${dr?`<div class="pi"><div class="idc"><div class="h">MUNICIPALITY OF MOGPOG · FRANCHISE HOLDER ID</div><div class="b">${r.photo?`<img class="ph" src="${r.photo}">`:`<div class="ph">No photo</div>`}<dl><dt>Name:</dt><dd>${esc(r.name)}</dd><dt>Classification / Type:</dt><dd>${r.cls} · ${r.cat}</dd><dt>Association:</dt><dd>${esc(r.assoc)}</dd>${dr&&op?`<dt>Operator:</dt><dd>${esc(op.name)}</dd>`:""}<dt>Expires:</dt><dd>${dr?"—":r.exp}</dd></dl></div>
++</div>${dr?`<div class="pi"><div class="idc"><div class="h">MUNICIPALITY OF MOGPOG · FRANCHISE HOLDER ID</div><div class="b">${r.photo?`<img class="pghd" src="${r.photo}">`:`<div class="ph">No photo</div>`}<dl><dt>Name:</dt><dd>${esc(r.name)}</dd><dt>Classification / Type:</dt><dd>${r.cls} · ${r.cat}</dd><dt>Association:</dt><dd>${esc(r.assoc)}</dd>${dr&&op?`<dt>Operator:</dt><dd>${esc(op.name)}</dd>`:""}<dt>Expires:</dt><dd>${dr?"—":r.exp}</dd></dl></div>
+ <div class="vf">Verify: /verify/${r.ref} (QR image not generated in this demo)</div></div>
+ ${ad?`<div class="noprint upl"><input type="file" accept="image/*" onchange="photo(${r.id},this)"><div>Upload photo (stays in this page only)</div></div>`:""}</div>`:""}</div>${dr?"":`<section class="permit-wrap"><h3>Motorized Tricycle Operator’s Permit</h3><div class="permit-sheet">${permitCard(r,ad)}<div class="permit-copy2">${permitCard(r,ad)}</div></div></section>${ad?`<div class="noprint upl"><input type="file" accept="image/*" onchange="photo(${r.id},this)"><div>Upload photo (stays in this page only)</div></div>`:""}`}</div></div>`;permitFit();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(permitFit)}
+ function doRenew(id){const r=data.find(x=>x.id==id);if(!r||!isAdm())return;if(r.status=="Suspended"||r.status=="Cancelled")return toast("Set the status to Active first (Edit), then renew.");
+@@ -271,7 +296,7 @@ function openForm(id){editId=id||null;const ed=editId?data.find(x=>x.id==editId)
+ <label class="drv" hidden>Assigned operator*<select name="asg" id="asg" required disabled onchange="asgA()"><option value="">Select operator</option></select></label>
+ <label class="opr">Date of issuance<input type="date" name="issued"></label><label class="opr">Status<select name="status" onchange="stChg()">${ST.map(s=>`<option>${s}</option>`).join("")}</select></label><label class="opr">Amount (₱)<input type="number" name="amount" min="0" max="9999999999.99" step="0.01" inputmode="decimal" placeholder="0.00"></label></div><p class="hint opr">Expiration is always December 31 (of the issuance year, or this year if none is entered). To extend a franchise, use Renew on the holder's page.</p><div id="sc" class="note" hidden><b>Status change</b> <span id="sreq"></span><div class="f" style="margin-top:6px"><label>Date<input type="date" name="sdate" disabled></label><label>Decided by<input name="sby" placeholder="Name, office or resolution no." disabled></label><label>Reason<input name="sreason" disabled></label></div></div></fieldset>
+ <fieldset class="opr"><legend>C. Vehicle Information</legend><div class="f"><label>Plate number<input name="plate"></label><label>MTOP No.*<input name="mtop" required></label><label>OR No.<input name="or"></label><label>OR date issued<input type="date" name="ordate"></label><label>Vehicle type<select name="vtype">${VT.map(v=>`<option>${v}</option>`).join("")}</select></label><label>Make and model<input name="model"></label><label>Color<input name="color"></label><label>Chassis number (restricted)<input name="chassis"></label><label>Engine number<input name="engine"></label></div></fieldset>
+-<fieldset><legend>D. Photo Identification (Camera)</legend><div class="f" style="grid-template-columns:200px 1fr;align-items:start"><div><div id="cph" class="ph" style="width:200px;height:250px">No photo yet</div><video id="cv" autoplay playsinline muted hidden style="width:200px;height:250px;object-fit:cover;transform:scaleX(-1);border:2px solid var(--secondary);background:#333"></video><img id="ci" alt="Captured holder photo" hidden style="width:200px;height:250px;object-fit:cover;border:2px solid var(--secondary)"></div>
++<fieldset><legend>D. Photo Identification (Camera)</legend><div class="f" style="grid-template-columns:200px 1fr;align-items:start"><div><div id="cph" class="pghd" style="width:200px;height:250px">No photo yet</div><video id="cv" autoplay playsinline muted hidden style="width:200px;height:250px;object-fit:cover;transform:scaleX(-1);border:2px solid var(--secondary);background:#333"></video><img id="ci" alt="Captured holder photo" hidden style="width:200px;height:250px;object-fit:cover;border:2px solid var(--secondary)"></div>
+ <div><button type="button" class="btn" id="cgo" onclick="camStart()">Start camera</button> <button type="button" class="btn" id="csn" hidden onclick="camSnap()">Capture photo</button> <label class="btn alt" style="display:inline-block;cursor:pointer">Upload instead<input type="file" accept="image/*" capture="user" hidden onchange="camFile(this)"></label> <button type="button" class="btn alt" id="crm" hidden onclick="camClear()">Remove photo</button>
+ <p id="cmsg" class="note" role="status" style="margin-top:8px">Optional. Capture a clear, front-facing photo of the holder or driver for identification. It appears on the holder ID card.</p></div></div></fieldset>
+ <div id="msg" class="err" role="alert"></div><button class="btn">${ed?"Save changes":"Save franchise holder"}</button> <button type="button" class="btn alt" onclick="closeModal()">Cancel</button></form></div></div>`;fillA();if(ed)fillForm(ed)}
+diff --git a/js/auth.js b/js/auth.js
+index 0e656fe..3f0504d 100644
+--- a/js/auth.js
++++ b/js/auth.js
+@@ -27,6 +27,68 @@
+     viewer: ["Dashboard", "Franchise Holders", "Expiration Monitoring"]
+   };
+ 
++
++  /* ---------- shared navigation (grouped, Lucide icons). app.js reuses window.mtNav. ---------- */
++  var IC = {
++    "layout-dashboard": '<rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/>',
++    "bike": '<circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/>',
++    "bus": '<path d="M8 6v6"/><path d="M15 6v6"/><path d="M2 12h19.6"/><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"/><circle cx="7" cy="18" r="2"/><path d="M9 18h5"/><circle cx="16" cy="18" r="2"/>',
++    "id-card": '<path d="M16 10h2"/><path d="M16 14h2"/><path d="M6.17 15a3 3 0 0 1 5.66 0"/><circle cx="9" cy="11" r="2"/><rect x="2" y="5" width="20" height="14" rx="2"/>',
++    "layers": '<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>',
++    "clock": '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
++    "refresh-cw": '<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>',
++    "bar-chart": '<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',
++    "shield-check": '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>',
++    "globe": '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
++    "activity": '<path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/>',
++    "palette": '<circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>',
++    "log-out": '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/>',
++    "bell": '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
++    "menu": '<line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>',
++    "user": '<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
++    "users": '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
++    "check-circle": '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/>',
++    "x-circle": '<circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/>',
++    "hourglass": '<path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/>',
++    "building": '<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/>',
++    "database": '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/>',
++    "plus": '<path d="M5 12h14"/><path d="M12 5v14"/>',
++    "chevron-down": '<path d="m6 9 6 6 6-6"/>'
++  };
++  window.mtIcon = function (n) { return '<svg class="ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + (IC[n] || "") + "</svg>"; };
++  var GROUPS = [
++    ["Overview", [["Dashboard", "layout-dashboard"]]],
++    ["Registry", [["TODA Holders", "bike"], ["PODA Holders", "bus"], ["Franchise Holders", "id-card"], ["All Franchise", "layers"]]],
++    ["Monitoring", [["Expiration Monitoring", "clock"], ["Renewal Season", "refresh-cw"], ["Reports", "bar-chart"]]],
++    ["Administration", [["Data Quality", "shield-check"], ["Public Directory", "globe"], ["Activity Logs", "activity"]]]
++  ];
++  /* items = the role's MENU; spa = true once app.js can navigate without reloading */
++  window.mtNav = function (items, active, spa) {
++    var h = "";
++    GROUPS.forEach(function (g) {
++      var rows = g[1].filter(function (m) { return items.indexOf(m[0]) >= 0; });
++      if (!rows.length) return;
++      h += '<div class="ng" role="group" aria-label="' + g[0] + '"><div class="nh">' + g[0] + "</div>";
++      rows.forEach(function (m) {
++        var on = m[0] === active;
++        h += '<a href="' + PAGES[m[0]] + '" title="' + m[0] + '"' + (on ? ' class="on" aria-current="page"' : "") + (spa ? " onclick=\"return spa(event,'" + m[0] + "')\"" : "") + ">" + window.mtIcon(m[1]) + "<span>" + m[0] + "</span></a>";
++      });
++      h += "</div>";
++    });
++    h += '<div class="ng" role="group" aria-label="System"><div class="nh">System</div>' +
++      '<a role="button" tabindex="0" title="Customization" onclick="window.openCust&&openCust()" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();window.openCust&&openCust()}">' + window.mtIcon("palette") + "<span>Customization</span></a>" +
++      '<a role="button" tabindex="0" title="Logout" onclick="logout()" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();logout()}">' + window.mtIcon("log-out") + "<span>Logout</span></a></div>";
++    return h;
++  };
++  window.toggleNav = function () {
++    var nav = document.getElementById("nav");
++    if (window.innerWidth > 760) {
++      var c = document.body.classList.toggle("nav-collapsed");
++      try { localStorage.setItem("mtpfms-nav", c ? "1" : "0"); } catch (e) {}
++    } else if (nav) nav.classList.toggle("open");
++  };
++  try { if (localStorage.getItem("mtpfms-nav") === "1") document.body.classList.add("nav-collapsed"); } catch (e) {}
++
+   function shell() {
+     var nav = document.getElementById("nav"), main = document.getElementById("main");
+     if (!nav || !main) return;
+@@ -44,8 +106,7 @@
+     try { cached = localStorage.getItem("mtpfms-role"); } catch (e) {}
+     var items = MENU[cached], h = "";
+     if (items) {
+-      items.forEach(function (m) { h += '<a href="' + PAGES[m] + '"' + (m === window.PAGE ? ' class="on"' : "") + ">" + m + "</a>"; });
+-      h += '<a onclick="logout()">Logout</a>';
++      h = window.mtNav(items, window.PAGE, false);
+     } else {
+       for (var i = 0; i < 7; i++) h += '<div class="mt-sk" style="height:16px;margin:14px 18px;width:' + (60 + (i * 13) % 30) + '%"></div>';
+     }
+diff --git a/js/db.js b/js/db.js
+index a63b961..65c316f 100644
+--- a/js/db.js
++++ b/js/db.js
+@@ -340,10 +340,12 @@
+     ch.subscribe(function (status) {
+       if (status === "SUBSCRIBED") { if (downFlag) { downFlag = false; refresh(true); } }   // missed events while offline -> reload once
+       else if (status === "CHANNEL_ERROR" || status === "TIMED_OUT" || status === "CLOSED") downFlag = true;
++      window.DB.liveStatus = status; if (typeof drawSync === "function") drawSync();
+     });
+   }
+ 
+   window.DB = {
++    get loadedAt() { return loadedAt; },
+     load: load,
+     refresh: refresh,
+     live: live,
+diff --git a/poda.html b/poda.html
+index fc2374c..a0ba85d 100644
+--- a/poda.html
++++ b/poda.html
+@@ -4,9 +4,10 @@
+ <title>PODA Holders – MTPFMS</title>
+ <script>try{var t=JSON.parse(localStorage.getItem("mtpfms-theme2")||"null");if(t){document.documentElement.dataset.theme=t.theme;document.documentElement.dataset.mode=t.mode=="dark"?"dark":"light"}}catch(e){}</script>
+ <link rel="stylesheet" href="css/themes.css">
+-<link rel="stylesheet" href="css/app.css">
++<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
++<link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/redesign.css">
+ </head><body>
+-<header><button id="burger" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
++<header><button id="burger" onclick="toggleNav()" aria-label="Toggle navigation" aria-controls="nav">☰</button>
+ <img class="logo" src="assets/logo.png" alt="Sangguniang Bayan ng Mogpog logo"><div><b>MOGPOG TODA/PODA FRANCHISE MANAGEMENT SYSTEM</b><small>Office of the Sangguniang Bayan · Municipality of Mogpog, Province of Marinduque</small></div>
+ <span class="sp"></span><span id="bk" style="display:flex;gap:8px;align-items:center"></span><label style="font-size:12px;display:none">Demo role: <select id="role" class="demo" onchange="setRole(this.value)">
+ <option value="super_admin">Super Administrator</option><option value="admin">Administrator</option><option value="viewer">Viewer</option></select></label></header>
+diff --git a/renewal.html b/renewal.html
+index 235b4f3..b4f1547 100644
+--- a/renewal.html
++++ b/renewal.html
+@@ -4,9 +4,10 @@
+ <title>Renewal Season – MTPFMS</title>
+ <script>try{var t=JSON.parse(localStorage.getItem("mtpfms-theme2")||"null");if(t){document.documentElement.dataset.theme=t.theme;document.documentElement.dataset.mode=t.mode=="dark"?"dark":"light"}}catch(e){}</script>
+ <link rel="stylesheet" href="css/themes.css">
+-<link rel="stylesheet" href="css/app.css">
++<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
++<link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/redesign.css">
+ </head><body>
+-<header><button id="burger" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
++<header><button id="burger" onclick="toggleNav()" aria-label="Toggle navigation" aria-controls="nav">☰</button>
+ <img class="logo" src="assets/logo.png" alt="Sangguniang Bayan ng Mogpog logo"><div><b>MOGPOG TODA/PODA FRANCHISE MANAGEMENT SYSTEM</b><small>Office of the Sangguniang Bayan · Municipality of Mogpog, Province of Marinduque</small></div>
+ <span class="sp"></span><span id="bk" style="display:flex;gap:8px;align-items:center"></span><label style="font-size:12px;display:none">Demo role: <select id="role" class="demo" onchange="setRole(this.value)">
+ <option value="super_admin">Super Administrator</option><option value="admin">Administrator</option><option value="viewer">Viewer</option></select></label></header>
+diff --git a/reports.html b/reports.html
+index a33d365..7fa79d6 100644
+--- a/reports.html
++++ b/reports.html
+@@ -4,9 +4,10 @@
+ <title>Reports – MTPFMS</title>
+ <script>try{var t=JSON.parse(localStorage.getItem("mtpfms-theme2")||"null");if(t){document.documentElement.dataset.theme=t.theme;document.documentElement.dataset.mode=t.mode=="dark"?"dark":"light"}}catch(e){}</script>
+ <link rel="stylesheet" href="css/themes.css">
+-<link rel="stylesheet" href="css/app.css">
++<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
++<link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/redesign.css">
+ </head><body>
+-<header><button id="burger" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
++<header><button id="burger" onclick="toggleNav()" aria-label="Toggle navigation" aria-controls="nav">☰</button>
+ <img class="logo" src="assets/logo.png" alt="Sangguniang Bayan ng Mogpog logo"><div><b>MOGPOG TODA/PODA FRANCHISE MANAGEMENT SYSTEM</b><small>Office of the Sangguniang Bayan · Municipality of Mogpog, Province of Marinduque</small></div>
+ <span class="sp"></span><span id="bk" style="display:flex;gap:8px;align-items:center"></span><label style="font-size:12px;display:none">Demo role: <select id="role" class="demo" onchange="setRole(this.value)">
+ <option value="super_admin">Super Administrator</option><option value="admin">Administrator</option><option value="viewer">Viewer</option></select></label></header>
+diff --git a/toda.html b/toda.html
+index 016571d..2ab71bf 100644
+--- a/toda.html
++++ b/toda.html
+@@ -4,9 +4,10 @@
+ <title>TODA Holders – MTPFMS</title>
+ <script>try{var t=JSON.parse(localStorage.getItem("mtpfms-theme2")||"null");if(t){document.documentElement.dataset.theme=t.theme;document.documentElement.dataset.mode=t.mode=="dark"?"dark":"light"}}catch(e){}</script>
+ <link rel="stylesheet" href="css/themes.css">
+-<link rel="stylesheet" href="css/app.css">
++<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
++<link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/redesign.css">
+ </head><body>
+-<header><button id="burger" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
++<header><button id="burger" onclick="toggleNav()" aria-label="Toggle navigation" aria-controls="nav">☰</button>
+ <img class="logo" src="assets/logo.png" alt="Sangguniang Bayan ng Mogpog logo"><div><b>MOGPOG TODA/PODA FRANCHISE MANAGEMENT SYSTEM</b><small>Office of the Sangguniang Bayan · Municipality of Mogpog, Province of Marinduque</small></div>
+ <span class="sp"></span><span id="bk" style="display:flex;gap:8px;align-items:center"></span><label style="font-size:12px;display:none">Demo role: <select id="role" class="demo" onchange="setRole(this.value)">
+ <option value="super_admin">Super Administrator</option><option value="admin">Administrator</option><option value="viewer">Viewer</option></select></label></header>

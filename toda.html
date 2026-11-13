@@ -4,9 +4,10 @@
 <title>TODA Holders – MTPFMS</title>
 <script>try{var t=JSON.parse(localStorage.getItem("mtpfms-theme2")||"null");if(t){document.documentElement.dataset.theme=t.theme;document.documentElement.dataset.mode=t.mode=="dark"?"dark":"light"}}catch(e){}</script>
 <link rel="stylesheet" href="css/themes.css">
-<link rel="stylesheet" href="css/app.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/redesign.css">
 </head><body>
-<header><button id="burger" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
+<header><button id="burger" onclick="toggleNav()" aria-label="Toggle navigation" aria-controls="nav">☰</button>
 <img class="logo" src="assets/logo.png" alt="Sangguniang Bayan ng Mogpog logo"><div><b>MOGPOG TODA/PODA FRANCHISE MANAGEMENT SYSTEM</b><small>Office of the Sangguniang Bayan · Municipality of Mogpog, Province of Marinduque</small></div>
 <span class="sp"></span><span id="bk" style="display:flex;gap:8px;align-items:center"></span><label style="font-size:12px;display:none">Demo role: <select id="role" class="demo" onchange="setRole(this.value)">
 <option value="super_admin">Super Administrator</option><option value="admin">Administrator</option><option value="viewer">Viewer</option></select></label></header>
