@@ -120,3 +120,14 @@ body>header .logo{width:63px;height:63px;border-width:3px}
 /* Smooth Light/Dark and theme switching */
 body,header,nav,.modal .mb,.tw,th,td,input,select,.btn,.thm,.hc{transition:background-color .25s,color .25s,border-color .25s}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.thm:hover{transform:none}}
+
+/* Expiration Monitoring: severity colors (fixed, readable in every theme) */
+.sev-x4{--sc:#6D1212;--sct:#fff}.sev-x3{--sc:#C62828;--sct:#fff}.sev-x2{--sc:#E65100;--sct:#fff}.sev-x1{--sc:#F59E0B;--sct:#1f1f1f}
+.sev-w1{--sc:#FACC15;--sct:#1f1f1f}.sev-w2{--sc:#326FA8;--sct:#fff}.sev-w3{--sc:#23834A;--sct:#fff}
+.xchip{display:inline-block;padding:2px 10px;border-radius:10px;font-size:12px;font-weight:600;white-space:nowrap;background:var(--sc);color:var(--sct,#fff);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.xleg{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.panel.sev{border-left:6px solid var(--sc);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.xr{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:7px 6px;border-top:1px solid var(--border)}
+.xr:hover{background:color-mix(in srgb,var(--sc) 10%,var(--surface))}
+.xr a{cursor:pointer;font-weight:600;text-decoration:underline;min-width:200px}
+.xr .xs{flex:1;font-size:13px;opacity:.8}.xr .xd{font-size:13px}
