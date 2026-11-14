@@ -340,10 +340,12 @@
     ch.subscribe(function (status) {
       if (status === "SUBSCRIBED") { if (downFlag) { downFlag = false; refresh(true); } }   // missed events while offline -> reload once
       else if (status === "CHANNEL_ERROR" || status === "TIMED_OUT" || status === "CLOSED") downFlag = true;
+      window.DB.liveStatus = status; if (typeof drawSync === "function") drawSync();
     });
   }
 
   window.DB = {
+    get loadedAt() { return loadedAt; },
     load: load,
     refresh: refresh,
     live: live,
