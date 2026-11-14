@@ -37,7 +37,7 @@
     return {
       classification: r.cls, operator_id: drv ? r.asg : null, name: r.name, address: r.addr,
       barangay: r.brgy, phone: r.phone || "", category: r.cat, association_id: a,
-      mtop_no: drv ? null : (r.mtop || null), or_no: r.or || null, or_date: r.ordate || null, lto_or_issued: r.ltoor || null,
+      mtop_no: drv ? null : (r.mtop || null), or_no: r.or || null, or_date: r.ordate || null, lto_or_issued: r.ltoor || null, mtop_year: drv ? null : (r.myear || null),
       issued_on: r.issued || null, expires_on: drv ? null : (r.exp || null),
       status: drv ? null : (r.status || null), plate_no: r.plate || null,
       vehicle_type: r.vtype || null, vehicle_model: r.model || null, color: r.color || null, permit_amount: drv ? null : ((r.amount === "" || r.amount == null) ? null : Number(r.amount)), engine_no: r.engine || null,
@@ -48,7 +48,7 @@
     return {
       id: h.id, cls: h.classification, asg: h.operator_id, name: h.name, addr: h.address, brgy: h.barangay,
       phone: h.phone || "", cat: h.category, assoc: ASSOC.byId[h.association_id], mtop: h.mtop_no || "",
-      or: h.or_no || "", ordate: h.or_date || "", ltoor: h.lto_or_issued || "", issued: h.issued_on || "", exp: h.expires_on || "",
+      or: h.or_no || "", ordate: h.or_date || "", ltoor: h.lto_or_issued || "", myear: h.mtop_year || null, issued: h.issued_on || "", exp: h.expires_on || "",
       status: h.status || "", plate: h.plate_no || "", vtype: h.vehicle_type || "", model: h.vehicle_model || "",
       color: h.color || "", amount: h.permit_amount == null ? "" : String(h.permit_amount), chassis: "", engine: h.engine_no || "", pub: !!h.is_public, photo: null, arch: h.archived_on || null,
       hist: [], sh: [], tr: [], _db: true, _pp: h.photo_path || null, _ph: null
@@ -86,7 +86,8 @@
       all("holder_renewals", "*", "id", false),
       all("holder_status_history", "*", "id", false),
       all("holder_transfers", "*", "id", false),
-      sb.from("activity_log").select("*").order("id", { ascending: false }).limit(500)   // super_admin only
+      sb.from("activity_log").select("*").order("id", { ascending: false }).limit(500),   // super_admin only
+      all("pre_registrations", "*", "id", false).catch(function () { return []; })   // admin: own rows, super_admin: all (empty until 0007 is run)
     ]);
     R[0].forEach(function (a) { ASSOC.byName[a.name] = a.id; ASSOC.byId[a.id] = a.name; });
 
@@ -113,6 +114,7 @@
     await Promise.all(jobs);
 
     data.forEach(function (r) { SNAP.set(r.id, JSON.stringify(rowOf(r))); });
+    window.PRE = R[7] || [];
     window.DB_SEED = { data: data, log: log };
   }
 
@@ -256,7 +258,7 @@
 
   /* ---------- live updates (Supabase Realtime) ---------- */
   var busy = false, pend = [], drawT = null, downFlag = false, lastNote = 0;
-  var FIELDS = ["cls","asg","name","addr","brgy","phone","cat","assoc","mtop","or","ordate","ltoor","issued","exp","status","plate","vtype","model","color","engine","amount","pub","arch"];
+  var FIELDS = ["cls","asg","name","addr","brgy","phone","cat","assoc","mtop","or","ordate","ltoor","myear","issued","exp","status","plate","vtype","model","color","engine","amount","pub","arch"];
 
   function find(id) { for (var i = 0; i < data.length; i++) if (data[i].id === id) return data[i]; return null; }
   function signPhoto(r) {
@@ -276,6 +278,16 @@
   // returns true when the in-memory data changed
   function apply(t, p, fromQueue) {
     var n = p.new, o = p.old, h, v;
+    if (t === "pre_registrations") {
+      var P = window.PRE || (window.PRE = []), k = P.findIndex(function (x) { return x.id === n.id; });
+      if (p.eventType === "DELETE") return false;
+      if (k < 0) {
+        P.unshift(n);
+        if (role === "super_admin" && p.eventType === "INSERT" && typeof toast === "function") { toast("New pre-registration: " + n.name + " (MTOP " + n.mtop_no + ")"); lastNote = Date.now(); }
+      } else Object.assign(P[k], n);
+      var bk = document.getElementById("bk"); if (bk && typeof hdrTools === "function") bk.innerHTML = hdrTools();
+      return view === "Pre-Registration";                 // redraw only while that page is open
+    }
     if (t === "holders") {
       if (p.eventType === "DELETE") {
         var i = data.findIndex(function (x) { return x.id === o.id; });
@@ -334,7 +346,7 @@
   function live() {
     if (!sb.channel) return;
     var ch = sb.channel("mtpfms-live");
-    ["holders", "holder_chassis", "holder_renewals", "holder_status_history", "holder_transfers", "activity_log"].forEach(function (t) {
+    ["holders", "holder_chassis", "holder_renewals", "holder_status_history", "holder_transfers", "activity_log", "pre_registrations"].forEach(function (t) {
       ch.on("postgres_changes", { event: "*", schema: "public", table: t }, function (p) { onChange(t, p); });
     });
     ch.subscribe(function (status) {
@@ -348,6 +360,24 @@
     get loadedAt() { return loadedAt; },
     load: load,
     refresh: refresh,
+    preAdd: async function (name) {
+      var r = await sb.rpc("create_pre_registration", { p_name: name });
+      if (r.error) throw new Error(friendly(r.error));
+      var P = window.PRE || (window.PRE = []);
+      if (!P.some(function (x) { return x.id === r.data.id; })) P.unshift(r.data);
+      return r.data;
+    },
+    preSeen: async function (ids) {
+      var r = await sb.from("pre_registrations").update({ status: "seen", seen_at: new Date().toISOString() }).in("id", ids).eq("status", "new");
+      if (r.error) { console.error("pre seen", r.error); return; }
+      (window.PRE || []).forEach(function (x) { if (ids.indexOf(x.id) >= 0 && x.status === "new") x.status = "seen"; });
+      var bk = document.getElementById("bk"); if (bk && typeof hdrTools === "function") bk.innerHTML = hdrTools();
+    },
+    preDiscard: async function (id) {
+      var r = await sb.from("pre_registrations").update({ status: "cancelled" }).eq("id", id);
+      if (r.error) throw new Error(friendly(r.error));
+      (window.PRE || []).forEach(function (x) { if (x.id === id) x.status = "cancelled"; });
+    },
     live: live,
     _apply: apply,
     flush: function () {

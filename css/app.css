@@ -133,3 +133,9 @@ body,header,nav,.modal .mb,.tw,th,td,input,select,.btn,.thm,.hc{transition:backg
 .xr .xs{flex:1;font-size:13px;opacity:.8}.xr .xd{font-size:13px}
 .xc{border-top:5px solid var(--sc);-webkit-print-color-adjust:exact;print-color-adjust:exact;break-inside:avoid}
 .xc .hcf{justify-content:flex-start}.xc .xchip{font-size:13px;padding:3px 12px}
+
+/* Pre-Registration */
+.prf{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+.prf label{display:flex;flex-direction:column;gap:4px;font-size:13px}
+.prf input{min-width:260px}
+.pill.New{background:var(--status-pending)}

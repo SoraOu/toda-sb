@@ -20,10 +20,10 @@
 
   /* ---------- loading shell (cosmetic only; real access is enforced by the database) ---------- */
   // Keep in step with PAGES and MENU in app.js.
-  var PAGES = { "Dashboard": "dashboard.html", "Franchise Holders": "holders.html", "TODA Holders": "toda.html", "PODA Holders": "poda.html", "All Franchise": "all-franchise.html", "Expiration Monitoring": "expiration.html", "Renewal Season": "renewal.html", "Reports": "reports.html", "Data Quality": "data-quality.html", "Public Directory": "directory.html", "Activity Logs": "activity.html" };
+  var PAGES = { "Dashboard": "dashboard.html", "Franchise Holders": "holders.html", "TODA Holders": "toda.html", "PODA Holders": "poda.html", "All Franchise": "all-franchise.html", "Expiration Monitoring": "expiration.html", "Renewal Season": "renewal.html", "Reports": "reports.html", "Data Quality": "data-quality.html", "Public Directory": "directory.html", "Activity Logs": "activity.html", "Pre-Registration": "pre-registration.html" };
   var MENU = {
-    super_admin: ["Dashboard", "TODA Holders", "PODA Holders", "Franchise Holders", "All Franchise", "Expiration Monitoring", "Renewal Season", "Reports", "Data Quality", "Public Directory", "Activity Logs"],
-    admin: ["Dashboard", "TODA Holders", "PODA Holders", "Franchise Holders", "Expiration Monitoring", "Renewal Season", "Reports", "Data Quality", "Public Directory"],
+    super_admin: ["Dashboard", "TODA Holders", "PODA Holders", "Franchise Holders", "All Franchise", "Pre-Registration", "Expiration Monitoring", "Renewal Season", "Reports", "Data Quality", "Public Directory", "Activity Logs"],
+    admin: ["Dashboard", "Franchise Holders", "Pre-Registration"],
     viewer: ["Dashboard", "Franchise Holders", "Expiration Monitoring"]
   };
 
@@ -52,13 +52,14 @@
     "hourglass": '<path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/>',
     "building": '<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/>',
     "database": '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/>',
+    "user-plus": '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/>',
     "plus": '<path d="M5 12h14"/><path d="M12 5v14"/>',
     "chevron-down": '<path d="m6 9 6 6 6-6"/>'
   };
   window.mtIcon = function (n) { return '<svg class="ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + (IC[n] || "") + "</svg>"; };
   var GROUPS = [
     ["Overview", [["Dashboard", "layout-dashboard"]]],
-    ["Registry", [["TODA Holders", "bike"], ["PODA Holders", "bus"], ["Franchise Holders", "id-card"], ["All Franchise", "layers"]]],
+    ["Registry", [["TODA Holders", "bike"], ["PODA Holders", "bus"], ["Franchise Holders", "id-card"], ["All Franchise", "layers"], ["Pre-Registration", "user-plus"]]],
     ["Monitoring", [["Expiration Monitoring", "clock"], ["Renewal Season", "refresh-cw"], ["Reports", "bar-chart"]]],
     ["Administration", [["Data Quality", "shield-check"], ["Public Directory", "globe"], ["Activity Logs", "activity"]]]
   ];
