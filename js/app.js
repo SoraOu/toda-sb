@@ -125,7 +125,7 @@ return `<h2>${cat?cat+" Franchise Holders":"Franchise Holders"}</h2><div class="
 <select onchange="flt.st=this.value;draw()"><option value="">All statuses</option>${op(ST,flt.st)}</select>
 <select onchange="flt.exp=this.value;draw()"><option value="">Any expiry</option>${Object.entries(EXL).map(([k,v])=>`<option value="${k}" ${k==flt.exp?"selected":""}>${v}</option>`).join("")}</select>
 <select onchange="flt.br=this.value;draw()"><option value="">All barangays</option>${op(BR,flt.br)}</select>
-${role=="super_admin"?`<label class="chk"><input type="checkbox" ${flt.arch?"checked":""} onchange="flt.arch=this.checked;draw()">Show archived</label>`:""}
+${role=="super_admin"?`<button class="btn${flt.arch?"":" alt"}" aria-pressed="${flt.arch?"true":"false"}" title="Show or hide archived records" onclick="flt.arch=!flt.arch;draw()">${flt.arch?"✓ ":""}Show archived</button>`:""}
 <select class="msort${hv=="cards"?" show":""}" onchange="sortSel(this.value)"><option value="">Sort: default</option>${Object.entries(SL).map(([k,v])=>`<option value="${k}" ${k==flt.sort?"selected":""}>Sort: ${v}</option>`).join("")}</select>
 
 <span class="vt"><button class="btn${hv=="table"?"":" alt"}" onclick="setHV('table')">Table</button><button class="btn${hv=="cards"?"":" alt"}" onclick="setHV('cards')">Cards</button></span>
