@@ -1,0 +1,127 @@
+/* ==========================================================
+   PODA – Pedicab Operator's Permit  (Motorized Tricycle Operator's Permit, PODA version)
+
+   Load AFTER css/permit.css. Same fixed-layout approach as the TODA
+   permit: every block is absolutely placed, so nothing drifts between
+   browsers. Only the differences from TODA live here, scoped to
+   .permit--poda, so the TODA permit is untouched.
+
+   Differences from the TODA permit
+   ---------------------------------------------------------
+   · Card is 940 x 607 px (TODA: 940 x 592) – the PODA artwork is taller.
+   · No MTOP No. line and no operator portrait at the top; MTOP No. is
+     now one of the Unit Specifications.
+   · New "Pursuant to DILG MC-2007-01 … permit to OPERATE PEDICAB" line.
+   · Name and address are centred on the full card (no portrait to avoid).
+   · Unit Specifications: Bike Color / Color Side Car. / MTOP No. /
+     Busina / Ilaw   (TODA: Make / Plate No. / Engine No. / Chassis No.)
+   · Notice cites Municipal Ordinance No. 2005-114 (two lines);
+     "NOT TRANSFERABLE." is maroon here, red on TODA.
+   · Footer note is upright (TODA: italic) and the bar is 2px taller.
+   · Slightly different maroon / gold sampled from the PODA artwork.
+   ========================================================== */
+
+.permit--poda {
+  --maroon: #572525;
+  --maroon-text: #752927;
+  --gold: #f8cf40;
+  --card-h: 607px;
+}
+
+/* ---------- Header: same bar and title as TODA, seal nudged ---------- */
+.permit--poda .permit__logo  { left: 14px; }
+.permit--poda .permit__title {
+  left: 107px; top: 13.5px;
+  font-size: 52px;
+  letter-spacing: 0.6px;            /* TODA: 54px / -0.8px – PODA lettering is a touch wider and shorter */
+}
+
+/* ---------- "Pursuant to …" line ---------- */
+.permit--poda .permit__intro {
+  top: 90.6px; left: 0;
+  width: 933px;
+  text-align: center;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  white-space: nowrap;
+}
+.permit--poda .permit__intro strong {
+  font-weight: 800;
+  color: var(--maroon-text);
+}
+
+/* ---------- Name / Address (centred on the full card) ---------- */
+.permit--poda .permit__field { width: 930px; }          /* centred on x = 465, as in the artwork */
+.permit--poda .permit__field--name .permit__value-xl    { font-size: 29.6px; }
+.permit--poda .permit__field--address .permit__value-xl { font-size: 24.6px; }
+.permit--poda .permit__field--name    { top: 142.2px; --fit-width: 860px; }
+.permit--poda .permit__field--address { top: 214.1px; --fit-width: 860px; }
+
+/* ---------- Info blocks ---------- */
+.permit--poda .permit__heading { font-size: 14px; }
+
+.permit--poda .permit__block--unit { top: 279.4px; left: 116px; width: 380px; }
+.permit--poda .permit__block--info { top: 279.4px; left: 542px; width: 382px; }
+
+.permit--poda .permit__block--unit .permit__heading { margin-left: 38px; letter-spacing: 0.28px; }
+.permit--poda .permit__block--info .permit__heading { margin-left: 56px; }
+
+/* NOTE: permit.css sets line-height:1 directly on dt/dd, so the row pitch has to be
+   set on dt/dd themselves – a line-height on the <dl> would be ignored. */
+
+/* Unit specifications (5 rows) */
+.permit--poda .permit__block--unit .permit__list {
+  grid-template-columns: 139px 1fr;
+  column-gap: 16px;
+  margin-top: 20.1px;
+}
+.permit--poda .permit__block--unit .permit__list dt { text-align: right; font-size: 14.6px; line-height: 18.2px; }
+.permit--poda .permit__block--unit .permit__list dd { font-size: 13.2px; line-height: 18.2px; }
+
+/* Permit information (6 rows incl. the wrapped route) */
+.permit--poda .permit__list--right {
+  grid-template-columns: 99px 1fr;
+  column-gap: 10px;
+  margin-top: 17.6px;
+}
+.permit--poda .permit__list--right dt { font-size: 14.6px; line-height: 15.4px; }
+.permit--poda .permit__list--right dd { font-size: 15.4px; line-height: 15.4px; }
+
+/* ---------- Signatories ---------- */
+.permit--poda .permit__sign { top: 412px; }
+
+.permit--poda .permit__sign-label { font-size: 14.3px; }
+
+.permit--poda .permit__sign--verified .permit__sign-label { left: 30px;  top: 0.7px; }
+.permit--poda .permit__sign--verified .permit__sign-name  { left: 87.5px; width: 300px; top: 51.4px; }
+.permit--poda .permit__sign--verified .permit__sign-role  { left: 87.5px; width: 300px; top: 69.8px; }
+
+.permit--poda .permit__sign--approved .permit__sign-label { left: 493px; top: 1.7px; }
+.permit--poda .permit__sign--approved .permit__sign-name  { left: 511px; width: 380px; top: 49.7px; }
+.permit--poda .permit__sign--approved .permit__sign-role  { left: 510.5px; width: 380px; top: 69.8px; }
+
+/* ---------- Notice (two lines, maroon alert) ---------- */
+.permit--poda .permit__notice {
+  top: 516.2px; left: 0;
+  width: 940px;
+  padding-left: 0;
+  font-size: 10.2px;
+  line-height: 12.4px;
+}
+.permit--poda .permit__notice-alert { color: var(--maroon-text); }
+
+/* ---------- Footer ---------- */
+.permit--poda .permit__footer { height: 55px; padding: 11.2px 11px 0 0; gap: 4.9px; }   /* right padding centres the text on x = 465 */
+.permit--poda .permit__footer-note {
+  font-style: normal;
+  font-size: 12.9px;
+}
+.permit--poda .permit__footer-contacts { gap: 36px; font-size: 14.7px; }
+
+/* ---------- Print: 2 x 607px cards need a slightly smaller zoom ---------- */
+@media print {
+  .sheet--poda { zoom: 0.76; }
+  body.pp .permit-sheet--poda { zoom: 0.76 !important; }
+}
