@@ -16,8 +16,7 @@
 
   /* ---------- IMAGE PLACEHOLDERS ----------
      Paths are relative to this CSS file.
-     Logo and portrait are <img> tags in the HTML
-     (assets/logo.png, assets/portrait.jpg).
+     The logo is an <img> tag in the HTML (assets/logo.png).
      The overlay image is set here. */
   --overlay-image: url("../assets/overlay.jpg");
   --overlay-opacity: 0.2;
@@ -150,25 +149,14 @@ body.permit-page {
   text-underline-offset: 3px;
 }
 
-/* ---------- Portrait placeholder ---------- */
-.permit__portrait {
-  top: 93px;
-  right: 25px;
-  width: 110px;
-  height: 128px;
-  object-fit: cover;
-  background: #cfcfcf;                       /* placeholder fill */
-  border: 2px solid var(--ink);
-}
-
 /* ---------- Name / Address ---------- */
 .permit__field {
   left: 0;
-  width: 899px;                              /* centred to the left of the portrait */
+  width: var(--card-w);                      /* centred across the full card */
   text-align: center;
 }
 
-.permit__field--name    { top: 165.7px; --fit-width: 680px; }   /* stops short of the portrait */
+.permit__field--name    { top: 165.7px; --fit-width: 860px; }
 .permit__field--address { top: 236.2px; --fit-width: 860px; }
 
 .permit__value-xl {
@@ -365,10 +353,6 @@ body.permit-page {
 .permit-sheet { width: var(--card-w); }
 .permit-sheet .permit { margin: 0; }
 .permit-copy2 { height: 0; overflow: hidden; visibility: hidden; }
-.permit .permit__portrait--empty {
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; text-align: center; color: #555;
-}
 
 @media print {
   /* app.css hides every <header> when printing; the permit's own header must stay */
