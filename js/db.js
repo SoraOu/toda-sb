@@ -70,6 +70,7 @@
     if (l.action === "INSERT") return "Added " + n;
     if (l.action === "ARCHIVE") return "Archived " + n;
     if (l.action === "RESTORE") return "Restored " + n;
+    if (l.action === "DELETE") return "Permanently deleted holder #" + l.row_id;
     var ch = d.changed || {}, parts = Object.keys(ch).map(function (k) {
       return (LBL[k] || k) + ": " + show(k, ch[k].from) + " → " + show(k, ch[k].to);
     });
@@ -208,6 +209,23 @@
       }
     }
     if (remapped && typeof draw === "function") draw();
+  }
+
+  /* ---------- permanent delete (super_admin) ---------- */
+  async function removeHolder(id) {
+    var r = find(id);
+    if (!r) throw new Error("That record is not loaded any more. Refresh the page.");
+    // 1. photo file first (private bucket; SQL cannot delete storage files). Also try the default name.
+    var paths = [r._pp, id + ".jpg"].filter(function (x, i, a) { return x && a.indexOf(x) === i; });
+    var rm = await sb.storage.from(BUCKET).remove(paths);
+    if (rm.error) throw new Error("Could not delete the photo, so nothing else was deleted: " + friendly(rm.error));
+    // 2. everything else, in one database transaction
+    var q = await sb.rpc("delete_holder", { p_holder: id });
+    if (q.error) throw new Error(friendly(q.error));
+    // 3. forget it locally
+    var i = data.indexOf(r); if (i >= 0) data.splice(i, 1);
+    SNAP.delete(id); CH.delete(id);
+    if (window.PRE) window.PRE = window.PRE.filter(function (x) { return x.holder_id !== id; });
   }
 
   function banner(msg) {
@@ -377,6 +395,11 @@
       var r = await sb.from("pre_registrations").update({ status: "cancelled" }).eq("id", id);
       if (r.error) throw new Error(friendly(r.error));
       (window.PRE || []).forEach(function (x) { if (x.id === id) x.status = "cancelled"; });
+    },
+    remove: function (id) {
+      var job = queue.then(function () { busy = true; return removeHolder(id); });
+      queue = job.catch(function () {}).then(function () { busy = false; drain(); });
+      return job;
     },
     live: live,
     _apply: apply,

@@ -139,3 +139,5 @@ body,header,nav,.modal .mb,.tw,th,td,input,select,.btn,.thm,.hc{transition:backg
 .prf label{display:flex;flex-direction:column;gap:4px;font-size:13px}
 .prf input{min-width:260px}
 .pill.New{background:var(--status-pending)}
+
+.btn.danger{background:var(--status-overdue,#C62828);color:#fff;border-color:transparent}.btn.danger:hover{filter:brightness(.92)}.btn.danger:disabled{opacity:.6;cursor:wait}
