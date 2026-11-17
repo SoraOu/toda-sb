@@ -1,0 +1,15 @@
+diff a/css/permit.css b/css/permit.css	(rejected hunks)
+@@ -164,11 +164,11 @@ body.permit-page {
+ /* ---------- Name / Address ---------- */
+ .permit__field {
+   left: 0;
+-  width: 899px;                              /* centred to the left of the portrait */
++  width: 100%;                               /* centred across the card (no portrait on the permit) */
+   text-align: center;
+ }
+ 
+-.permit__field--name    { top: 165.7px; --fit-width: 680px; }   /* stops short of the portrait */
++.permit__field--name    { top: 165.7px; --fit-width: 860px; }
+ .permit__field--address { top: 236.2px; --fit-width: 860px; }
+ 
+ .permit__value-xl {

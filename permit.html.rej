@@ -1,0 +1,20 @@
+diff a/permit.html b/permit.html	(rejected hunks)
+@@ -32,9 +32,6 @@
+       <!-- MTOP NUMBER -->
+       <p class="permit__mtop">MTOP No.: <span class="permit__mtop-no">001</span></p>
+ 
+-      <!-- PORTRAIT PLACEHOLDER: replace src with the operator’s photo -->
+-      <img class="permit__portrait" src="assets/portrait.jpg" alt="Operator portrait">
+-
+       <!-- NAME -->
+       <div class="permit__field permit__field--name">
+         <p class="permit__value-xl" data-fit="line" data-min-size="18">Lara Mae Rodelas Naling Subil-Laurente</p>
+@@ -113,8 +110,6 @@
+ 
+       <p class="permit__mtop">MTOP No.: <span class="permit__mtop-no">001</span></p>
+ 
+-      <img class="permit__portrait" src="assets/portrait.jpg" alt="Operator portrait">
+-
+       <div class="permit__field permit__field--name">
+         <p class="permit__value-xl" data-fit="line" data-min-size="18">Ayra Kolyn Silvala-Torres-Asuncion</p>
+         <p class="permit__caption">Name</p>

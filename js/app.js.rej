@@ -1,0 +1,9 @@
+diff a/js/app.js b/js/app.js	(rejected hunks)
+@@ -222,7 +222,6 @@ addr=ad?[a,a.toLowerCase().includes(b.toLowerCase())?"":b,"Mogpog, Marinduque"].
+ return `<article class="permit"><div class="permit__overlay" role="presentation"></div>
+ <header class="permit__header"><img class="permit__logo" src="assets/logo.png" alt="Municipal seal"><h1 class="permit__title">Motorized Tricycle Operator’s Permit</h1></header>
+ <p class="permit__mtop">MTOP No.: <span class="permit__mtop-no">${P(r.mtop)}</span></p>
+-${r.photo?`<img class="permit__portrait" src="${r.photo}" alt="Operator portrait">`:`<div class="permit__portrait permit__portrait--empty">No photo</div>`}
+ <div class="permit__field permit__field--name"><p class="permit__value-xl" data-fit="line" data-min-size="18">${esc(r.name)}</p><p class="permit__caption">Name</p></div>
+ <div class="permit__field permit__field--address"><p class="permit__value-xl" data-fit="line" data-min-size="14">${esc(addr)}</p><p class="permit__caption">Address</p></div>
+ <section class="permit__block permit__block--unit"><h2 class="permit__heading">Unit Specifications</h2><dl class="permit__list"><dt>Make:</dt><dd>${P(r.model)}</dd><dt>Plate No.:</dt><dd>${P(r.plate)}</dd><dt>Engine No.:</dt><dd>${P(r.engine)}</dd><dt>Chassis No.:</dt><dd>${ad?P(r.chassis):"Restricted"}</dd></dl></section>
